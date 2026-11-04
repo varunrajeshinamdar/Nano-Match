@@ -1,0 +1,2 @@
+add_executable(nm_replay nm_replay.cpp)
+target_link_libraries(nm_replay PRIVATE nanomatch_io nanomatch_baseline nanomatch_warnings)

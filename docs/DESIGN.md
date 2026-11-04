@@ -69,3 +69,38 @@ checked at compile time. `clang-format` and `clang-tidy` are clean. CI runs all 
 **Results:** None. CI never produces performance numbers.
 
 **Known limitations:** No matching logic yet. TSan needs `vm.mmap_rnd_bits=28` on recent kernels.
+
+## M2: Baseline book and test suite (2026-11-04)
+
+**Summary:** Implemented the full specification in `src/baseline/baseline_book.hpp` using standard containers, added
+log file reading and writing, the `nm_replay` tool, and a behavioural test suite that any future book will also run.
+
+**Decisions:**
+- `std::map` of `std::list` with `std::unordered_map` for lookup: the obvious design on purpose. It is a behavioural
+  reference for differential testing and a cost reference for benchmarks, so clarity beats speed here.
+- Allocator as a template parameter: the same containers can run on a pool later, which separates the cost of
+  allocation from the cost of the data structures in comparisons.
+- `MatchingBook` and `EventSink` concepts rather than virtual interfaces: event delivery can be inlined, and tests,
+  tools and benchmarks are written once against all implementations.
+- Tests are typed over the book type: the optimized book inherits the entire suite by being added to one list.
+- Randomized testing against an independent model: example tests only cover cases someone thought of. The model
+  tracks every queue and checks each command's events, so priority errors are caught at the command that caused them.
+- Seeded `std::mt19937_64` with modulo in the test stream: the engine's output is specified by the standard, while
+  `std::` distributions are not, so a failing seed reproduces on any toolchain.
+- Independent Python encoding of the specification's worked example: it checks encoding, matching and hashing against
+  a reading of the specification that shares no code with the engine.
+
+**Specification changes:** ID 0 is reserved, since events use it to mean "no order". The `side` and `leaves` fields of
+every event type are now fully defined. The hash is defined to cover the whole file.
+
+**Verification:** Tests pass on GCC 13 and Clang 18, in debug, release, ASan with UBSan, and TSan. Line coverage was
+reviewed, and the only unexecuted line left is a failed read after a successful open. To check that the tests can
+fail, 14 bugs were injected one at a time, including LIFO queues, wrong trade prices, off-by-one capacity and wrong
+modify priority. The unit tests caught all 14, and the randomized model independently caught 12. It missed a
+validation bug in code it shares with the book, which the unit tests cover, and a reject field it didn't check, which
+it now does.
+
+**Results:** None. Measurement starts at M3.
+
+**Known limitations:** Slow by design. A failed allocation terminates the process, which the specification leaves
+undefined.

@@ -3,8 +3,9 @@
 A deterministic limit order book and matching engine in C++20, focused on low-latency design and
 reproducible measurement.
 
-**Status:** under active development. Core types and the build are in place; the matching engine is
-not implemented yet. No performance results have been published.
+**Status:** under active development. A reference book implementing the full specification is in
+place, with a test suite and a replay tool. The optimized book is not implemented yet. No performance
+results have been published.
 
 ## Documentation
 
@@ -19,10 +20,22 @@ Requires GCC 13+ or Clang 18+, CMake 3.25+, and Ninja.
 make build test            # release build and tests
 make asan                  # tests under AddressSanitizer and UndefinedBehaviorSanitizer
 make tsan                  # tests under ThreadSanitizer
-make check                 # everything CI runs
+make coverage              # coverage report in build/coverage/html
+make check                 # format, tests, sanitizers and static analysis
+make matrix                # every compiler and preset CI covers, from a clean build
 ```
 
 On recent Linux kernels, ThreadSanitizer may need `sudo sysctl -w vm.mmap_rnd_bits=28`.
+
+## Replaying a log
+
+`nm_replay` runs a command log through a book and prints the hash of the resulting event log. Two runs
+that print the same hash produced the same events.
+
+```sh
+build/release/tools/nm_replay --in tests/data/spec_example.nmc \
+    --min-price 1 --max-price 1000 --capacity 16 --out /tmp/events.nme
+```
 
 ## License
 

@@ -49,6 +49,15 @@
         "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "CMAKE_CXX_FLAGS": "-fsanitize=thread -fno-omit-frame-pointer"
       }
+    },
+    {
+      "name": "coverage",
+      "inherits": "base",
+      "displayName": "Line and branch coverage",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_FLAGS": "--coverage"
+      }
     }
   ],
   "buildPresets": [
@@ -56,7 +65,8 @@
     { "name": "release", "configurePreset": "release" },
     { "name": "profile", "configurePreset": "profile" },
     { "name": "asan", "configurePreset": "asan" },
-    { "name": "tsan", "configurePreset": "tsan" }
+    { "name": "tsan", "configurePreset": "tsan" },
+    { "name": "coverage", "configurePreset": "coverage" }
   ],
   "testPresets": [
     {
@@ -68,6 +78,7 @@
     { "name": "debug", "inherits": "base", "configurePreset": "debug" },
     { "name": "release", "inherits": "base", "configurePreset": "release" },
     { "name": "asan", "inherits": "base", "configurePreset": "asan" },
-    { "name": "tsan", "inherits": "base", "configurePreset": "tsan" }
+    { "name": "tsan", "inherits": "base", "configurePreset": "tsan" },
+    { "name": "coverage", "inherits": "base", "configurePreset": "coverage" }
   ]
 }

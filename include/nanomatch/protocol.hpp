@@ -61,6 +61,8 @@ struct Command {
     CommandType type{};
     Side side{};
     std::uint16_t reserved{};
+
+    friend constexpr bool operator==(const Command&, const Command&) noexcept = default;
 };
 
 /// One observable outcome of a command. Field meanings per event type are in section 7.2.
@@ -77,6 +79,8 @@ struct Event {
     Side side{};
     Reason reason{};
     std::uint8_t reserved{};
+
+    friend constexpr bool operator==(const Event&, const Event&) noexcept = default;
 };
 
 /// Header at the start of every log file.

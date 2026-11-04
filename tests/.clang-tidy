@@ -1,7 +1,9 @@
 # GoogleTest macros expand to patterns that the stricter checks flag. Tests still get bug detection,
 # and headers included from tests are still checked under the root configuration's header filter.
+# Out-of-range enum casts are allowed because tests create them on purpose, to exercise validation.
 InheritParentConfig: true
 Checks: >
+  -clang-analyzer-optin.core.EnumCastOutOfRange,
   -cppcoreguidelines-*,
   -misc-use-anonymous-namespace,
   -modernize-*,

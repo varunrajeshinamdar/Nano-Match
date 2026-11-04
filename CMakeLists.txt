@@ -17,6 +17,15 @@ add_library(nanomatch INTERFACE)
 target_include_directories(nanomatch INTERFACE include)
 target_compile_features(nanomatch INTERFACE cxx_std_20)
 
+add_library(nanomatch_baseline INTERFACE)
+target_include_directories(nanomatch_baseline INTERFACE src)
+target_link_libraries(nanomatch_baseline INTERFACE nanomatch)
+
+add_library(nanomatch_io STATIC src/log_io.cpp)
+target_link_libraries(nanomatch_io PUBLIC nanomatch PRIVATE nanomatch_warnings)
+
+add_subdirectory(tools)
+
 if(NANOMATCH_BUILD_TESTS)
     enable_testing()
     add_subdirectory(tests)
