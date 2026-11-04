@@ -41,3 +41,31 @@ Entry format:
 
 **Known limitations:** One instrument per book. No self-trade prevention, IOC/FOK limits, stops, icebergs, auctions,
 networking or recovery.
+
+## M1: Build system and core types (2026-11-04)
+
+**Summary:** Added the CMake build with presets, a Makefile wrapper, CI, static analysis configuration, strong
+integer types, and the binary record definitions from section 7 of the specification.
+
+**Decisions:**
+- `StrongInt<Rep, Tag>` wrappers for prices, quantities, IDs and sequences: mixing them up becomes a compile error
+  at no runtime cost; bare integers and `enum class` integers were rejected because they give up either safety or
+  arithmetic.
+- Arithmetic only where it has meaning: quantities add and subtract, while prices and IDs don't. Price arithmetic
+  will be added only if a real need appears.
+- Compile-time layout assertions, including `has_unique_object_representations`: records are logged as raw bytes
+  and compared by hash, so padding bytes would break determinism. The build now fails if layout drifts from the
+  specification.
+- Enums with fixed underlying types: any byte read from a log is a valid enum value, so bad input reaches validation
+  and is rejected as malformed rather than being undefined behaviour.
+- GoogleTest fetched at a pinned version with a checksum: builds are reproducible and need no system package.
+- Warnings attached to an interface target: strict warnings apply to project code without failing on dependencies.
+- `-march=native` only in the `release` and `profile` presets: those target this machine, while debug and sanitizer
+  builds stay portable.
+
+**Verification:** 13 tests pass on GCC 13 and Clang 18 in debug, release, ASan with UBSan, and TSan. Layout is
+checked at compile time. `clang-format` and `clang-tidy` are clean. CI runs all of this on every push.
+
+**Results:** None. CI never produces performance numbers.
+
+**Known limitations:** No matching logic yet. TSan needs `vm.mmap_rnd_bits=28` on recent kernels.
