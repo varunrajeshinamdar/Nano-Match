@@ -25,6 +25,8 @@ the caller. The price band and order capacity are fixed when the book is constru
 ## 3. Order IDs
 
 - The sender assigns order IDs. The engine does not generate them.
+- ID 0 is reserved, because events use it to mean "no order". A new order with ID 0 is rejected as
+  `DUPLICATE_ID`, which follows from the high-water mark below starting at 0.
 - Each new order's ID must be strictly greater than the ID of every earlier well-formed limit or
   market command in that session, whether or not that command was accepted. An ID is therefore never
   reused, including after the order has left the book.
@@ -151,6 +153,13 @@ replay tool stops with an error rather than producing output.
 | 5 | `CANCELED` | 0 | Quantity removed |
 | 6 | `MODIFIED` | New price | New open quantity |
 
+`leaves` is the aggressor's remaining quantity on a `TRADE`, equal to `quantity` on `ACCEPTED`, `RESTED`
+and `MODIFIED`, and 0 on `REJECTED` and `CANCELED`.
+
+`side` on a `REJECTED` event is the command's `side` field if the command is well-formed, and 0 if it
+was rejected as `MALFORMED`, because a malformed record's fields can't be trusted. A rejected cancel
+or modify therefore reports 0, even when the ID is resting.
+
 | Reason | Name | Used with |
 |---|---|---|
 | 1 | `MALFORMED` | `REJECTED` |
@@ -190,8 +199,8 @@ The book holds a resting sell, ID 10, for 5 lots at 100. A limit buy, ID 11, arr
 **Guarantee.** For a fixed book configuration, the same command log produces a byte-identical event
 log on every run, for every build type and for every book implementation.
 
-**Verification.** Two event logs are compared by their 64-bit FNV-1a hash and, when the hashes differ,
-byte by byte. This hash detects accidental divergence. It offers no protection against deliberate tampering.
+**Verification.** Two event logs are compared by the 64-bit FNV-1a hash of the whole file, header
+included, and byte by byte when the hashes differ. This hash detects accidental divergence. It offers no protection against deliberate tampering.
 
 **Requirements on the matching path:**
 
