@@ -67,7 +67,9 @@ def describe_build(build_dir):
 
 def describe_git():
     sha = run(["git", "rev-parse", "HEAD"]).strip()
-    return {"sha": sha, "dirty": bool(run(["git", "status", "--porcelain"]).strip())}
+    # Earlier result files don't affect what's being measured, so they don't make the tree dirty.
+    changes = run(["git", "status", "--porcelain", "--", ".", ":(exclude)results"])
+    return {"sha": sha, "dirty": bool(changes.strip())}
 
 
 def describe_machine(cpu):

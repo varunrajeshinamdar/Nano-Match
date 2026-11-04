@@ -51,6 +51,7 @@ matrix:
 			CC=$${compiler%:*} CXX=$${compiler#*:} $(MAKE) test PRESET=$$preset || exit 1; \
 		done; \
 	done
+	rm -rf build
 
 format:
 	clang-format -i $(SOURCES)
