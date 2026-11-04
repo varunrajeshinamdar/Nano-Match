@@ -11,6 +11,7 @@ results have been published.
 
 - [Specification](docs/SPEC.md): order types, matching rules, binary formats, determinism guarantees
 - [Design log](docs/DESIGN.md): what was decided at each milestone and why
+- [Benchmarks](docs/BENCHMARKS.md): measurement method, workloads and results
 
 ## Building
 

@@ -2,7 +2,7 @@ PRESET ?= release
 
 SOURCES = $(shell git ls-files '*.hpp' '*.cpp')
 
-.PHONY: all build test debug asan tsan coverage check matrix format format-check tidy clean
+.PHONY: all build test debug asan tsan coverage bench bench-smoke check matrix format format-check tidy clean
 
 all: test
 
@@ -29,6 +29,16 @@ coverage:
 		--output-file build/coverage/coverage.info
 	genhtml --quiet --branch-coverage --ignore-errors inconsistent --output-directory build/coverage/html \
 		build/coverage/coverage.info
+
+# Run scripts/machine_setup.sh first, or the results are marked as not citable. See docs/BENCHMARKS.md.
+bench:
+	$(MAKE) build PRESET=release
+	scripts/run_bench.py
+
+# Checks the benchmark pipeline quickly. Results go to the build directory and are never citable.
+bench-smoke:
+	$(MAKE) build PRESET=release
+	scripts/run_bench.py --smoke --runs 1 --label smoke --cpu none --data-dir build/smoke --out-dir build/smoke
 
 # Everything CI runs, for use before pushing.
 check: format-check debug test asan tsan tidy

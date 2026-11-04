@@ -25,6 +25,7 @@ add_library(nanomatch_io STATIC src/log_io.cpp)
 target_link_libraries(nanomatch_io PUBLIC nanomatch PRIVATE nanomatch_warnings)
 
 add_subdirectory(tools)
+add_subdirectory(bench)
 
 if(NANOMATCH_BUILD_TESTS)
     enable_testing()
