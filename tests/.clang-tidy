@@ -1,0 +1,7 @@
+# GoogleTest macros expand to patterns that the stricter checks flag. Tests still get bug detection,
+# and headers included from tests are still checked under the root configuration's header filter.
+InheritParentConfig: true
+Checks: >
+  -cppcoreguidelines-*,
+  -misc-use-anonymous-namespace,
+  -modernize-*,
