@@ -12,7 +12,7 @@ perf.data*
 *.profdata
 
 # Generated workloads and traces
-data/
+/data/
 
 # Python
 __pycache__/
