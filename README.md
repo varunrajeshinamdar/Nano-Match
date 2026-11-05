@@ -22,21 +22,21 @@ untimed runs, and percentiles from timed runs that include the timer's own cost.
 
 | Book | Turbo | Average | p50 | p99 | p99.9 | p99.99 | L1d misses per command |
 |---|---|---|---|---|---|---|---|
-| baseline | on | 86.3 | 95 | 284 | 661 | 2846 | 5.39 |
-| baseline_pool | on | 68.6 | 78 | 207 | 438 | 2564 | 5.17 |
-| fast | on | 24.9 | 36 | 117 | 368 | 954 | 2.19 |
-| baseline | off | 164.6 | 200 | 524 | 799 | 8718 | 5.39 |
-| baseline_pool | off | 125.0 | 164 | 410 | 583 | 4102 | 5.17 |
-| fast | off | 45.0 | 77 | 159 | 242 | 483 | 2.19 |
+| baseline | on | 89.4 | 97 | 256 | 378 | 2564 | 5.39 |
+| baseline_pool | on | 69.5 | 80 | 200 | 298 | 2282 | 5.16 |
+| fast | on | 26.8 | 36 | 85 | 196 | 642 | 2.19 |
+| baseline | off | 163.3 | 201 | 530 | 773 | 5025 | 5.39 |
+| baseline_pool | off | 124.8 | 163 | 413 | 601 | 4666 | 5.17 |
+| fast | off | 45.4 | 77 | 182 | 301 | 959 | 2.19 |
 
 | Other measures, turbo on | Result |
 |---|---|
-| Ring throughput, 32-byte items between two cores, median | 36.6M items/s |
-| Gateway to book throughput across the ring, median | 20.1M commands/s |
-| Gateway to book latency, one command at a time, p50 / p99.9 | 202 / 333 ns |
-| Timer cost, p50 | 10.8 ns |
-| Spread of one command's latency across replays, stddev, p50 | 3.7 ns |
-| Spread of a whole replay's average across replays, stddev | 0.12 ns |
+| Ring throughput, 32-byte items between two cores, median | 35.0M items/s |
+| Gateway to book throughput across the ring, median | 19.9M commands/s |
+| Gateway to book latency, one command at a time, p50 / p99.9 | 187 / 831 ns |
+| Timer cost, p50 | 11.6 ns |
+| Spread of one command's latency across replays, stddev, p50 | 4.1 ns |
+| Spread of a whole replay's average across replays, stddev | 0.27 ns |
 <!-- summary:end -->
 
 <picture>

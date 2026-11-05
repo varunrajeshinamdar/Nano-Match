@@ -1,0 +1,1654 @@
+{
+ "schema": 2,
+ "suite": "ring",
+ "label": "ring_turbo_on",
+ "timestamp_utc": "2026-11-05T18:38:54+00:00",
+ "citable": true,
+ "not_citable_because": [],
+ "git": {
+  "sha": "eb901f50d2e68e9c00a57152f7f621ba83860369",
+  "dirty": false
+ },
+ "build": {
+  "directory": "build/release",
+  "type": "Release",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "flags": " -O3 -DNDEBUG -march=native"
+ },
+ "machine": {
+  "cpu_model": "12th Gen Intel(R) Core(TM) i5-12450H",
+  "kernel": "6.8.0-47-generic",
+  "cmdline": "BOOT_IMAGE=/boot/vmlinuz-6.8.0-47-generic root=UUID=68356200-d6da-486c-9f6f-28c6f80efa8f ro quiet splash vt.handoff=7",
+  "governor": "performance",
+  "no_turbo": "0",
+  "online_cpus": "0-11",
+  "pinned_core_thread_siblings": "2-3",
+  "transparent_hugepages": "always [madvise] never",
+  "perf_event_paranoid": "1",
+  "nmi_watchdog": "0",
+  "ac_power": true,
+  "load_average_at_start": "2.47 2.07 1.95 1/1769 124906"
+ },
+ "entries": [
+  {
+   "kind": "throughput",
+   "payload_bytes": 8,
+   "index_alignment": 8,
+   "cached_indices": false,
+   "placement": "cross_core",
+   "summary": {
+    "items_per_second": {
+     "median": 78298488.6844746,
+     "min": 58773964.86326086,
+     "max": 126357047.8995077
+    }
+   },
+   "runs": [
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 8,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999670.160013,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.6189473890839738,
+      "items_per_second": 80782310.22833574
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 8,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999820.1200056,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.8507168117095093,
+      "items_per_second": 58773964.86326086
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 8,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999620.040004,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.6385819297418219,
+      "items_per_second": 78298488.6844746
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 8,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999720.200014,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.3957040848229156,
+      "items_per_second": 126357047.8995077
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 8,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999777.68001,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.648909881516682,
+      "items_per_second": 77052301.75126345
+     }
+    }
+   ]
+  },
+  {
+   "kind": "throughput",
+   "payload_bytes": 8,
+   "index_alignment": 8,
+   "cached_indices": true,
+   "placement": "cross_core",
+   "summary": {
+    "items_per_second": {
+     "median": 78758289.53247721,
+     "min": 75472053.14714934,
+     "max": 81693187.63792862
+    }
+   },
+   "runs": [
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 8,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495997435.200128,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.6624968834823405,
+      "items_per_second": 75472053.14714934
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 8,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999796.404525,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.6120461380648334,
+      "items_per_second": 81693187.63792862
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 8,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999795.080004,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.634853807730064,
+      "items_per_second": 78758289.53247721
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 8,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999765.8400493,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.6593814600964464,
+      "items_per_second": 75828640.97010948
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 8,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999727.6400094,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.6343045784291622,
+      "items_per_second": 78826484.46874468
+     }
+    }
+   ]
+  },
+  {
+   "kind": "throughput",
+   "payload_bytes": 8,
+   "index_alignment": 64,
+   "cached_indices": false,
+   "placement": "cross_core",
+   "summary": {
+    "items_per_second": {
+     "median": 78605516.85718103,
+     "min": 60551395.624260634,
+     "max": 149473215.03135955
+    }
+   },
+   "runs": [
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 64,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999702.560004,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.6360876691498052,
+      "items_per_second": 78605516.85718103
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 64,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999767.5600033,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.8257447988526115,
+      "items_per_second": 60551395.624260634
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 64,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999765.1600094,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.798397555487049,
+      "items_per_second": 62625442.24537153
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 64,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999637.6400127,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.3345080922325112,
+      "items_per_second": 149473215.03135955
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 64,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999810,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.4823719529850445,
+      "items_per_second": 103654451.0736722
+     }
+    }
+   ]
+  },
+  {
+   "kind": "throughput",
+   "payload_bytes": 8,
+   "index_alignment": 64,
+   "cached_indices": true,
+   "placement": "cross_core",
+   "summary": {
+    "items_per_second": {
+     "median": 102651282.57242271,
+     "min": 89902055.51885414,
+     "max": 108739029.40256594
+    }
+   },
+   "runs": [
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999802.680009,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.48240200328027205,
+      "items_per_second": 103647994.12109897
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999755.2400146,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.48708597444677726,
+      "items_per_second": 102651282.57242271
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999808.6400547,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.4598165007974601,
+      "items_per_second": 108739029.40256594
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999755,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.5561608097994385,
+      "items_per_second": 89902055.51885414
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999760.0400023,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.5161521910480282,
+      "items_per_second": 96870653.39871332
+     }
+    }
+   ]
+  },
+  {
+   "kind": "throughput",
+   "payload_bytes": 8,
+   "index_alignment": 128,
+   "cached_indices": false,
+   "placement": "cross_core",
+   "summary": {
+    "items_per_second": {
+     "median": 75195778.60264206,
+     "min": 67110449.63337189,
+     "max": 79717054.47103626
+    }
+   },
+   "runs": [
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 128,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999790.2400126,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.7450404560415371,
+      "items_per_second": 67110449.63337189
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 128,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999592.520002,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.6697801778533756,
+      "items_per_second": 74651358.24151802
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 128,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999805.0800037,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.6272183578755609,
+      "items_per_second": 79717054.47103626
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 128,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999795.2000103,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.654130417454288,
+      "items_per_second": 76437356.62773106
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 128,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999797.680009,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.6649309433208423,
+      "items_per_second": 75195778.60264206
+     }
+    }
+   ]
+  },
+  {
+   "kind": "throughput",
+   "payload_bytes": 8,
+   "index_alignment": 128,
+   "cached_indices": true,
+   "placement": "cross_core",
+   "summary": {
+    "items_per_second": {
+     "median": 111751208.93351243,
+     "min": 110336566.06398271,
+     "max": 121833142.4179506
+    }
+   },
+   "runs": [
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 128,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999782.5600033,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.43581673067467486,
+      "items_per_second": 114727123.76736087
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 128,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999566.6831613,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.4531589280294047,
+      "items_per_second": 110336566.06398271
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 128,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999762.720013,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.4103973599275161,
+      "items_per_second": 121833142.4179506
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 128,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999765.120007,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.44742245276065007,
+      "items_per_second": 111751208.93351243
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 8,
+     "index_alignment": 128,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495997595.160096,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.45225403950262855,
+      "items_per_second": 110557332.01407789
+     }
+    }
+   ]
+  },
+  {
+   "kind": "throughput",
+   "payload_bytes": 32,
+   "index_alignment": 8,
+   "cached_indices": false,
+   "placement": "cross_core",
+   "summary": {
+    "items_per_second": {
+     "median": 30393748.851644635,
+     "min": 29042731.909729473,
+     "max": 31075538.638030823
+    }
+   },
+   "runs": [
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 8,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999760.9307227,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.6450751187046955,
+      "items_per_second": 30393748.851644635
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 8,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495997592.520012,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.6257965901733797,
+      "items_per_second": 30754154.795384243
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 8,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999775,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.7004640270850986,
+      "items_per_second": 29403738.746363837
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 8,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999800.120006,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.721601127449368,
+      "items_per_second": 29042731.909729473
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 8,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999775.0400023,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.6089825692935558,
+      "items_per_second": 31075538.638030823
+     }
+    }
+   ]
+  },
+  {
+   "kind": "throughput",
+   "payload_bytes": 32,
+   "index_alignment": 8,
+   "cached_indices": true,
+   "placement": "cross_core",
+   "summary": {
+    "items_per_second": {
+     "median": 33103312.47552939,
+     "min": 28854878.262240566,
+     "max": 34737302.41520084
+    }
+   },
+   "runs": [
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 8,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999732.560004,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.7328092513711935,
+      "items_per_second": 28854878.262240566
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 8,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999720.200014,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.6202084945249655,
+      "items_per_second": 30860225.809802134
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 8,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999830.2400103,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.4752504356724754,
+      "items_per_second": 33892550.5737662
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 8,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999770.120007,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.4393748657385754,
+      "items_per_second": 34737302.41520084
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 8,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999785,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.5104228628769694,
+      "items_per_second": 33103312.47552939
+     }
+    }
+   ]
+  },
+  {
+   "kind": "throughput",
+   "payload_bytes": 32,
+   "index_alignment": 64,
+   "cached_indices": false,
+   "placement": "cross_core",
+   "summary": {
+    "items_per_second": {
+     "median": 27776182.825098947,
+     "min": 24117948.714429628,
+     "max": 30899645.331812937
+    }
+   },
+   "runs": [
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999807.6400065,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.8280334710098183,
+      "items_per_second": 27351796.776663862
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999826.467177,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.7394211634001062,
+      "items_per_second": 28745194.69583967
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999805.040002,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.6181415502695808,
+      "items_per_second": 30899645.331812937
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999822.72001,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 2.073144801493225,
+      "items_per_second": 24117948.714429628
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999775.160009,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.8001033588682784,
+      "items_per_second": 27776182.825098947
+     }
+    }
+   ]
+  },
+  {
+   "kind": "throughput",
+   "payload_bytes": 32,
+   "index_alignment": 64,
+   "cached_indices": true,
+   "placement": "cross_core",
+   "summary": {
+    "items_per_second": {
+     "median": 35031608.008544244,
+     "min": 32734951.19602258,
+     "max": 35851679.02492898
+    }
+   },
+   "runs": [
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999587.560006,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.4514848255810868,
+      "items_per_second": 34447483.789562196
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999732.5200014,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.3946348221301763,
+      "items_per_second": 35851679.02492898
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999795.1600084,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.4109293826180942,
+      "items_per_second": 35437634.665472016
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999790.2400126,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.5274194148203033,
+      "items_per_second": 32734951.19602258
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999622.6000094,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.427282469814259,
+      "items_per_second": 35031608.008544244
+     }
+    }
+   ]
+  },
+  {
+   "kind": "throughput",
+   "payload_bytes": 32,
+   "index_alignment": 128,
+   "cached_indices": false,
+   "placement": "cross_core",
+   "summary": {
+    "items_per_second": {
+     "median": 25307432.18185114,
+     "min": 21811314.055519648,
+     "max": 26141154.999288104
+    }
+   },
+   "runs": [
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 128,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999810.0800037,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 2.2923882473438972,
+      "items_per_second": 21811314.055519648
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 128,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999612.60001,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.912692840135091,
+      "items_per_second": 26141154.999288104
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 128,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999782.6400075,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.9691671065777834,
+      "items_per_second": 25391445.872206867
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 128,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999800.080004,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.9757041979097656,
+      "items_per_second": 25307432.18185114
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 128,
+     "cached_indices": false,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999790.040002,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 2.106679407579489,
+      "items_per_second": 23734033.674088307
+     }
+    }
+   ]
+  },
+  {
+   "kind": "throughput",
+   "payload_bytes": 32,
+   "index_alignment": 128,
+   "cached_indices": true,
+   "placement": "cross_core",
+   "summary": {
+    "items_per_second": {
+     "median": 35016327.009817064,
+     "min": 32490296.88067376,
+     "max": 36880178.11496273
+    }
+   },
+   "runs": [
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 128,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999735.160011,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.4142007914811388,
+      "items_per_second": 35355658.33450946
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 128,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999780.200011,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.5389209948937572,
+      "items_per_second": 32490296.88067376
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 128,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999770,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.5176477079563193,
+      "items_per_second": 32945722.342460185
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 128,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999792.520001,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.3557418254364233,
+      "items_per_second": 36880178.11496273
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 128,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999777.640008,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 1.4279053307327796,
+      "items_per_second": 35016327.009817064
+     }
+    }
+   ]
+  },
+  {
+   "kind": "throughput",
+   "payload_bytes": 32,
+   "index_alignment": 64,
+   "cached_indices": true,
+   "placement": "hyperthread_sibling",
+   "summary": {
+    "items_per_second": {
+     "median": 155986785.6432325,
+     "min": 154563436.1717747,
+     "max": 158049283.44830886
+    }
+   },
+   "runs": [
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 3,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999795.2000103,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.3163570179446771,
+      "items_per_second": 158049283.44830886
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 3,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495998842.6400404,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.3180058473746934,
+      "items_per_second": 157229813.26531088
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 3,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999700,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.3222784798411634,
+      "items_per_second": 155145326.5655304
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 3,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999770.1600094,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.3205399726253623,
+      "items_per_second": 155986785.6432325
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 3,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999860.0400014,
+     "result": {
+      "items": 50000000,
+      "elapsed_seconds": 0.32349177294707854,
+      "items_per_second": 154563436.1717747
+     }
+    }
+   ]
+  },
+  {
+   "kind": "throughput",
+   "payload_bytes": 32,
+   "index_alignment": 64,
+   "cached_indices": true,
+   "placement": "same_core",
+   "summary": {
+    "items_per_second": {
+     "median": 525219.0967171188,
+     "min": 517071.2657412652,
+     "max": 527713.4294625653
+    }
+   },
+   "runs": [
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 2,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999777.520001,
+     "result": {
+      "items": 2000000,
+      "elapsed_seconds": 3.849932033466697,
+      "items_per_second": 519489.6903671016
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 2,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999770.2400136,
+     "result": {
+      "items": 2000000,
+      "elapsed_seconds": 3.804231151867026,
+      "items_per_second": 525730.4091573005
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 2,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999780.080004,
+     "result": {
+      "items": 2000000,
+      "elapsed_seconds": 3.7899357650170904,
+      "items_per_second": 527713.4294625653
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 2,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999765.0800047,
+     "result": {
+      "items": 2000000,
+      "elapsed_seconds": 3.8079346552724322,
+      "items_per_second": 525219.0967171188
+     }
+    },
+    {
+     "mode": "throughput",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 2,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999762.6400084,
+     "result": {
+      "items": 2000000,
+      "elapsed_seconds": 3.8679387784831394,
+      "items_per_second": 517071.2657412652
+     }
+    }
+   ]
+  },
+  {
+   "kind": "pingpong",
+   "payload_bytes": 32,
+   "index_alignment": 8,
+   "cached_indices": true,
+   "placement": "cross_core",
+   "summary": {
+    "round_trip": {
+     "mean_ns": {
+      "median": 244.11056578711106,
+      "min": 227.00202476964043,
+      "max": 248.7876153203434
+     },
+     "p50_ns": {
+      "median": 237.58014817099712,
+      "min": 218.75001838691972,
+      "max": 239.58335395132286
+     },
+     "p90_ns": {
+      "median": 253.20515482413097,
+      "min": 249.59937895030805,
+      "max": 280.84938314360755
+     },
+     "p99_ns": {
+      "median": 308.09297460960676,
+      "min": 296.0737428350434,
+      "max": 330.52888090175327
+     },
+     "p99_9_ns": {
+      "median": 402.243623547523,
+      "min": 359.37503020708243,
+      "max": 480.7692692461792
+     },
+     "p99_99_ns": {
+      "median": 1922.6764841788047,
+      "min": 1717.5482212907048,
+      "max": 7384.215364147804
+     },
+     "max_ns": {
+      "median": 46675.48567614068,
+      "min": 41268.0323975853,
+      "max": 48887.42398021852
+     }
+    }
+   },
+   "runs": [
+    {
+     "mode": "pingpong",
+     "payload_bytes": 32,
+     "index_alignment": 8,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999737.6000066,
+     "result": {
+      "items": 5000000,
+      "round_trip": {
+       "samples": 5000000,
+       "mean_ns": 246.1548501566631,
+       "min_ns": 168.2692484590744,
+       "max_ns": 46675.48567614068,
+       "p50_ns": 237.58015318150265,
+       "p90_ns": 253.20515482413097,
+       "p99_ns": 330.52888090175327,
+       "p99_9_ns": 428.68594250288,
+       "p99_99_ns": 1922.6764841788047,
+       "p99_999_ns": 8102.164313304432
+      }
+     }
+    },
+    {
+     "mode": "pingpong",
+     "payload_bytes": 32,
+     "index_alignment": 8,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999785.200011,
+     "result": {
+      "items": 5000000,
+      "round_trip": {
+       "samples": 5000000,
+       "mean_ns": 248.7876153203434,
+       "min_ns": 160.2564240477076,
+       "max_ns": 41268.0323975853,
+       "p50_ns": 239.58335395132286,
+       "p90_ns": 280.84938314360755,
+       "p99_ns": 310.09618053231424,
+       "p99_9_ns": 390.6250336162873,
+       "p99_99_ns": 1845.7533639694723,
+       "p99_999_ns": 8204.72827018251
+      }
+     }
+    },
+    {
+     "mode": "pingpong",
+     "payload_bytes": 32,
+     "index_alignment": 8,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999800.240012,
+     "result": {
+      "items": 5000000,
+      "round_trip": {
+       "samples": 5000000,
+       "mean_ns": 243.5458626805763,
+       "min_ns": 165.06411577452153,
+       "max_ns": 47885.821140092565,
+       "p50_ns": 236.77886510374327,
+       "p90_ns": 249.59937895030805,
+       "p99_ns": 300.480793278862,
+       "p99_9_ns": 480.7692692461792,
+       "p99_99_ns": 7384.215334563607,
+       "p99_999_ns": 10666.26687928419
+      }
+     }
+    },
+    {
+     "mode": "pingpong",
+     "payload_bytes": 32,
+     "index_alignment": 8,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999790.2400126,
+     "result": {
+      "items": 5000000,
+      "round_trip": {
+       "samples": 5000000,
+       "mean_ns": 244.11056578711106,
+       "min_ns": 168.26924491031838,
+       "max_ns": 48887.42398021852,
+       "p50_ns": 237.58014817099712,
+       "p90_ns": 250.80130312823644,
+       "p99_ns": 308.09297460960676,
+       "p99_9_ns": 402.243623547523,
+       "p99_99_ns": 7384.215364147804,
+       "p99_999_ns": 10461.138699650768
+      }
+     }
+    },
+    {
+     "mode": "pingpong",
+     "payload_bytes": 32,
+     "index_alignment": 8,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999790.2000103,
+     "result": {
+      "items": 5000000,
+      "round_trip": {
+       "samples": 5000000,
+       "mean_ns": 227.00202476964043,
+       "min_ns": 165.06411643848156,
+       "max_ns": 46179.89170213975,
+       "p50_ns": 218.75001838691972,
+       "p90_ns": 254.00643160678956,
+       "p99_ns": 296.0737428350434,
+       "p99_9_ns": 359.37503020708243,
+       "p99_99_ns": 1717.5482212907048,
+       "p99_999_ns": 6512.420419193004
+      }
+     }
+    }
+   ]
+  },
+  {
+   "kind": "pingpong",
+   "payload_bytes": 32,
+   "index_alignment": 64,
+   "cached_indices": true,
+   "placement": "cross_core",
+   "summary": {
+    "round_trip": {
+     "mean_ns": {
+      "median": 230.4512806883084,
+      "min": 213.22180864241935,
+      "max": 251.54652408896015
+     },
+     "p50_ns": {
+      "median": 230.36861488108724,
+      "min": 209.13463360681087,
+      "max": 247.19553113833533
+     },
+     "p90_ns": {
+      "median": 244.79167866695065,
+      "min": 237.58014889059118,
+      "max": 266.8269428494835
+     },
+     "p99_ns": {
+      "median": 255.60899663054659,
+      "min": 244.7916879800189,
+      "max": 302.88463782914346
+     },
+     "p99_9_ns": {
+      "median": 329.3269517716447,
+      "min": 306.08977024015456,
+      "max": 397.4359408035453
+     },
+     "p99_99_ns": {
+      "median": 1922.676491851022,
+      "min": 1794.4712418155023,
+      "max": 2358.573892725089
+     },
+     "max_ns": {
+      "median": 60768.83542307943,
+      "min": 53560.501458240244,
+      "max": 104992.79624177379
+     }
+    }
+   },
+   "runs": [
+    {
+     "mode": "pingpong",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999727.6400094,
+     "result": {
+      "items": 5000000,
+      "round_trip": {
+       "samples": 5000000,
+       "mean_ns": 238.27527351628657,
+       "min_ns": 164.6634795063076,
+       "max_ns": 62405.05488647442,
+       "p50_ns": 230.36861488108724,
+       "p90_ns": 262.01925936040186,
+       "p99_ns": 296.0737502558669,
+       "p99_9_ns": 397.4359408035453,
+       "p99_99_ns": 1922.676491851022,
+       "p99_999_ns": 9025.24136943696
+      }
+     }
+    },
+    {
+     "mode": "pingpong",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999782.520001,
+     "result": {
+      "items": 5000000,
+      "round_trip": {
+       "samples": 5000000,
+       "mean_ns": 213.22180864241935,
+       "min_ns": 141.42629437395448,
+       "max_ns": 60768.83542307943,
+       "p50_ns": 209.13463360681087,
+       "p90_ns": 239.9839952691182,
+       "p99_ns": 255.60899663054659,
+       "p99_9_ns": 329.3269517716447,
+       "p99_99_ns": 1820.1123380761335,
+       "p99_999_ns": 8614.98472499474
+      }
+     }
+    },
+    {
+     "mode": "pingpong",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999877.640004,
+     "result": {
+      "items": 5000000,
+      "round_trip": {
+       "samples": 5000000,
+       "mean_ns": 230.4512806883084,
+       "min_ns": 139.42308375793587,
+       "max_ns": 58935.49968403346,
+       "p50_ns": 231.97116521794504,
+       "p90_ns": 244.79167866695065,
+       "p99_ns": 251.20193539145345,
+       "p99_9_ns": 326.52245190436133,
+       "p99_99_ns": 1794.4712418155023,
+       "p99_999_ns": 10358.574225751241
+      }
+     }
+    },
+    {
+     "mode": "pingpong",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999815.040002,
+     "result": {
+      "items": 5000000,
+      "round_trip": {
+       "samples": 5000000,
+       "mean_ns": 251.54652408896015,
+       "min_ns": 162.66026846379924,
+       "max_ns": 104992.79624177379,
+       "p50_ns": 247.19553113833533,
+       "p90_ns": 266.8269428494835,
+       "p99_ns": 302.88463782914346,
+       "p99_9_ns": 356.16989818797424,
+       "p99_99_ns": 2358.573892725089,
+       "p99_999_ns": 10666.266816038738
+      }
+     }
+    },
+    {
+     "mode": "pingpong",
+     "payload_bytes": 32,
+     "index_alignment": 64,
+     "cached_indices": true,
+     "ring_capacity": 4096,
+     "producer_cpu": 4,
+     "consumer_cpu": 2,
+     "tsc_hz": 2495999782.68001,
+     "result": {
+      "items": 5000000,
+      "round_trip": {
+       "samples": 5000000,
+       "mean_ns": 216.0472478170616,
+       "min_ns": 134.21475527546045,
+       "max_ns": 53560.501458240244,
+       "p50_ns": 219.95194222754563,
+       "p90_ns": 237.58014889059118,
+       "p99_ns": 244.7916879800189,
+       "p99_9_ns": 306.08977024015456,
+       "p99_99_ns": 2102.163644568182,
+       "p99_999_ns": 9640.625839383298
+      }
+     }
+    }
+   ]
+  }
+ ]
+}

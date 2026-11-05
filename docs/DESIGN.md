@@ -273,3 +273,34 @@ workloads. The jitter benchmark fails if any replay produces different events.
 **Known limitations:** Timing can't resolve differences below the serialized timer's own spread, even though one TSC tick
 is shorter than that.
 
+## M8: Experiments, final measurement and release (2026-11-06)
+
+**Summary:** Measured build and page size options, took the final measurements of every suite from one commit, and
+published the README, charts and generated report.
+
+**Decisions:**
+- Experiments in separate presets, and the default build left as plain release: a published number should come from a
+  build anyone gets by default. The options are reported apart from the main tables.
+- The PGO profile comes from a different seed than the benchmarks: training on the measured log would tune the build to
+  exactly the input it's measured on.
+- Everything final comes from one commit (`eb901f50`), so the results describe one version of the code. Earlier
+  results stay in `results/` as history.
+- An anomalous large-book run was kept and described rather than rerun: rerunning until a tail looked better is exactly
+  the selection the method forbids.
+- Charts and the README summary are generated from result files, so no figure is typed by hand.
+
+**Findings:** These come from the [build experiments](../results/20261105T181503_eb901f50_control_turbo_on.json) and the
+[final book results](../results/20261105T182344_eb901f50_book_turbo_on.json), with tables in `BENCHMARKS.md`.
+- PGO reduced instructions per command and the average.
+- LTO changed little, which is expected because the engine is header-only and the benchmark is one translation unit.
+- Clang gave a lower tail than GCC on these runs.
+- Huge pages helped modestly against 4 KiB pages.
+- The three-way comparison holds across every workload: avoiding the general-purpose allocator alone barely changes L1
+  misses, while the change of data structures removes most of them.
+
+**Verification:** A fresh clone of the tagged commit builds, passes the tests and reproduces the golden hashes, and CI is
+green.
+
+**Known limitations:** Laptop measurements with variable tails. Synthetic workloads only. Replaying NASDAQ ITCH data was
+out of scope.
+

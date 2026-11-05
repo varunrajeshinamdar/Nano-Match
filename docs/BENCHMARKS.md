@@ -14,6 +14,13 @@ machine settings and workload behind it.
   without comparing workloads too.
 - **In-process only.** Latency covers a single book processing a command in memory. Network, kernel and
   serialization costs aren't included.
+- **Tails vary between runs.** p99.9 and above moved noticeably from run to run, sometimes by several times, while
+  averages stayed within a few percent. The tables show the median of runs, and every run is in the raw files. In the
+  final turbo-off run of `realistic_1m`, four of five timed runs of every book, including the baseline, had a p99.9 near
+  9 µs, driven by passive orders, with no page faults recorded. The same workload was steady with turbo on. It's left
+  unexplained and unrerun. It's consistent with background kernel memory work, since the machine was using swap.
+- **Ring results vary between runs too.** Medians for one layout differed by up to about a quarter between two
+  measurement sessions, so small differences between layouts shouldn't be read as meaningful.
 
 ## Workloads
 
@@ -169,42 +176,42 @@ runs, which include the timer's own cost shown in the second-last column.
 
 | Workload | Book | Turbo | Average | p50 | p99 | p99.9 | p99.99 | Max | Timer p50 | Source |
 |---|---|---|---|---|---|---|---|---|---|---|
-| add_cancel | baseline | off | 146.9 | 185 | 444 | 566 | 4102 | 47485 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| add_cancel | baseline | on | 82.8 | 91 | 248 | 673 | 2820 | 42916 | 11.2 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
-| add_cancel | baseline_pool | off | 109.8 | 152 | 341 | 443 | 4410 | 66060 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| add_cancel | baseline_pool | on | 60.9 | 73 | 174 | 393 | 1948 | 59187 | 11.2 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
-| add_cancel | fast | off | 40.9 | 76 | 137 | 221 | 688 | 41408 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| add_cancel | fast | on | 23.7 | 36 | 105 | 335 | 873 | 84604 | 11.2 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
-| realistic | baseline | off | 164.6 | 200 | 524 | 799 | 8718 | 72945 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| realistic | baseline | on | 86.3 | 95 | 284 | 661 | 2846 | 73312 | 11.2 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
-| realistic | baseline_pool | off | 125.0 | 164 | 410 | 583 | 4102 | 68076 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| realistic | baseline_pool | on | 68.6 | 78 | 207 | 438 | 2564 | 77543 | 11.2 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
-| realistic | fast | off | 45.0 | 77 | 159 | 242 | 483 | 72987 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| realistic | fast | on | 24.9 | 36 | 117 | 368 | 954 | 53374 | 11.2 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
-| realistic_100k | baseline | off | 327.0 | 465 | 1447 | 2512 | 8307 | 79905 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| realistic_100k | baseline | on | 129.1 | 157 | 535 | 810 | 2948 | 42649 | 10.8 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
-| realistic_100k | baseline_pool | off | 183.1 | 262 | 685 | 998 | 5589 | 64286 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| realistic_100k | baseline_pool | on | 94.2 | 118 | 391 | 638 | 2769 | 38309 | 10.8 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
-| realistic_100k | fast | off | 59.4 | 116 | 344 | 563 | 3692 | 48578 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| realistic_100k | fast | on | 30.5 | 48 | 131 | 290 | 523 | 271911 | 10.8 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
-| realistic_1k | baseline | off | 146.4 | 174 | 426 | 625 | 4307 | 61189 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| realistic_1k | baseline | on | 77.2 | 83 | 202 | 297 | 1575 | 35881 | 10.8 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
-| realistic_1k | baseline_pool | off | 117.0 | 146 | 352 | 497 | 3692 | 46839 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| realistic_1k | baseline_pool | on | 60.8 | 69 | 165 | 233 | 1198 | 233374 | 10.8 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
-| realistic_1k | fast | off | 48.0 | 73 | 167 | 282 | 716 | 62524 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| realistic_1k | fast | on | 25.8 | 34 | 74 | 122 | 274 | 282772 | 11.2 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
-| realistic_1m | baseline | off | 403.3 | 599 | 1300 | 2205 | 6410 | 72592 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| realistic_1m | baseline | on | 243.8 | 376 | 889 | 1397 | 3153 | 41516 | 10.8 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
-| realistic_1m | baseline_pool | off | 320.9 | 555 | 1173 | 2077 | 6307 | 68378 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| realistic_1m | baseline_pool | on | 198.1 | 354 | 840 | 1280 | 3102 | 40714 | 10.8 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
-| realistic_1m | fast | off | 103.5 | 200 | 575 | 751 | 3948 | 52988 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| realistic_1m | fast | on | 68.3 | 125 | 474 | 617 | 1948 | 39355 | 10.8 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
-| sweep | baseline | off | 192.2 | 200 | 863 | 1588 | 5743 | 351289 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| sweep | baseline | on | 105.7 | 99 | 428 | 779 | 2307 | 182512 | 11.2 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
-| sweep | baseline_pool | off | 153.0 | 160 | 759 | 1478 | 5538 | 290597 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| sweep | baseline_pool | on | 78.7 | 75 | 355 | 683 | 1948 | 141792 | 10.8 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
-| sweep | fast | off | 56.8 | 79 | 262 | 419 | 954 | 56008 | 23.6 | [file](../results/20261105T174430_10c22830_book_turbo_off.json) |
-| sweep | fast | on | 30.8 | 36 | 121 | 194 | 362 | 44735 | 10.8 | [file](../results/20261105T180024_e966fcf2_book_turbo_on.json) |
+| add_cancel | baseline | off | 147.6 | 185 | 451 | 591 | 4923 | 59945 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| add_cancel | baseline | on | 82.7 | 93 | 234 | 436 | 2692 | 58037 | 11.2 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
+| add_cancel | baseline_pool | off | 110.1 | 151 | 341 | 447 | 4512 | 67704 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| add_cancel | baseline_pool | on | 61.5 | 74 | 168 | 266 | 1948 | 45577 | 11.6 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
+| add_cancel | fast | off | 40.9 | 76 | 155 | 250 | 791 | 56233 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| add_cancel | fast | on | 23.8 | 36 | 66 | 230 | 653 | 172466 | 11.2 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
+| realistic | baseline | off | 163.3 | 201 | 530 | 773 | 5025 | 87039 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| realistic | baseline | on | 89.4 | 97 | 256 | 378 | 2564 | 58299 | 11.2 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
+| realistic | baseline_pool | off | 124.8 | 163 | 413 | 601 | 4666 | 79376 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| realistic | baseline_pool | on | 69.5 | 80 | 200 | 298 | 2282 | 69217 | 11.6 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
+| realistic | fast | off | 45.4 | 77 | 182 | 301 | 959 | 77396 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| realistic | fast | on | 26.8 | 36 | 85 | 196 | 642 | 43510 | 11.2 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
+| realistic_100k | baseline | off | 288.0 | 402 | 1166 | 1871 | 7692 | 85062 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| realistic_100k | baseline | on | 184.5 | 300 | 1190 | 2384 | 6461 | 88154 | 12.0 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
+| realistic_100k | baseline_pool | off | 211.8 | 333 | 998 | 1574 | 7384 | 73305 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| realistic_100k | baseline_pool | on | 128.9 | 168 | 870 | 1666 | 4974 | 90538 | 11.6 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
+| realistic_100k | fast | off | 79.7 | 170 | 542 | 867 | 5179 | 65982 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| realistic_100k | fast | on | 49.5 | 106 | 473 | 883 | 2718 | 227168 | 11.2 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
+| realistic_1k | baseline | off | 146.7 | 174 | 427 | 629 | 4051 | 65601 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| realistic_1k | baseline | on | 82.3 | 88 | 216 | 316 | 2282 | 47897 | 11.2 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
+| realistic_1k | baseline_pool | off | 120.0 | 146 | 357 | 612 | 8718 | 82891 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| realistic_1k | baseline_pool | on | 64.8 | 73 | 175 | 247 | 1846 | 50364 | 11.6 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
+| realistic_1k | fast | off | 47.7 | 73 | 164 | 271 | 548 | 58899 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| realistic_1k | fast | on | 27.8 | 35 | 78 | 142 | 422 | 66087 | 11.2 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
+| realistic_1m | baseline | off | 452.0 | 670 | 1615 | 5435 | 10564 | 73385 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| realistic_1m | baseline | on | 307.2 | 469 | 1308 | 2461 | 6410 | 82707 | 11.2 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
+| realistic_1m | baseline_pool | off | 369.3 | 629 | 1502 | 9230 | 13128 | 86801 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| realistic_1m | baseline_pool | on | 250.3 | 450 | 1236 | 2461 | 6410 | 59225 | 11.2 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
+| realistic_1m | fast | off | 120.6 | 256 | 673 | 8512 | 10359 | 75803 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| realistic_1m | fast | on | 85.8 | 188 | 600 | 1062 | 3794 | 67532 | 11.2 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
+| sweep | baseline | off | 192.9 | 202 | 885 | 1666 | 5384 | 373572 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| sweep | baseline | on | 108.6 | 102 | 457 | 850 | 3230 | 189765 | 11.6 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
+| sweep | baseline_pool | off | 152.9 | 160 | 762 | 1482 | 4820 | 281481 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| sweep | baseline_pool | on | 84.3 | 79 | 386 | 751 | 2743 | 161340 | 11.2 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
+| sweep | fast | off | 56.8 | 80 | 270 | 450 | 1457 | 54689 | 23.6 | [file](../results/20261105T183657_eb901f50_book_turbo_off.json) |
+| sweep | fast | on | 33.2 | 38 | 138 | 280 | 891 | 49433 | 11.2 | [file](../results/20261105T182344_eb901f50_book_turbo_on.json) |
 
 ### Latency by kind of command
 
@@ -212,36 +219,36 @@ From the same timed runs as above, in nanoseconds, including the timer's cost.
 
 | Workload | Book | Turbo | Kind | Share | p50 | p99 | p99.9 | p99.99 |
 |---|---|---|---|---|---|---|---|---|
-| realistic | baseline | off | passive | 44.8% | 155 | 405 | 528 | 8615 |
-| realistic | baseline | off | aggressive | 4.0% | 173 | 753 | 1159 | 8820 |
-| realistic | baseline | off | cancel | 40.8% | 235 | 507 | 648 | 8718 |
-| realistic | baseline | off | modify | 9.9% | 305 | 685 | 918 | 8923 |
-| realistic | baseline | off | rejected | 0.5% | 92 | 185 | 219 | 8410 |
-| realistic | baseline | on | passive | 44.8% | 74 | 206 | 445 | 2128 |
-| realistic | baseline | on | aggressive | 4.0% | 82 | 399 | 822 | 2846 |
-| realistic | baseline | on | cancel | 40.8% | 111 | 284 | 740 | 3077 |
-| realistic | baseline | on | modify | 9.9% | 145 | 371 | 823 | 3256 |
-| realistic | baseline | on | rejected | 0.5% | 44 | 88 | 190 | 706 |
-| realistic | baseline_pool | off | passive | 44.8% | 129 | 321 | 414 | 3948 |
-| realistic | baseline_pool | off | aggressive | 4.0% | 145 | 535 | 807 | 4102 |
-| realistic | baseline_pool | off | cancel | 40.8% | 190 | 391 | 495 | 4153 |
-| realistic | baseline_pool | off | modify | 9.9% | 246 | 543 | 700 | 4359 |
-| realistic | baseline_pool | off | rejected | 0.5% | 89 | 178 | 212 | 3641 |
-| realistic | baseline_pool | on | passive | 44.8% | 62 | 158 | 279 | 1296 |
-| realistic | baseline_pool | on | aggressive | 4.0% | 69 | 270 | 543 | 2589 |
-| realistic | baseline_pool | on | cancel | 40.8% | 90 | 198 | 505 | 2794 |
-| realistic | baseline_pool | on | modify | 9.9% | 117 | 276 | 583 | 3179 |
-| realistic | baseline_pool | on | rejected | 0.5% | 43 | 91 | 293 | 758 |
-| realistic | fast | off | passive | 44.8% | 74 | 126 | 159 | 387 |
-| realistic | fast | off | aggressive | 4.0% | 98 | 276 | 388 | 3384 |
-| realistic | fast | off | cancel | 40.8% | 75 | 138 | 174 | 405 |
-| realistic | fast | off | modify | 9.9% | 108 | 172 | 207 | 3487 |
-| realistic | fast | off | rejected | 0.5% | 74 | 114 | 133 | 255 |
-| realistic | fast | on | passive | 44.8% | 35 | 122 | 395 | 968 |
-| realistic | fast | on | aggressive | 4.0% | 46 | 154 | 399 | 1056 |
-| realistic | fast | on | cancel | 40.8% | 36 | 77 | 336 | 903 |
-| realistic | fast | on | modify | 9.9% | 51 | 93 | 361 | 971 |
-| realistic | fast | on | rejected | 0.5% | 35 | 54 | 187 | 653 |
+| realistic | baseline | off | passive | 44.8% | 155 | 410 | 533 | 4666 |
+| realistic | baseline | off | aggressive | 4.0% | 173 | 757 | 1123 | 4974 |
+| realistic | baseline | off | cancel | 40.8% | 236 | 515 | 659 | 5230 |
+| realistic | baseline | off | modify | 9.9% | 305 | 693 | 887 | 5538 |
+| realistic | baseline | off | rejected | 0.5% | 92 | 188 | 250 | 4102 |
+| realistic | baseline | on | passive | 44.8% | 76 | 198 | 256 | 2025 |
+| realistic | baseline | on | aggressive | 4.0% | 85 | 365 | 544 | 2538 |
+| realistic | baseline | on | cancel | 40.8% | 114 | 248 | 322 | 2769 |
+| realistic | baseline | on | modify | 9.9% | 148 | 335 | 435 | 2897 |
+| realistic | baseline | on | rejected | 0.5% | 45 | 89 | 133 | 379 |
+| realistic | baseline_pool | off | passive | 44.8% | 129 | 322 | 421 | 4359 |
+| realistic | baseline_pool | off | aggressive | 4.0% | 145 | 535 | 834 | 4615 |
+| realistic | baseline_pool | off | cancel | 40.8% | 188 | 393 | 516 | 4820 |
+| realistic | baseline_pool | off | modify | 9.9% | 245 | 547 | 712 | 5128 |
+| realistic | baseline_pool | off | rejected | 0.5% | 89 | 185 | 269 | 4307 |
+| realistic | baseline_pool | on | passive | 44.8% | 63 | 155 | 204 | 866 |
+| realistic | baseline_pool | on | aggressive | 4.0% | 71 | 260 | 405 | 2102 |
+| realistic | baseline_pool | on | cancel | 40.8% | 92 | 190 | 266 | 2641 |
+| realistic | baseline_pool | on | modify | 9.9% | 121 | 264 | 356 | 2846 |
+| realistic | baseline_pool | on | rejected | 0.5% | 44 | 90 | 183 | 651 |
+| realistic | fast | off | passive | 44.8% | 74 | 168 | 256 | 817 |
+| realistic | fast | off | aggressive | 4.0% | 98 | 289 | 436 | 4256 |
+| realistic | fast | off | cancel | 40.8% | 76 | 159 | 253 | 843 |
+| realistic | fast | off | modify | 9.9% | 108 | 184 | 291 | 3846 |
+| realistic | fast | off | rejected | 0.5% | 74 | 113 | 201 | 3487 |
+| realistic | fast | on | passive | 44.8% | 35 | 65 | 201 | 666 |
+| realistic | fast | on | aggressive | 4.0% | 46 | 141 | 250 | 814 |
+| realistic | fast | on | cancel | 40.8% | 36 | 69 | 179 | 585 |
+| realistic | fast | on | modify | 9.9% | 52 | 83 | 200 | 695 |
+| realistic | fast | on | rejected | 0.5% | 36 | 54 | 138 | 425 |
 
 ### Hardware counters per command
 
@@ -249,42 +256,42 @@ From untimed runs, counting user-mode events during the measured loop only.
 
 | Workload | Book | Turbo | Cycles | Instructions | L1d loads | L1d misses | LLC misses | Branch misses |
 |---|---|---|---|---|---|---|---|---|
-| add_cancel | baseline | off | 291.63 | 500.87 | 148.20 | 5.08 | 0.02 | 3.08 |
-| add_cancel | baseline | on | 299.56 | 500.87 | 148.20 | 5.08 | 0.02 | 3.08 |
-| add_cancel | baseline_pool | off | 217.83 | 316.35 | 98.03 | 4.82 | 0.01 | 2.93 |
-| add_cancel | baseline_pool | on | 222.62 | 316.35 | 98.03 | 4.82 | 0.02 | 2.93 |
-| add_cancel | fast | off | 80.94 | 203.21 | 59.51 | 2.17 | 0.02 | 0.97 |
-| add_cancel | fast | on | 84.36 | 203.21 | 59.51 | 2.16 | 0.02 | 0.97 |
-| realistic | baseline | off | 323.09 | 505.84 | 150.05 | 5.39 | 0.01 | 3.76 |
-| realistic | baseline | on | 327.41 | 505.84 | 150.05 | 5.39 | 0.02 | 3.76 |
-| realistic | baseline_pool | off | 248.17 | 325.17 | 100.33 | 5.17 | 0.01 | 3.58 |
-| realistic | baseline_pool | on | 252.97 | 325.17 | 100.33 | 5.17 | 0.02 | 3.57 |
-| realistic | fast | off | 89.38 | 207.20 | 60.22 | 2.19 | 0.01 | 1.20 |
-| realistic | fast | on | 90.61 | 207.20 | 60.22 | 2.19 | 0.02 | 1.20 |
-| realistic_100k | baseline | off | 646.99 | 517.97 | 154.98 | 7.39 | 2.41 | 3.93 |
-| realistic_100k | baseline | on | 527.82 | 517.97 | 154.98 | 7.32 | 0.71 | 3.94 |
-| realistic_100k | baseline_pool | off | 363.27 | 341.86 | 106.16 | 6.51 | 0.40 | 3.73 |
-| realistic_100k | baseline_pool | on | 379.21 | 341.86 | 106.16 | 6.46 | 0.35 | 3.73 |
-| realistic_100k | fast | off | 117.98 | 207.60 | 60.22 | 2.28 | 0.05 | 1.27 |
-| realistic_100k | fast | on | 118.79 | 207.60 | 60.22 | 2.28 | 0.04 | 1.27 |
-| realistic_1k | baseline | off | 290.53 | 491.55 | 143.92 | 4.33 | 0.01 | 4.22 |
-| realistic_1k | baseline | on | 291.39 | 491.55 | 143.92 | 4.32 | 0.01 | 4.23 |
-| realistic_1k | baseline_pool | off | 232.16 | 306.52 | 93.39 | 3.80 | 0.01 | 3.99 |
-| realistic_1k | baseline_pool | on | 233.56 | 306.52 | 93.39 | 3.78 | 0.01 | 4.00 |
-| realistic_1k | fast | off | 95.03 | 210.20 | 60.77 | 1.72 | 0.01 | 1.52 |
-| realistic_1k | fast | on | 95.38 | 210.20 | 60.77 | 1.72 | 0.01 | 1.52 |
-| realistic_1m | baseline | off | 799.66 | 522.87 | 157.45 | 11.71 | 3.49 | 4.70 |
-| realistic_1m | baseline | on | 1059.47 | 522.87 | 157.45 | 11.66 | 3.50 | 4.70 |
-| realistic_1m | baseline_pool | off | 636.41 | 346.64 | 108.57 | 11.33 | 3.55 | 4.49 |
-| realistic_1m | baseline_pool | on | 861.08 | 346.64 | 108.57 | 11.33 | 3.54 | 4.48 |
-| realistic_1m | fast | off | 205.44 | 213.22 | 61.47 | 2.50 | 1.48 | 1.77 |
-| realistic_1m | fast | on | 291.08 | 213.22 | 61.47 | 2.50 | 1.47 | 1.77 |
-| sweep | baseline | off | 381.19 | 667.19 | 191.94 | 6.08 | 0.02 | 4.04 |
-| sweep | baseline | on | 384.25 | 667.19 | 191.94 | 6.08 | 0.01 | 4.04 |
-| sweep | baseline_pool | off | 303.32 | 398.46 | 117.98 | 5.56 | 0.01 | 3.78 |
-| sweep | baseline_pool | on | 301.93 | 398.46 | 117.98 | 5.55 | 0.01 | 3.79 |
-| sweep | fast | off | 112.56 | 264.90 | 74.20 | 2.48 | 0.01 | 1.51 |
-| sweep | fast | on | 112.97 | 264.90 | 74.20 | 2.48 | 0.01 | 1.51 |
+| add_cancel | baseline | off | 292.78 | 500.87 | 148.20 | 5.08 | 0.01 | 3.08 |
+| add_cancel | baseline | on | 294.39 | 500.87 | 148.20 | 5.08 | 0.02 | 3.08 |
+| add_cancel | baseline_pool | off | 218.35 | 316.35 | 98.03 | 4.82 | 0.01 | 2.93 |
+| add_cancel | baseline_pool | on | 221.10 | 316.35 | 98.03 | 4.82 | 0.01 | 2.93 |
+| add_cancel | fast | off | 81.06 | 203.21 | 59.51 | 2.17 | 0.02 | 0.97 |
+| add_cancel | fast | on | 82.86 | 203.21 | 59.51 | 2.16 | 0.02 | 0.97 |
+| realistic | baseline | off | 323.97 | 505.84 | 150.05 | 5.39 | 0.02 | 3.76 |
+| realistic | baseline | on | 324.65 | 505.84 | 150.05 | 5.39 | 0.01 | 3.76 |
+| realistic | baseline_pool | off | 247.65 | 325.17 | 100.33 | 5.17 | 0.01 | 3.57 |
+| realistic | baseline_pool | on | 250.50 | 325.17 | 100.33 | 5.16 | 0.01 | 3.57 |
+| realistic | fast | off | 90.04 | 207.20 | 60.22 | 2.19 | 0.02 | 1.20 |
+| realistic | fast | on | 91.91 | 207.20 | 60.22 | 2.19 | 0.02 | 1.20 |
+| realistic_100k | baseline | off | 570.68 | 517.97 | 154.98 | 7.35 | 1.73 | 3.93 |
+| realistic_100k | baseline | on | 750.57 | 517.97 | 154.98 | 7.33 | 1.67 | 3.93 |
+| realistic_100k | baseline_pool | off | 419.84 | 341.86 | 106.16 | 6.52 | 1.10 | 3.72 |
+| realistic_100k | baseline_pool | on | 504.81 | 341.86 | 106.16 | 6.66 | 0.95 | 3.72 |
+| realistic_100k | fast | off | 158.04 | 207.60 | 60.22 | 2.28 | 0.54 | 1.27 |
+| realistic_100k | fast | on | 199.28 | 207.60 | 60.22 | 2.28 | 0.50 | 1.27 |
+| realistic_1k | baseline | off | 290.80 | 491.55 | 143.92 | 4.33 | 0.01 | 4.23 |
+| realistic_1k | baseline | on | 292.16 | 491.55 | 143.92 | 4.32 | 0.01 | 4.23 |
+| realistic_1k | baseline_pool | off | 229.18 | 306.52 | 93.39 | 3.22 | 0.00 | 4.00 |
+| realistic_1k | baseline_pool | on | 234.22 | 306.52 | 93.39 | 3.78 | 0.01 | 4.00 |
+| realistic_1k | fast | off | 94.73 | 210.20 | 60.77 | 1.72 | 0.01 | 1.52 |
+| realistic_1k | fast | on | 96.67 | 210.20 | 60.77 | 1.72 | 0.02 | 1.52 |
+| realistic_1m | baseline | off | 886.77 | 522.87 | 157.45 | 11.71 | 3.82 | 4.70 |
+| realistic_1m | baseline | on | 1287.53 | 522.87 | 157.45 | 11.71 | 3.90 | 4.70 |
+| realistic_1m | baseline_pool | off | 709.32 | 346.64 | 108.57 | 10.83 | 3.80 | 4.48 |
+| realistic_1m | baseline_pool | on | 1047.67 | 346.64 | 108.57 | 11.33 | 3.94 | 4.47 |
+| realistic_1m | fast | off | 229.72 | 213.22 | 61.47 | 1.99 | 1.58 | 1.77 |
+| realistic_1m | fast | on | 351.99 | 213.22 | 61.47 | 2.50 | 1.61 | 1.77 |
+| sweep | baseline | off | 382.37 | 667.19 | 191.94 | 6.07 | 0.02 | 4.03 |
+| sweep | baseline | on | 385.13 | 667.19 | 191.94 | 6.07 | 0.02 | 4.04 |
+| sweep | baseline_pool | off | 303.35 | 398.46 | 117.98 | 5.55 | 0.01 | 3.78 |
+| sweep | baseline_pool | on | 308.36 | 398.46 | 117.98 | 5.55 | 0.01 | 3.78 |
+| sweep | fast | off | 112.80 | 264.90 | 74.20 | 2.48 | 0.01 | 1.51 |
+| sweep | fast | on | 114.63 | 264.90 | 74.20 | 2.48 | 0.02 | 1.51 |
 
 ### Compared with the baseline
 
@@ -294,30 +301,30 @@ and the `fast` row adds everything else that differs between the designs.
 
 | Workload | Book | Turbo | Average latency reduction | L1d miss reduction | L1d miss rate | Baseline L1d miss rate |
 |---|---|---|---|---|---|---|
-| realistic | baseline_pool | off | 24.0% | 4.2% | 5.15% | 3.59% |
-| realistic | fast | off | 72.7% | 59.3% | 3.64% | 3.59% |
-| add_cancel | baseline_pool | off | 25.2% | 5.2% | 4.92% | 3.43% |
-| add_cancel | fast | off | 72.1% | 57.4% | 3.64% | 3.43% |
-| sweep | baseline_pool | off | 20.4% | 8.6% | 4.71% | 3.17% |
-| sweep | fast | off | 70.5% | 59.2% | 3.34% | 3.17% |
-| realistic_1k | baseline_pool | off | 20.1% | 12.4% | 4.06% | 3.01% |
-| realistic_1k | fast | off | 67.2% | 60.2% | 2.84% | 3.01% |
-| realistic_100k | baseline_pool | off | 44.0% | 11.9% | 6.13% | 4.77% |
-| realistic_100k | fast | off | 81.8% | 69.1% | 3.79% | 4.77% |
-| realistic_1m | baseline_pool | off | 20.4% | 3.2% | 10.43% | 7.43% |
-| realistic_1m | fast | off | 74.3% | 78.6% | 4.07% | 7.43% |
-| realistic | baseline_pool | on | 20.5% | 4.1% | 5.15% | 3.59% |
-| realistic | fast | on | 71.2% | 59.3% | 3.64% | 3.59% |
-| add_cancel | baseline_pool | on | 26.4% | 5.3% | 4.91% | 3.43% |
+| realistic | baseline_pool | off | 23.6% | 4.1% | 5.15% | 3.59% |
+| realistic | fast | off | 72.2% | 59.3% | 3.64% | 3.59% |
+| add_cancel | baseline_pool | off | 25.4% | 5.2% | 4.91% | 3.43% |
+| add_cancel | fast | off | 72.3% | 57.4% | 3.64% | 3.43% |
+| sweep | baseline_pool | off | 20.8% | 8.6% | 4.71% | 3.16% |
+| sweep | fast | off | 70.5% | 59.2% | 3.34% | 3.16% |
+| realistic_1k | baseline_pool | off | 18.2% | 25.6% | 3.45% | 3.01% |
+| realistic_1k | fast | off | 67.5% | 60.2% | 2.83% | 3.01% |
+| realistic_100k | baseline_pool | off | 26.5% | 11.2% | 6.15% | 4.74% |
+| realistic_100k | fast | off | 72.3% | 68.9% | 3.79% | 4.74% |
+| realistic_1m | baseline_pool | off | 18.3% | 7.5% | 9.97% | 7.43% |
+| realistic_1m | fast | off | 73.3% | 83.0% | 3.24% | 7.43% |
+| realistic | baseline_pool | on | 22.2% | 4.1% | 5.15% | 3.59% |
+| realistic | fast | on | 70.0% | 59.4% | 3.63% | 3.59% |
+| add_cancel | baseline_pool | on | 25.7% | 5.2% | 4.91% | 3.43% |
 | add_cancel | fast | on | 71.3% | 57.5% | 3.63% | 3.43% |
-| sweep | baseline_pool | on | 25.5% | 8.6% | 4.71% | 3.17% |
-| sweep | fast | on | 70.8% | 59.2% | 3.34% | 3.17% |
-| realistic_1k | baseline_pool | on | 21.3% | 12.6% | 4.05% | 3.00% |
-| realistic_1k | fast | on | 66.6% | 60.2% | 2.83% | 3.00% |
-| realistic_100k | baseline_pool | on | 27.0% | 11.7% | 6.09% | 4.72% |
-| realistic_100k | fast | on | 76.3% | 68.8% | 3.79% | 4.72% |
-| realistic_1m | baseline_pool | on | 18.8% | 2.8% | 10.44% | 7.40% |
-| realistic_1m | fast | on | 72.0% | 78.5% | 4.07% | 7.40% |
+| sweep | baseline_pool | on | 22.4% | 8.5% | 4.71% | 3.16% |
+| sweep | fast | on | 69.4% | 59.2% | 3.34% | 3.16% |
+| realistic_1k | baseline_pool | on | 21.3% | 12.4% | 4.05% | 3.00% |
+| realistic_1k | fast | on | 66.2% | 60.2% | 2.83% | 3.00% |
+| realistic_100k | baseline_pool | on | 30.1% | 9.2% | 6.27% | 4.73% |
+| realistic_100k | fast | on | 73.2% | 68.9% | 3.79% | 4.73% |
+| realistic_1m | baseline_pool | on | 18.5% | 3.2% | 10.43% | 7.43% |
+| realistic_1m | fast | on | 72.1% | 78.6% | 4.08% | 7.43% |
 
 ### Workload contents
 
@@ -332,60 +339,78 @@ Measured from each generated log, including warmup.
 | realistic_1m | 10000000 | 5352329 | 90042 | 3657935 | 899694 | 663042 | 40049 | 1100000 | 312 |
 | sweep | 10000000 | 7685078 | 498872 | 1316095 | 499955 | 6619272 | 17434 | 10643 | 535 |
 
+### Build and page size experiments
+
+Medians across runs, in nanoseconds, with turbo on. `fast_4k` is the same book on normal pages. The default
+build stays plain release, so these figures are separate from the tables above.
+
+| Workload | Build | Book | Average | p50 | p99 | p99.9 | Cycles | Instructions | Branch misses | Source |
+|---|---|---|---|---|---|---|---|---|---|---|
+| realistic | Release (GCC) | fast | 25.6 | 36 | 89 | 225 | 92 | 207 | 1.20 | [file](../results/20261105T181503_eb901f50_control_turbo_on.json) |
+| realistic | Release (GCC) | fast_4k | 27.9 | 40 | 106 | 256 | 99 | 213 | 1.20 | [file](../results/20261105T181503_eb901f50_control_turbo_on.json) |
+| realistic | Link-time optimization | fast | 25.5 | 36 | 80 | 175 | 89 | 194 | 1.21 | [file](../results/20261105T181540_eb901f50_lto_turbo_on.json) |
+| realistic | Profile-guided optimization | fast | 21.7 | 37 | 108 | 298 | 75 | 128 | 1.30 | [file](../results/20261105T181616_eb901f50_pgo_turbo_on.json) |
+| realistic | Release (Clang) | fast | 25.5 | 37 | 76 | 152 | 90 | 182 | 1.37 | [file](../results/20261105T181652_eb901f50_clang_turbo_on.json) |
+| sweep | Release (GCC) | fast | 33.1 | 38 | 143 | 311 | 116 | 265 | 1.51 | [file](../results/20261105T181503_eb901f50_control_turbo_on.json) |
+| sweep | Release (GCC) | fast_4k | 35.8 | 42 | 167 | 394 | 122 | 275 | 1.51 | [file](../results/20261105T181503_eb901f50_control_turbo_on.json) |
+| sweep | Link-time optimization | fast | 32.7 | 38 | 139 | 276 | 115 | 254 | 1.50 | [file](../results/20261105T181540_eb901f50_lto_turbo_on.json) |
+| sweep | Profile-guided optimization | fast | 27.1 | 36 | 132 | 221 | 96 | 174 | 1.59 | [file](../results/20261105T181616_eb901f50_pgo_turbo_on.json) |
+| sweep | Release (Clang) | fast | 31.8 | 36 | 130 | 215 | 114 | 235 | 1.54 | [file](../results/20261105T181652_eb901f50_clang_turbo_on.json) |
+
 ### SPSC ring
 
-One item is one push and its matching pop. Ring capacity is 4,096 items. Turbo on. [file](../results/20261105T180500_e966fcf2_ring_turbo_on.json)
+One item is one push and its matching pop. Ring capacity is 4,096 items. Turbo on. [file](../results/20261105T183854_eb901f50_ring_turbo_on.json)
 
 | Payload (bytes) | Index alignment | Cached indices | Placement | Median items/s | Peak items/s |
 |---|---|---|---|---|---|
-| 8 | 8 | no | cross core | 40.4M | 140.0M |
-| 8 | 8 | yes | cross core | 48.5M | 58.2M |
-| 8 | 64 | no | cross core | 90.2M | 172.8M |
-| 8 | 64 | yes | cross core | 74.8M | 91.7M |
-| 8 | 128 | no | cross core | 45.1M | 133.4M |
-| 8 | 128 | yes | cross core | 73.5M | 85.1M |
-| 32 | 8 | no | cross core | 25.9M | 26.1M |
-| 32 | 8 | yes | cross core | 26.5M | 29.1M |
-| 32 | 64 | no | cross core | 24.7M | 25.3M |
-| 32 | 64 | yes | cross core | 36.6M | 36.7M |
-| 32 | 128 | no | cross core | 23.3M | 26.9M |
-| 32 | 128 | yes | cross core | 35.4M | 35.7M |
-| 32 | 64 | yes | hyperthread sibling | 159.4M | 160.2M |
-| 32 | 64 | yes | same core | 0.6M | 0.6M |
+| 8 | 8 | no | cross core | 78.3M | 126.4M |
+| 8 | 8 | yes | cross core | 78.8M | 81.7M |
+| 8 | 64 | no | cross core | 78.6M | 149.5M |
+| 8 | 64 | yes | cross core | 102.7M | 108.7M |
+| 8 | 128 | no | cross core | 75.2M | 79.7M |
+| 8 | 128 | yes | cross core | 111.8M | 121.8M |
+| 32 | 8 | no | cross core | 30.4M | 31.1M |
+| 32 | 8 | yes | cross core | 33.1M | 34.7M |
+| 32 | 64 | no | cross core | 27.8M | 30.9M |
+| 32 | 64 | yes | cross core | 35.0M | 35.9M |
+| 32 | 128 | no | cross core | 25.3M | 26.1M |
+| 32 | 128 | yes | cross core | 35.0M | 36.9M |
+| 32 | 64 | yes | hyperthread sibling | 156.0M | 158.0M |
+| 32 | 64 | yes | same core | 0.5M | 0.5M |
 
 Round trip of one 32-byte item between two cores, through two rings, with no queue built up. Nanoseconds:
 
 | Index alignment | p50 | p99 | p99.9 | p99.99 | Max |
 |---|---|---|---|---|---|
-| 8 | 326 | 381 | 417 | 1529 | 37961 |
-| 64 | 226 | 257 | 290 | 1365 | 36708 |
+| 8 | 238 | 308 | 402 | 1923 | 46675 |
+| 64 | 230 | 256 | 329 | 1923 | 60769 |
 
 ### Pipeline
 
 Gateway thread, ring, and book on another core, on the `realistic` workload. Throughput is at saturation.
 Latency sends one command at a time, from just before the push to just after the book finishes.
-Turbo on. [file](../results/20261105T180704_e966fcf2_pipeline_turbo_on.json)
+Turbo on. [file](../results/20261105T184101_eb901f50_pipeline_turbo_on.json)
 
 | Book | Median commands/s | Peak commands/s | p50 ns | p99 ns | p99.9 ns | p99.99 ns | Max ns | Timer p50 ns |
 |---|---|---|---|---|---|---|---|---|
-| fast | 20.1M | 22.6M | 202 | 272 | 333 | 1462 | 50325 | 11.0 |
-| baseline | 7.9M | 8.1M | 216 | 378 | 537 | 1820 | 51728 | 11.2 |
+| fast | 19.9M | 20.3M | 187 | 301 | 831 | 7282 | 108017 | 11.2 |
+| baseline | 7.8M | 7.9M | 218 | 404 | 640 | 2077 | 82500 | 11.2 |
 
 ### Timer resolution and timing repeatability
 
 One log replayed repeatedly, so that all variation comes from the machine. These are three different
-quantities and shouldn't be confused with one another. Turbo on. [file](../results/20261105T180253_e966fcf2_jitter_turbo_on.json)
+quantities and shouldn't be confused with one another. Turbo on. [file](../results/20261105T182623_eb901f50_jitter_turbo_on.json)
 
 | Book | One TSC tick | Timer p50 | Timer p99 | Run-to-run stddev of the mean | Per-command stddev, p50 | Per-command stddev, p99 |
 |---|---|---|---|---|---|---|
-| fast | 0.401 ns | 10.8 ns | 11.6 ns | 0.122 ns | 3.7 ns | 19.6 ns |
-| baseline | 0.401 ns | 10.8 ns | 12.0 ns | 0.420 ns | 10.3 ns | 74.8 ns |
+| fast | 0.401 ns | 11.6 ns | 12.4 ns | 0.267 ns | 4.1 ns | 90.8 ns |
+| baseline | 0.401 ns | 11.2 ns | 12.4 ns | 0.432 ns | 10.7 ns | 74.4 ns |
 
 ### Conditions
 
-- `20261105T174430_10c22830_book_turbo_off.json`: 12th Gen Intel(R) Core(TM) i5-12450H, g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, flags `-O3 -DNDEBUG -march=native`, governor performance, turbo off, online CPUs 0-2,4-11, commit `10c22830`.
-- `20261105T180024_e966fcf2_book_turbo_on.json`: 12th Gen Intel(R) Core(TM) i5-12450H, g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, flags `-O3 -DNDEBUG -march=native`, governor performance, turbo on, online CPUs 0-2,4-11, commit `e966fcf2`.
-- `20261105T180500_e966fcf2_ring_turbo_on.json`: 12th Gen Intel(R) Core(TM) i5-12450H, g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, flags `-O3 -DNDEBUG -march=native`, governor performance, turbo on, online CPUs 0-11, commit `e966fcf2`.
-- `20261105T180704_e966fcf2_pipeline_turbo_on.json`: 12th Gen Intel(R) Core(TM) i5-12450H, g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, flags `-O3 -DNDEBUG -march=native`, governor performance, turbo on, online CPUs 0-11, commit `e966fcf2`.
-- `20261105T180253_e966fcf2_jitter_turbo_on.json`: 12th Gen Intel(R) Core(TM) i5-12450H, g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, flags `-O3 -DNDEBUG -march=native`, governor performance, turbo on, online CPUs 0-2,4-11, commit `e966fcf2`.
+- `20261105T183657_eb901f50_book_turbo_off.json`: 12th Gen Intel(R) Core(TM) i5-12450H, g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, flags `-O3 -DNDEBUG -march=native`, governor performance, turbo off, online CPUs 0-2,4-11, commit `eb901f50`.
+- `20261105T182344_eb901f50_book_turbo_on.json`: 12th Gen Intel(R) Core(TM) i5-12450H, g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, flags `-O3 -DNDEBUG -march=native`, governor performance, turbo on, online CPUs 0-2,4-11, commit `eb901f50`.
+- `20261105T183854_eb901f50_ring_turbo_on.json`: 12th Gen Intel(R) Core(TM) i5-12450H, g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, flags `-O3 -DNDEBUG -march=native`, governor performance, turbo on, online CPUs 0-11, commit `eb901f50`.
+- `20261105T184101_eb901f50_pipeline_turbo_on.json`: 12th Gen Intel(R) Core(TM) i5-12450H, g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, flags `-O3 -DNDEBUG -march=native`, governor performance, turbo on, online CPUs 0-11, commit `eb901f50`.
+- `20261105T182623_eb901f50_jitter_turbo_on.json`: 12th Gen Intel(R) Core(TM) i5-12450H, g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, flags `-O3 -DNDEBUG -march=native`, governor performance, turbo on, online CPUs 0-2,4-11, commit `eb901f50`.
 <!-- results:end -->
