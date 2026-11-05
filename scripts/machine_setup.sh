@@ -18,6 +18,13 @@ NO_TURBO="$CPU_ROOT/intel_pstate/no_turbo"
 
 governor_of_cpu0() { cat "$CPU_ROOT/cpu0/cpufreq/scaling_governor"; }
 
+bring_all_cpus_online() {
+    local cpu_dir
+    for cpu_dir in "$CPU_ROOT"/cpu[0-9]*; do
+        [[ -e "$cpu_dir/online" ]] && echo 1 >"$cpu_dir/online"
+    done
+}
+
 set_governor() {
     local governor_file
     for governor_file in "$CPU_ROOT"/cpu[0-9]*/cpufreq/scaling_governor; do
@@ -61,6 +68,8 @@ apply() {
         } >"$STATE_FILE"
     fi
 
+    # An offline CPU refuses governor writes, so apply can only be repeated from a known state.
+    bring_all_cpus_online
     set_governor performance
     [[ "$turbo" == "on" ]] && echo 0 >"$NO_TURBO" || echo 1 >"$NO_TURBO"
 
@@ -73,14 +82,19 @@ apply() {
     for cpu in ${offline//,/ }; do
         echo 0 >"$CPU_ROOT/cpu$cpu/online"
     done
+
+    # A benchmark that believes the wrong settings is worse than one that doesn't run.
+    local expected_no_turbo=0
+    [[ "$turbo" == "off" ]] && expected_no_turbo=1
+    if [[ "$(cat "$NO_TURBO")" != "$expected_no_turbo" ]]; then
+        echo "turbo setting did not take effect" >&2
+        exit 1
+    fi
     status
 }
 
 restore() {
-    local cpu_dir
-    for cpu_dir in "$CPU_ROOT"/cpu[0-9]*; do
-        [[ -e "$cpu_dir/online" ]] && echo 1 >"$cpu_dir/online"
-    done
+    bring_all_cpus_online
     if [[ -e "$STATE_FILE" ]]; then
         local governor no_turbo paranoid watchdog
         governor=$(sed -n 's/^governor=//p' "$STATE_FILE")

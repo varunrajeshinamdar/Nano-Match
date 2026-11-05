@@ -480,7 +480,6 @@ def main():
 
     if args.books is None:
         args.books = "baseline,baseline_pool,fast" if args.suite == "book" else "fast"
-    label = args.label or args.suite
     build_dir = ROOT / args.build_dir
     data_dir = ROOT / args.data_dir
     out_dir = ROOT / args.out_dir
@@ -493,6 +492,9 @@ def main():
     build = describe_build(build_dir)
     machine = describe_machine(cpu)
     reasons = not_citable_reasons(git, build, machine, args.runs, args.smoke)
+    # The label is read from the machine, so a file's name can't disagree with how it was measured.
+    turbo = {"0": "on", "1": "off"}.get(machine["no_turbo"], "unknown")
+    label = f"{args.label or args.suite}_turbo_{turbo}"
 
     if args.suite == "book":
         entries = run_book_suite(args, build_dir, data_dir, cpu)

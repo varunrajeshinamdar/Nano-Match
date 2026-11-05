@@ -104,7 +104,7 @@ def render_comparison(files):
     lines.append("|---|---|---|---|---|---|---|")
     newest = {}
     for path, data in files:
-        if data.get("suite", "book") == "book" and data["label"].split("_turbo")[0] in ("book", "final"):
+        if data.get("suite", "book") == "book" and data["label"].split("_turbo")[0] == "book":
             newest[turbo_label(data)] = data
     for turbo, data in sorted(newest.items()):
         by_profile = {}
