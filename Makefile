@@ -2,7 +2,7 @@ PRESET ?= release
 
 SOURCES = $(shell git ls-files '*.hpp' '*.cpp')
 
-.PHONY: all build test debug asan tsan coverage bench bench-smoke check matrix format format-check tidy clean
+.PHONY: all build test debug asan tsan coverage fuzz bench bench-smoke check matrix format format-check tidy clean
 
 all: test
 
@@ -29,6 +29,15 @@ coverage:
 		--output-file build/coverage/coverage.info
 	genhtml --quiet --branch-coverage --ignore-errors inconsistent --output-directory build/coverage/html \
 		build/coverage/coverage.info
+
+# FUZZ_SECONDS sets how long to run. Past failures in tests/fuzz/regressions always run first, and new
+# ones are written to build/fuzz.
+FUZZ_SECONDS ?= 60
+fuzz:
+	$(MAKE) build PRESET=fuzz
+	mkdir -p build/fuzz/corpus
+	build/fuzz/fuzz_books -max_total_time=$(FUZZ_SECONDS) -print_final_stats=1 \
+		-artifact_prefix=build/fuzz/ build/fuzz/corpus tests/fuzz/regressions
 
 # Run scripts/machine_setup.sh first, or the results are marked as not citable. See docs/BENCHMARKS.md.
 bench:

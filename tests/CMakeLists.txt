@@ -17,6 +17,8 @@ add_executable(nanomatch_tests
     bench_support_test.cpp
     book_invariants_test.cpp
     book_test.cpp
+    differential_test.cpp
+    fast_components_test.cpp
     log_io_test.cpp
     protocol_test.cpp
     types_test.cpp

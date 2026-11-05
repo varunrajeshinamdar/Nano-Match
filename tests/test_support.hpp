@@ -8,7 +8,9 @@
 #include <gtest/gtest.h>
 
 #include "baseline/baseline_book.hpp"
+#include "baseline/pool_allocator.hpp"
 #include "nanomatch/book.hpp"
+#include "nanomatch/order_book.hpp"
 #include "nanomatch/protocol.hpp"
 
 namespace nanomatch {
@@ -29,7 +31,9 @@ namespace test {
 using Events = std::vector<Event>;
 
 /// Every book implementation listed here runs the full behavioural test suite.
-using BookTypes = ::testing::Types<baseline::BaselineBook<>>;
+using BookTypes =
+    ::testing::Types<baseline::BaselineBook<>, baseline::BaselineBook<baseline::PoolAllocator>,
+                     OrderBook<PagePolicy::kHuge>, OrderBook<PagePolicy::kDefault>>;
 
 struct VectorSink {
     Events events;

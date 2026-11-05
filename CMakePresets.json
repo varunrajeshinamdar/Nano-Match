@@ -58,6 +58,17 @@
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_CXX_FLAGS": "--coverage"
       }
+    },
+    {
+      "name": "fuzz",
+      "inherits": "base",
+      "displayName": "libFuzzer targets",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_CXX_COMPILER": "clang++",
+        "NANOMATCH_BUILD_TESTS": "OFF",
+        "NANOMATCH_BUILD_FUZZERS": "ON"
+      }
     }
   ],
   "buildPresets": [
@@ -66,7 +77,8 @@
     { "name": "profile", "configurePreset": "profile" },
     { "name": "asan", "configurePreset": "asan" },
     { "name": "tsan", "configurePreset": "tsan" },
-    { "name": "coverage", "configurePreset": "coverage" }
+    { "name": "coverage", "configurePreset": "coverage" },
+    { "name": "fuzz", "configurePreset": "fuzz" }
   ],
   "testPresets": [
     {

@@ -20,7 +20,9 @@ Out of scope: multiple instruments in one book, self-trade prevention, time-in-f
 | Sequence | `uint64` | See section 7 |
 
 Floating point is not used for prices or quantities. The mapping from ticks to currency belongs to
-the caller. The price band and order capacity are fixed when the book is constructed.
+the caller. The price band and order capacity are fixed when the book is constructed. An implementation
+may refuse a configuration it can't provide, which must happen at construction rather than while
+processing commands.
 
 ## 3. Order IDs
 

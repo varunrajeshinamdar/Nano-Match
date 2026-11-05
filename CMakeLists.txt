@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 option(NANOMATCH_BUILD_TESTS "Build the test suite" ON)
+option(NANOMATCH_BUILD_FUZZERS "Build libFuzzer targets, which requires Clang" OFF)
 
 # Warnings live on an interface target so they apply to project code only, not to dependencies.
 add_library(nanomatch_warnings INTERFACE)
@@ -30,4 +31,11 @@ add_subdirectory(bench)
 if(NANOMATCH_BUILD_TESTS)
     enable_testing()
     add_subdirectory(tests)
+endif()
+
+if(NANOMATCH_BUILD_FUZZERS)
+    add_executable(fuzz_books tests/fuzz/fuzz_books.cpp)
+    target_compile_options(fuzz_books PRIVATE -fsanitize=fuzzer,address,undefined)
+    target_link_options(fuzz_books PRIVATE -fsanitize=fuzzer,address,undefined)
+    target_link_libraries(fuzz_books PRIVATE nanomatch_baseline nanomatch_warnings)
 endif()

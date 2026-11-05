@@ -141,3 +141,45 @@ generator, replay and harness together. Results below come from a clean tree on 
 isolated cores or interrupt steering. Timed runs have their histogram update between samples, which can disturb
 the cache slightly.
 
+## M4: Optimized book (2026-11-05)
+
+**Summary:** Added `OrderBook` in `include/nanomatch/`, built from a fixed order pool, a price ladder, a level bitmap
+and an open-addressing ID index. It behaves identically to the baseline, checked by differential testing and fuzzing.
+
+**Decisions:**
+- One dense ladder for both sides: the book is never crossed between commands, so a price holds orders for only one
+  side at a time, and each level needs only a head, tail and running total. This costs memory proportional to the band,
+  and in return gives O(1) level access with no pointer chasing.
+- Hierarchical bitmap per side rather than scanning for the next occupied level: a sparse ladder could mean a long scan
+  on exactly the commands that clear a level. Each layer summarizes the one below, so the search stays bounded.
+- Pool nodes linked by 32-bit index and aligned to 32 bytes: two fit in a cache line and none straddles a boundary. The
+  free list is a stack, so the most recently freed node, which is the most likely to be cached, is reused first.
+- Open addressing with backward-shift deletion at load 0.5 or less: neighbouring slots share cache lines, and there are
+  no tombstones to slow lookups as a long-running book churns.
+- Fibonacci hashing: order IDs are nearly sequential, so masking their low bits would cluster them.
+- `Side` as a template parameter in matching: each side compiles to its own fixed comparisons, leaving a single side
+  branch per command.
+- A modified order that loses priority keeps its pool slot and index entry while matching, which is what guarantees
+  that its remainder always has room to rest.
+- Page policy as a template parameter: huge pages become a measured option rather than an assumption.
+- Baseline allocator variant (`PoolAllocator`): it gives a three-way comparison, separating what comes from avoiding
+  the general-purpose allocator from what comes from the data structures.
+- "Static" here means statically sized and allocated once at startup, not static storage duration, because capacity is
+  a runtime setting.
+
+**Bug found:** With 379 tests passing, the fuzzer failed after 26 inputs. `IdIndex::find` compared keys before checking
+for an empty slot, and 0 is both the empty marker and a value a command can carry, so a cancel or modify of ID 0
+matched an empty slot and acted on pool slot 0. No test or generated stream had sent ID 0 to those commands. The fix
+checks for empty first. Regression tests were added at the unit and book levels, the randomized stream now sends ID 0,
+and the failing input is kept in `tests/fuzz/regressions`, which runs on every fuzz session.
+
+**Verification:** The fast book passes the same typed behavioural suite and randomized model as the baseline. The
+differential test compares every event byte for byte on random streams, all main workloads, scarce capacity and a
+narrow band. Components are checked against `std::set` and `std::unordered_map`. Fuzzing in CI runs both books under
+ASan and UBSan. 16 bugs were injected one at a time into the fast book, and the differential test caught all 16.
+
+**Results:** Measured with M5.
+
+**Known limitations:** Memory is proportional to band width whether used or not, and bands wider than 2^26 ticks are
+refused at construction. The ID scheme assumes one sequencing sender.
+

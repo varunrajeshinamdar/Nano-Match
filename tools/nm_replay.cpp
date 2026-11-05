@@ -12,7 +12,7 @@
 #include <string_view>
 #include <vector>
 
-#include "baseline/baseline_book.hpp"
+#include "book_registry.hpp"
 #include "cli.hpp"
 #include "nanomatch/book.hpp"
 #include "nanomatch/log_io.hpp"
@@ -28,7 +28,7 @@ using nanomatch::tools::Flags;
 
 constexpr std::string_view kUsage =
     "Usage: nm_replay --in <commands> --min-price <ticks> --max-price <ticks> --capacity <orders>\n"
-    "                 [--out <events>] [--book baseline]\n";
+    "                 [--out <events>] [--book <baseline|baseline_pool|fast|fast_4k>]\n";
 
 template <MatchingBook Book>
 void replay(const std::vector<Command>& commands, const BookConfig& config, EventLogSink& sink) {
@@ -43,17 +43,13 @@ void run(const Flags& flags) {
         .min_price = Price{flags.required_integer<Price::rep>("--min-price")},
         .max_price = Price{flags.required_integer<Price::rep>("--max-price")},
         .max_resting_orders = flags.required_integer<std::uint32_t>("--capacity")};
-    const std::string_view book = flags.optional("--book").value_or("baseline");
-    if (book != "baseline") {
-        throw std::invalid_argument{std::format("unknown book '{}'", book)};
-    }
-
     const std::vector<Command> commands =
         nanomatch::read_command_log(std::filesystem::path{flags.required("--in")});
     const std::optional<std::string_view> output = flags.optional("--out");
     EventLogSink sink = output ? EventLogSink{std::filesystem::path{*output}} : EventLogSink{};
 
-    replay<nanomatch::baseline::BaselineBook<>>(commands, config, sink);
+    nanomatch::tools::with_book(flags.optional("--book").value_or("baseline"),
+                                [&]<MatchingBook Book>() { replay<Book>(commands, config, sink); });
     sink.finish();
 
     std::cout << std::format("commands={} events={} hash=0x{:016x}\n", commands.size(),

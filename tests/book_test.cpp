@@ -371,6 +371,18 @@ TYPED_TEST(BookTest, CancelOrModifyOfUnknownIdIsRejected) {
               (Events{rejected(1, kNoSide, 100, 1, Reason::kUnknownId)}));
 }
 
+TYPED_TEST(BookTest, CancelOrModifyOfIdZeroIsRejected) {
+    // On an empty book, and with an order resting in the pool's first slot.
+    EXPECT_EQ(this->h.cancel(0), (Events{rejected(0, kNoSide, 0, 0, Reason::kUnknownId)}));
+    EXPECT_EQ(this->h.modify(0, 100, 1),
+              (Events{rejected(0, kNoSide, 100, 1, Reason::kUnknownId)}));
+    this->h.limit(1, kBuy, 100, 5);
+    EXPECT_EQ(this->h.cancel(0), (Events{rejected(0, kNoSide, 0, 0, Reason::kUnknownId)}));
+    EXPECT_EQ(this->h.modify(0, 100, 1),
+              (Events{rejected(0, kNoSide, 100, 1, Reason::kUnknownId)}));
+    EXPECT_EQ(this->h.book().open_quantity_at(kBuy, Price{100}), 5U);
+}
+
 TYPED_TEST(BookTest, CancelOrModifyOfDepartedOrderIsRejected) {
     this->h.limit(1, kBuy, 100, 1);
     this->h.cancel(1);

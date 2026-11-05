@@ -25,7 +25,7 @@
 #include <string_view>
 #include <vector>
 
-#include "baseline/baseline_book.hpp"
+#include "book_registry.hpp"
 #include "cli.hpp"
 #include "histogram.hpp"
 #include "json_writer.hpp"
@@ -51,7 +51,7 @@ using nanomatch::tools::Flags;
 using nanomatch::tools::JsonObject;
 
 constexpr std::string_view kUsage =
-    "Usage: bench_book --log <commands> --profile <name> --book baseline\n"
+    "Usage: bench_book --log <commands> --profile <name> --book <name>\n"
     "                  --mode <untimed|timed> --warmup <commands> --cpu <n|none>\n";
 
 constexpr std::size_t kTimerSamples = 1'000'000;
@@ -278,12 +278,9 @@ void execute(const Options& options) {
     const BookConfig config = nanomatch::workload::book_config(*profile);
     const std::vector<Command> commands = nanomatch::read_command_log(options.log);
 
-    if (options.book == "baseline") {
-        std::cout << run<nanomatch::baseline::BaselineBook<>>(options, commands, config).str()
-                  << '\n';
-    } else {
-        throw std::invalid_argument{std::format("unknown book '{}'", options.book)};
-    }
+    nanomatch::tools::with_book(options.book, [&]<MatchingBook Book>() {
+        std::cout << run<Book>(options, commands, config).str() << '\n';
+    });
 }
 
 }  // namespace

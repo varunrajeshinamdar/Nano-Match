@@ -39,6 +39,13 @@ jobs:
         run: sudo sysctl -w vm.mmap_rnd_bits=28
       - run: make test PRESET=${{ matrix.preset }}
 
+  fuzz:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y ninja-build clang libclang-rt-18-dev
+      - run: make fuzz FUZZ_SECONDS=30
+
   tidy:
     runs-on: ubuntu-24.04
     steps:

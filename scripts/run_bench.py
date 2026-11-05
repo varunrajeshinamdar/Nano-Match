@@ -31,6 +31,16 @@ MEASURED_COMMANDS = {
 WARMUP_COMMANDS = 5_000_000
 SEED = 1
 MODES = ("untimed", "timed")
+GENERATOR_SOURCES = (
+    "src/workload/generator.hpp",
+    "src/workload/rng.hpp",
+    "src/baseline/baseline_book.hpp",
+    "include/nanomatch/book.hpp",
+    "include/nanomatch/protocol.hpp",
+    "include/nanomatch/types.hpp",
+    "src/log_io.cpp",
+    "tools/nm_gen.cpp",
+)
 
 
 def run(command, **kwargs):
@@ -114,10 +124,8 @@ def not_citable_reasons(git, build, machine, requested_runs, smoke):
 def generator_fingerprint():
     """Identifies everything that can change a generated log, so a stale log is never reused."""
     digest = hashlib.sha256()
-    for directory in ("src/workload", "src/baseline", "include/nanomatch", "tools"):
-        for path in sorted((ROOT / directory).rglob("*")):
-            if path.is_file():
-                digest.update(path.read_bytes())
+    for name in GENERATOR_SOURCES:
+        digest.update((ROOT / name).read_bytes())
     return digest.hexdigest()[:12]
 
 
