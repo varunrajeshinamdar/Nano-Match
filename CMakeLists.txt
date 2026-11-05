@@ -10,6 +10,8 @@ option(NANOMATCH_BUILD_TESTS "Build the test suite" ON)
 option(NANOMATCH_BUILD_FUZZERS "Build libFuzzer targets, which requires Clang" OFF)
 
 # Warnings live on an interface target so they apply to project code only, not to dependencies.
+find_package(Threads REQUIRED)
+
 add_library(nanomatch_warnings INTERFACE)
 target_compile_options(nanomatch_warnings INTERFACE
     -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Werror)

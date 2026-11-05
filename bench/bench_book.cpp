@@ -27,10 +27,10 @@
 
 #include "book_registry.hpp"
 #include "cli.hpp"
+#include "common.hpp"
 #include "histogram.hpp"
 #include "json_writer.hpp"
 #include "nanomatch/book.hpp"
-#include "nanomatch/fnv1a.hpp"
 #include "nanomatch/log_io.hpp"
 #include "perf_counters.hpp"
 #include "tsc.hpp"
@@ -41,12 +41,16 @@ namespace {
 using nanomatch::BookConfig;
 using nanomatch::Command;
 using nanomatch::CommandType;
-using nanomatch::Event;
 using nanomatch::MatchingBook;
+using nanomatch::bench::current_usage;
 using nanomatch::bench::LatencyHistogram;
 using nanomatch::bench::PerfGroup;
 using nanomatch::bench::PerfSample;
+using nanomatch::bench::pin_to_cpu;
+using nanomatch::bench::RingSink;
 using nanomatch::bench::serialized_tsc;
+using nanomatch::bench::summarize;
+using nanomatch::bench::usage_delta;
 using nanomatch::tools::Flags;
 using nanomatch::tools::JsonObject;
 
@@ -54,43 +58,32 @@ constexpr std::string_view kUsage =
     "Usage: bench_book --log <commands> --profile <name> --book <name>\n"
     "                  --mode <untimed|timed> --warmup <commands> --cpu <n|none>\n";
 
-constexpr std::size_t kTimerSamples = 1'000'000;
-constexpr std::array<std::pair<std::string_view, double>, 6> kPercentiles{{
-    {"p50", 0.50},
-    {"p90", 0.90},
-    {"p99", 0.99},
-    {"p99_9", 0.999},
-    {"p99_99", 0.9999},
-    {"p99_999", 0.99999},
-}};
+/// What a command turned out to do. Commands differ greatly in how much work they imply, since one
+/// that trades against ten resting orders has ten times the work of one that trades against one, so
+/// an overall percentile mixes very different things.
+constexpr std::size_t kCommandKinds = 5;
+constexpr std::array<std::string_view, kCommandKinds> kCommandKindNames{
+    "passive", "aggressive", "cancel", "modify", "rejected"};
 
-/// Stores events in a fixed ring, standing in for a downstream publisher.
-///
-/// Events have to be really written so that the compiler can't optimize their construction away,
-/// and so that their cost is included. Writing to a preallocated buffer pays that cost without
-/// measuring file or network I/O. The contents are hashed after the run, which also forces them to
-/// be kept.
-class RingSink {
-  public:
-    void on_event(const Event& event) noexcept {
-        events_[count_ % kCapacity] = event;
-        ++count_;
+[[nodiscard]] std::size_t kind_of(const Command& command, const RingSink& sink,
+                                  std::uint64_t events_before) noexcept {
+    const std::uint64_t events = sink.count() - events_before;
+    if (sink.last().type == nanomatch::EventType::kRejected) {
+        return 4;
     }
-
-    [[nodiscard]] std::uint64_t count() const noexcept { return count_; }
-
-    [[nodiscard]] std::uint64_t contents_hash() const noexcept {
-        nanomatch::Fnv1a64 hash;
-        hash.update(std::as_bytes(std::span{events_}));
-        return hash.value();
+    switch (command.type) {
+        case CommandType::kLimit:
+            // ACCEPTED then RESTED, with no trades in between.
+            return events == 2 && sink.last().type == nanomatch::EventType::kRested ? 0 : 1;
+        case CommandType::kMarket:
+            return 1;
+        case CommandType::kCancel:
+            return 2;
+        case CommandType::kModify:
+            return 3;
     }
-
-  private:
-    static constexpr std::size_t kCapacity = 4096;
-
-    std::array<Event, kCapacity> events_{};
-    std::uint64_t count_{0};
-};
+    return 4;
+}
 
 struct Options {
     std::filesystem::path log;
@@ -115,55 +108,6 @@ struct Options {
         throw std::invalid_argument{std::format("unknown mode '{}'", options.mode)};
     }
     return options;
-}
-
-void pin_to_cpu(int cpu) {
-    cpu_set_t set;
-    CPU_ZERO(&set);
-    CPU_SET(static_cast<std::size_t>(cpu), &set);
-    if (sched_setaffinity(0, sizeof(set), &set) != 0) {
-        throw std::runtime_error{std::format("cannot pin to CPU {}", cpu)};
-    }
-}
-
-[[nodiscard]] rusage current_usage() noexcept {
-    rusage usage{};
-    getrusage(RUSAGE_SELF, &usage);
-    return usage;
-}
-
-[[nodiscard]] JsonObject usage_delta(const rusage& before, const rusage& after) {
-    JsonObject json;
-    json.add("minor_faults", after.ru_minflt - before.ru_minflt)
-        .add("major_faults", after.ru_majflt - before.ru_majflt)
-        .add("voluntary_switches", after.ru_nvcsw - before.ru_nvcsw)
-        .add("involuntary_switches", after.ru_nivcsw - before.ru_nivcsw);
-    return json;
-}
-
-[[nodiscard]] JsonObject summarize(const LatencyHistogram& histogram, double ticks_per_ns) {
-    const auto to_ns = [ticks_per_ns](double ticks) { return ticks / ticks_per_ns; };
-    JsonObject json;
-    json.add("samples", histogram.count())
-        .add("mean_ns", to_ns(histogram.mean()))
-        .add("min_ns", to_ns(static_cast<double>(histogram.min())))
-        .add("max_ns", to_ns(static_cast<double>(histogram.max())));
-    for (const auto& [name, fraction] : kPercentiles) {
-        json.add(std::format("{}_ns", name),
-                 to_ns(static_cast<double>(histogram.percentile(fraction))));
-    }
-    return json;
-}
-
-/// The cost and spread of the timer itself, measured by timing nothing.
-[[nodiscard]] JsonObject measure_timer(double ticks_per_ns) {
-    const auto histogram = std::make_unique<LatencyHistogram>();
-    for (std::size_t i = 0; i < kTimerSamples; ++i) {
-        const std::uint64_t start = serialized_tsc();
-        const std::uint64_t end = serialized_tsc();
-        histogram->record(end - start);
-    }
-    return summarize(*histogram, ticks_per_ns);
 }
 
 [[nodiscard]] JsonObject describe_perf(const PerfGroup& group) {
@@ -224,7 +168,7 @@ template <MatchingBook Book>
         .add("cpu", options.cpu.value_or(-1))
         .add("tsc_hz", tsc_hz)
         .add("memory_locked", locked)
-        .add("timer", measure_timer(ticks_per_ns));
+        .add("timer", nanomatch::bench::measure_timer(ticks_per_ns));
 
     rusage usage_before{};
     rusage usage_after{};
@@ -248,15 +192,26 @@ template <MatchingBook Book>
             .add("perf", describe_perf(perf));
     } else {
         const auto histogram = std::make_unique<LatencyHistogram>();
+        const auto by_kind = std::make_unique<std::array<LatencyHistogram, kCommandKinds>>();
         usage_before = current_usage();
-        for (const Command& command : measured) {
+        for (const Command& next_command : measured) {
+            // Reading the command first keeps the fetch from a very large log out of the sample. In
+            // a running system, commands arrive through a ring in cache, and the pipeline benchmark
+            // measures that path. Without this, samples mostly reflect paging through the log.
+            const Command command = next_command;
+            const std::uint64_t events_before = sink->count();
             const std::uint64_t start = serialized_tsc();
             book->apply(command, *sink);
             const std::uint64_t end = serialized_tsc();
             histogram->record(end - start);
+            (*by_kind)[kind_of(command, *sink, events_before)].record(end - start);
         }
         usage_after = current_usage();
-        json.add("latency", summarize(*histogram, ticks_per_ns));
+        JsonObject kinds;
+        for (std::size_t kind = 0; kind < kCommandKinds; ++kind) {
+            kinds.add(kCommandKindNames[kind], summarize((*by_kind)[kind], ticks_per_ns));
+        }
+        json.add("latency", summarize(*histogram, ticks_per_ns)).add("latency_by_kind", kinds);
     }
 
     json.add("usage", usage_delta(usage_before, usage_after))

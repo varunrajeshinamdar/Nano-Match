@@ -159,80 +159,135 @@ TEST(LevelBitmapSizeTest, HandlesLargestAcceptedBand) {
     EXPECT_EQ(bitmap.first_below(last), 0U);
 }
 
+/// Stands in for the pool: answers whether a value really belongs to an ID.
+class IdIndexHarness {
+  public:
+    explicit IdIndexHarness(std::uint32_t max_entries)
+        : index_{max_entries, PagePolicy::kDefault} {}
+
+    void insert(std::uint64_t id, std::uint32_t value) {
+        index_.insert(OrderId{id}, value);
+        owners_[value] = id;
+    }
+
+    void erase(std::uint64_t id, std::uint32_t value) {
+        index_.erase(OrderId{id}, value);
+        owners_.erase(value);
+    }
+
+    [[nodiscard]] std::uint32_t find(std::uint64_t id) const {
+        return index_.find(OrderId{id}, [this, id](std::uint32_t value) {
+            const auto owner = owners_.find(value);
+            return owner != owners_.end() && owner->second == id;
+        });
+    }
+
+  private:
+    IdIndex index_;
+    std::unordered_map<std::uint32_t, std::uint64_t> owners_;
+};
+
 TEST(IdIndexTest, FindsWhatWasInserted) {
-    IdIndex index{16, PagePolicy::kDefault};
-    index.insert(OrderId{5}, 50);
-    index.insert(OrderId{6}, 60);
-    EXPECT_EQ(index.find(OrderId{5}), 50U);
-    EXPECT_EQ(index.find(OrderId{6}), 60U);
-    EXPECT_EQ(index.find(OrderId{7}), IdIndex::kNotFound);
+    IdIndexHarness index{16};
+    index.insert(5, 50);
+    index.insert(6, 60);
+    EXPECT_EQ(index.find(5), 50U);
+    EXPECT_EQ(index.find(6), 60U);
+    EXPECT_EQ(index.find(7), IdIndex::kNotFound);
 }
 
 TEST(IdIndexTest, IdZeroIsNeverFound) {
-    // Zero is the key that marks an empty slot, so it must not match one.
-    IdIndex index{16, PagePolicy::kDefault};
-    EXPECT_EQ(index.find(OrderId{0}), IdIndex::kNotFound);
-    index.insert(OrderId{5}, 50);
-    EXPECT_EQ(index.find(OrderId{0}), IdIndex::kNotFound);
+    IdIndexHarness index{16};
+    EXPECT_EQ(index.find(0), IdIndex::kNotFound);
+    index.insert(5, 50);
+    EXPECT_EQ(index.find(0), IdIndex::kNotFound);
+}
+
+TEST(IdIndexTest, ValueZeroIsAnOrdinaryValue) {
+    IdIndexHarness index{16};
+    index.insert(5, 0);
+    EXPECT_EQ(index.find(5), 0U);
+    index.erase(5, 0);
+    EXPECT_EQ(index.find(5), IdIndex::kNotFound);
 }
 
 TEST(IdIndexTest, EraseRemovesOnlyThatEntry) {
-    IdIndex index{16, PagePolicy::kDefault};
-    index.insert(OrderId{5}, 50);
-    index.insert(OrderId{6}, 60);
-    index.erase(OrderId{5});
-    EXPECT_EQ(index.find(OrderId{5}), IdIndex::kNotFound);
-    EXPECT_EQ(index.find(OrderId{6}), 60U);
+    IdIndexHarness index{16};
+    index.insert(5, 50);
+    index.insert(6, 60);
+    index.erase(5, 50);
+    EXPECT_EQ(index.find(5), IdIndex::kNotFound);
+    EXPECT_EQ(index.find(6), 60U);
+}
+
+TEST(IdIndexTest, IdsSharingLowBitsStayDistinct) {
+    // These all hash to the same slot and have the same stored bits, so only the check tells them
+    // apart.
+    constexpr std::uint64_t kStep = std::uint64_t{1} << 32U;
+    IdIndexHarness index{8};
+    index.insert(7, 1);
+    index.insert(7 + kStep, 2);
+    index.insert(7 + (2 * kStep), 3);
+    EXPECT_EQ(index.find(7), 1U);
+    EXPECT_EQ(index.find(7 + kStep), 2U);
+    EXPECT_EQ(index.find(7 + (2 * kStep)), 3U);
+    EXPECT_EQ(index.find(7 + (3 * kStep)), IdIndex::kNotFound);
+
+    index.erase(7 + kStep, 2);
+    EXPECT_EQ(index.find(7), 1U);
+    EXPECT_EQ(index.find(7 + kStep), IdIndex::kNotFound);
+    EXPECT_EQ(index.find(7 + (2 * kStep)), 3U);
 }
 
 TEST(IdIndexTest, HandlesTheMaximumEntryCount) {
     constexpr std::uint32_t kEntries = 4096;
-    IdIndex index{kEntries, PagePolicy::kDefault};
+    IdIndexHarness index{kEntries};
     for (std::uint32_t i = 1; i <= kEntries; ++i) {
-        index.insert(OrderId{i}, i * 2);
+        index.insert(i, i * 2);
     }
     for (std::uint32_t i = 1; i <= kEntries; ++i) {
-        EXPECT_EQ(index.find(OrderId{i}), i * 2);
+        EXPECT_EQ(index.find(i), i * 2);
     }
 }
 
 // Churn across small tables forces long probe runs that wrap around the end of the table, which is
-// what the backward shift has to get right.
+// what the backward shift has to get right. Values are unique, as pool slots are in real use.
 class IdIndexChurnTest : public ::testing::TestWithParam<std::uint32_t> {};
 
 TEST_P(IdIndexChurnTest, AgreesWithReferenceMap) {
     const std::uint32_t max_entries = GetParam();
-    IdIndex index{max_entries, PagePolicy::kDefault};
+    IdIndexHarness index{max_entries};
     std::unordered_map<std::uint64_t, std::uint32_t> reference;
     std::vector<std::uint64_t> live;
     std::mt19937_64 rng{max_entries};
     std::uint64_t next_id = 1;
+    std::uint32_t next_value = 0;
 
     for (int step = 0; step < 200'000; ++step) {
         const bool can_insert = live.size() < max_entries;
         if (can_insert && (live.empty() || rng() % 2 == 0)) {
             const std::uint64_t id = next_id;
-            next_id += 1 + (rng() % 5);
-            const auto value = static_cast<std::uint32_t>(rng());
-            index.insert(OrderId{id}, value == IdIndex::kNotFound ? 0 : value);
-            reference[id] = value == IdIndex::kNotFound ? 0 : value;
+            // Occasional jumps past 2^32 produce IDs that share low bits with others.
+            next_id += rng() % 64 == 0 ? (std::uint64_t{1} << 32U) : 1 + (rng() % 5);
+            const std::uint32_t value = next_value++;
+            index.insert(id, value);
+            reference[id] = value;
             live.push_back(id);
         } else {
             const std::size_t position = rng() % live.size();
             const std::uint64_t id = live[position];
-            index.erase(OrderId{id});
+            index.erase(id, reference.at(id));
             reference.erase(id);
             live[position] = live.back();
             live.pop_back();
         }
         if (!live.empty()) {
             const std::uint64_t present = live[rng() % live.size()];
-            ASSERT_EQ(index.find(OrderId{present}), reference.at(present)) << "id " << present;
+            ASSERT_EQ(index.find(present), reference.at(present)) << "id " << present;
         }
         const std::uint64_t maybe = 1 + (rng() % next_id);
         const auto found = reference.find(maybe);
-        ASSERT_EQ(index.find(OrderId{maybe}),
-                  found == reference.end() ? IdIndex::kNotFound : found->second)
+        ASSERT_EQ(index.find(maybe), found == reference.end() ? IdIndex::kNotFound : found->second)
             << "id " << maybe;
     }
 }

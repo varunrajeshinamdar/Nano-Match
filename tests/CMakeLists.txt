@@ -21,6 +21,7 @@ add_executable(nanomatch_tests
     fast_components_test.cpp
     log_io_test.cpp
     protocol_test.cpp
+    spsc_ring_test.cpp
     types_test.cpp
     workload_test.cpp
 )
@@ -29,6 +30,14 @@ target_link_libraries(nanomatch_tests
             nanomatch_warnings GTest::gtest_main)
 
 gtest_discover_tests(nanomatch_tests)
+
+# This test replaces the C allocator for the whole process, which sanitizers also do.
+if(NOT CMAKE_CXX_FLAGS MATCHES "sanitize")
+    add_executable(nanomatch_no_alloc_test no_alloc_test.cpp)
+    target_link_libraries(nanomatch_no_alloc_test
+        PRIVATE nanomatch_baseline nanomatch_warnings GTest::gtest_main)
+    gtest_discover_tests(nanomatch_no_alloc_test)
+endif()
 
 # The expected output comes from tests/data/make_spec_example.py, an independent encoding of the worked
 # example in the specification, so this checks encoding, matching and hashing end to end.
@@ -67,3 +76,36 @@ endforeach()
 add_test(NAME workload_unknown_profile
     COMMAND nm_gen --profile nonsense --seed 1 --commands 1 --out unused.nmc)
 set_tests_properties(workload_unknown_profile PROPERTIES WILL_FAIL TRUE)
+
+# Replays generated logs through every book, on one thread and through the ring, and requires the event
+# log hash recorded in tests/golden/event_log_hashes.txt. CI runs this on every compiler and build type,
+# so a pass means they all produce byte-identical output. The hashes change only if the behaviour in the
+# specification or the generated workloads change, which must be a deliberate decision.
+file(STRINGS golden/event_log_hashes.txt golden_lines REGEX "^[^#]")
+foreach(golden_line IN LISTS golden_lines)
+    string(REPLACE " " ";" golden_fields "${golden_line}")
+    list(GET golden_fields 0 golden_profile)
+    list(GET golden_fields 1 golden_commands)
+    list(GET golden_fields 2 golden_capacity)
+    list(GET golden_fields 3 golden_hash)
+    set(golden_log golden_${golden_profile}.nmc)
+
+    add_test(NAME golden_generate_${golden_profile}
+        COMMAND nm_gen --profile ${golden_profile} --seed 1 --commands ${golden_commands}
+                --out ${golden_log})
+    set_tests_properties(golden_generate_${golden_profile} PROPERTIES
+        FIXTURES_SETUP golden_log_${golden_profile})
+
+    foreach(golden_book baseline baseline_pool fast fast_4k)
+        foreach(golden_threads 1 2)
+            set(golden_test golden_replay_${golden_profile}_${golden_book}_${golden_threads}t)
+            add_test(NAME ${golden_test}
+                COMMAND nm_replay --in ${golden_log} --min-price 1 --max-price 1048576
+                        --capacity ${golden_capacity} --book ${golden_book}
+                        --threads ${golden_threads})
+            set_tests_properties(${golden_test} PROPERTIES
+                FIXTURES_REQUIRED golden_log_${golden_profile}
+                PASS_REGULAR_EXPRESSION "hash=${golden_hash}")
+        endforeach()
+    endforeach()
+endforeach()

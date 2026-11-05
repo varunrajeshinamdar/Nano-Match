@@ -141,6 +141,10 @@ class OrderBook {
         return level == kNoLevel ? std::nullopt : std::optional<Price>{price_of(level)};
     }
 
+    [[nodiscard]] std::uint32_t find_resting(OrderId id) const noexcept {
+        return index_.find(id, [this, id](std::uint32_t slot) { return pool_[slot].id == id; });
+    }
+
     template <EventSink Sink>
     void emit(Event event, Sink& sink) noexcept {
         event.event_seq = Sequence{++last_event_seq_};
@@ -248,7 +252,7 @@ class OrderBook {
             reject(command, Reason::kMalformed, sink);
             return;
         }
-        const std::uint32_t slot = index_.find(command.order_id);
+        const std::uint32_t slot = find_resting(command.order_id);
         if (slot == IdIndex::kNotFound) [[unlikely]] {
             reject(command, Reason::kUnknownId, sink);
             return;
@@ -257,7 +261,7 @@ class OrderBook {
         emit_canceled(command.seq, command.order_id, node.side, node.open, Reason::kUserCancel,
                       sink);
         unlink(slot);
-        index_.erase(command.order_id);
+        index_.erase(command.order_id, slot);
         pool_.release(slot);
     }
 
@@ -267,7 +271,7 @@ class OrderBook {
             reject(command, Reason::kMalformed, sink);
             return;
         }
-        const std::uint32_t slot = index_.find(command.order_id);
+        const std::uint32_t slot = find_resting(command.order_id);
         if (slot == IdIndex::kNotFound) [[unlikely]] {
             reject(command, Reason::kUnknownId, sink);
             return;
@@ -319,7 +323,7 @@ class OrderBook {
                        Sink& sink) noexcept {
         const Quantity open = match<S>(order, quantity, sink);
         if (open == Quantity{0}) {
-            index_.erase(order.id);
+            index_.erase(order.id, slot);
             pool_.release(slot);
             return;
         }
@@ -360,7 +364,7 @@ class OrderBook {
                     } else {
                         pool_[level.head].prev = kNullIndex;
                     }
-                    index_.erase(resting.id);
+                    index_.erase(resting.id, slot);
                     pool_.release(slot);
                 }
             }

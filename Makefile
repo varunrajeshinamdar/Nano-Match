@@ -2,7 +2,7 @@ PRESET ?= release
 
 SOURCES = $(shell git ls-files '*.hpp' '*.cpp')
 
-.PHONY: all build test debug asan tsan coverage fuzz bench bench-smoke check matrix format format-check tidy clean
+.PHONY: all build test replay-check debug asan tsan coverage fuzz bench bench-smoke check matrix format format-check tidy clean
 
 all: test
 
@@ -12,6 +12,10 @@ build:
 
 test: build
 	ctest --preset $(PRESET)
+
+# Checks that every book and threading mode reproduces the recorded event log hashes.
+replay-check: build
+	ctest --preset $(PRESET) -R golden
 
 debug:
 	$(MAKE) test PRESET=debug

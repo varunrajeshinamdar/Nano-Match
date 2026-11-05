@@ -21,6 +21,8 @@ Requires GCC 13+ or Clang 18+, CMake 3.25+, and Ninja.
 make build test            # release build and tests
 make asan                  # tests under AddressSanitizer and UndefinedBehaviorSanitizer
 make tsan                  # tests under ThreadSanitizer
+make replay-check          # every book and threading mode reproduces the recorded event hashes
+make fuzz                  # coverage-guided fuzzing of both books under sanitizers, requires Clang
 make coverage              # coverage report in build/coverage/html
 make check                 # format, tests, sanitizers and static analysis
 make matrix                # every compiler and preset CI covers, from a clean build

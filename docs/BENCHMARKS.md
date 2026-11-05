@@ -81,6 +81,16 @@ steady state.
   That cost is measured in every run by timing nothing, and reported beside the percentiles. It isn't subtracted,
   because a single correction can't be right for every sample.
 
+In timed runs each command is copied out of the log before the timer starts. The log is about a gigabyte in main
+memory, and without this copy the samples largely measured paging through it, which a running engine reading from a
+ring in cache doesn't do. An early experiment showed this clearly: all kinds of command had about the same p99.9
+whatever their work, and the copy lowered it for every book. The cost of a command really crossing between threads is
+measured separately, in the pipeline benchmark. Untimed runs do read the log inside the loop, for all books, so the
+averages include that cost.
+
+**Latency by kind.** Timed runs also report each kind of command separately: passive orders, aggressive orders, cancels,
+modifies and rejects. The headline percentiles cover all commands together, and the breakdown is there to explain them.
+
 **Timer.** `lfence; rdtsc; lfence`, with the TSC frequency measured against `CLOCK_MONOTONIC_RAW` in each run.
 
 **Percentiles.** Nearest rank, from a histogram with single-tick resolution up to 4,096 ticks. Above that, 64
@@ -94,13 +104,31 @@ multiplexed the counters and the counts are estimates.
 optimized away and their cost is included, while no I/O is measured. Every run of a book on a log must report the
 same event count and hash, whatever the mode, or the harness refuses to write results.
 
-**Machine settings.** The process is pinned to one P-core and uses the `performance` governor, with the core's
-hyperthread sibling offline. Memory mapped before the measured loop is locked. Page faults and context switches
+**Machine settings.** Book runs are pinned to one P-core and use the `performance` governor, with the core's hyperthread
+sibling offline. Memory mapped before the measured loop is locked. Page faults and context switches
 during the loop are recorded, so a disturbed run is visible.
 
 **Repeats.** Each configuration runs at least 3 times, with modes alternating so that slow drift such as heat
 affects both. Tables show the median, and the raw files hold every run. No run is discarded. Rerunning is only for
 a documented reason, and earlier files stay in `results/`.
+
+**Ring.** One item is one push and its matching pop. Each layout runs on two separate physical cores, with a 4,096-item
+ring, for an 8-byte and a 32-byte payload. Alignment of 8, 64 and 128 bytes and cached versus uncached indices show what
+each design choice contributes. The intended layout also runs on hyperthread siblings and on a single core. Ping-pong
+sends one item back and forth through two rings, which measures crossing time with no queue. Both the median and the
+peak are reported, because a peak alone says little.
+
+**Pipeline.** A gateway thread sends commands through the ring to a book on another core, and the event hash must match
+the single-threaded result. Throughput is measured at saturation, and no latency is reported for that mode, since a full
+queue would mostly measure waiting. Latency is measured by sending one command at a time, from just before the push to
+just after the book finishes. The two timestamps come from different cores, which relies on this CPU's synchronized TSC.
+
+**Timer resolution and repeatability.** One log is replayed 20 times per run, so all variation comes from the machine.
+Three quantities are reported, because they differ by orders of magnitude and answer different questions: the
+distribution of the timer measuring nothing, the run-to-run spread of a whole replay's average, and the spread of each
+individual command's latency across replays. Every replay must also produce identical events, or the program fails.
+Timing doesn't verify determinism, though. That comes from comparing event log hashes, which `make replay-check` does for
+every book and threading mode, on every compiler and build type in CI.
 
 **Turbo.** Results are reported both ways. Turbo off is steadier and is used when comparing implementations.
 Turbo on is what the hardware can reach, and it varies with temperature.
@@ -111,9 +139,18 @@ power, with the `performance` governor and at least 3 runs. Only citable files r
 ## Reproducing
 
 ```sh
+make replay-check                                         # determinism, on any machine
+
 sudo scripts/machine_setup.sh apply --turbo off --offline 3
-make bench
+make bench                                                # books, repeat with --turbo on
 sudo scripts/machine_setup.sh restore
+
+sudo scripts/machine_setup.sh apply --turbo on            # needs the sibling core online
+scripts/run_bench.py --suite ring
+scripts/run_bench.py --suite pipeline
+scripts/run_bench.py --suite jitter
+sudo scripts/machine_setup.sh restore
+
 scripts/gen_report.py
 ```
 
