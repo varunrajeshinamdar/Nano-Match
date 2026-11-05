@@ -9,6 +9,7 @@ import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 REPORT = ROOT / "docs/BENCHMARKS.md"
+README = ROOT / "README.md"
 START = "<!-- results:start -->"
 END = "<!-- results:end -->"
 BOOK_ORDER = {"baseline": 0, "baseline_pool": 1, "fast": 2, "fast_4k": 3}
@@ -31,14 +32,18 @@ def source_link(path):
     return f"[file](../results/{path.name})"
 
 
+def label_prefix(data):
+    return data["label"].split("_turbo")[0]
+
+
 def latest_per_book_configuration(files):
-    """Keeps the newest result for each book, profile, build and turbo setting. Older files stay in results/."""
+    """Keeps the newest result for each book, profile and turbo setting. Older files stay in results/."""
     latest = {}
     for path, data in files:
-        if data.get("suite", "book") != "book":
+        if data.get("suite", "book") != "book" or label_prefix(data) != "book":
             continue
         for entry in data["entries"]:
-            key = (entry["profile"], BOOK_ORDER.get(entry["book"], 9), entry["book"], turbo_label(data), data["label"].split("_turbo")[0])
+            key = (entry["profile"], BOOK_ORDER.get(entry["book"], 9), entry["book"], turbo_label(data), label_prefix(data))
             latest[key] = (path, data, entry)
     return latest
 
@@ -104,7 +109,7 @@ def render_comparison(files):
     lines.append("|---|---|---|---|---|---|---|")
     newest = {}
     for path, data in files:
-        if data.get("suite", "book") == "book" and data["label"].split("_turbo")[0] == "book":
+        if data.get("suite", "book") == "book" and label_prefix(data) == "book":
             newest[turbo_label(data)] = data
     for turbo, data in sorted(newest.items()):
         by_profile = {}
@@ -147,6 +152,36 @@ def render_workloads(rows):
             f"| {profile} | {total} | {workload['limit_commands']} | {workload['market_commands']} "
             f"| {workload['cancel_commands']} | {workload['modify_commands']} | {workload['trade_events']} "
             f"| {workload['rejected_events']} | {workload['max_resting_orders']} | {travel} |"
+        )
+    return lines
+
+
+def render_experiments(files):
+    """Builds and page sizes measured one after another, so that conditions are as close as this machine allows."""
+    names = {"control": "Release (GCC)", "lto": "Link-time optimization", "pgo": "Profile-guided optimization", "clang": "Release (Clang)"}
+    newest = {}
+    for path, data in files:
+        if data.get("suite", "book") == "book" and label_prefix(data) in names:
+            newest[label_prefix(data)] = (path, data)
+    if not newest:
+        return []
+    lines = ["\n### Build and page size experiments\n"]
+    lines.append("Medians across runs, in nanoseconds, with turbo on. `fast_4k` is the same book on normal pages. The default")
+    lines.append("build stays plain release, so these figures are separate from the tables above.\n")
+    lines.append("| Workload | Build | Book | Average | p50 | p99 | p99.9 | Cycles | Instructions | Branch misses | Source |")
+    lines.append("|---|---|---|---|---|---|---|---|---|---|---|")
+    rows = []
+    for label, (path, data) in newest.items():
+        for entry in data["entries"]:
+            rows.append((entry["profile"], list(names).index(label), entry["book"], names[label], path, entry))
+    for profile, _, book, name, path, entry in sorted(rows, key=lambda row: row[:3]):
+        summary = entry["summary"]
+        latency = summary["latency"]
+        perf = summary["perf_per_command"]
+        lines.append(
+            f"| {profile} | {name} | {book} | {summary['mean_ns']['median']:.1f} | {latency['p50_ns']['median']:.0f} "
+            f"| {latency['p99_ns']['median']:.0f} | {latency['p99_9_ns']['median']:.0f} | {perf['cycles']:.0f} "
+            f"| {perf['instructions']:.0f} | {perf['branch_misses']:.2f} | {source_link(path)} |"
         )
     return lines
 
@@ -231,6 +266,58 @@ def render_conditions(rows, extra):
     return lines
 
 
+def render_summary(files, ring, pipeline, jitter):
+    """The short table at the top of the README."""
+    newest = {}
+    for path, data in files:
+        if data.get("suite", "book") == "book" and label_prefix(data) == "book":
+            newest[turbo_label(data)] = (path, data)
+    lines = []
+    if {"on", "off"} <= set(newest):
+        lines.append("Latency per command on the primary `realistic` workload, 25M commands, in nanoseconds. Average comes from")
+        lines.append("untimed runs, and percentiles from timed runs that include the timer's own cost.\n")
+        lines.append("| Book | Turbo | Average | p50 | p99 | p99.9 | p99.99 | L1d misses per command |")
+        lines.append("|---|---|---|---|---|---|---|---|")
+        for turbo in ("on", "off"):
+            entries = {e["book"]: e for e in newest[turbo][1]["entries"] if e["profile"] == "realistic"}
+            for book in ("baseline", "baseline_pool", "fast"):
+                summary = entries[book]["summary"]
+                latency = summary["latency"]
+                cells = [f"{latency[key]['median']:.0f}" for key in ("p50_ns", "p99_ns", "p99_9_ns", "p99_99_ns")]
+                lines.append(
+                    f"| {book} | {turbo} | {summary['mean_ns']['median']:.1f} | " + " | ".join(cells)
+                    + f" | {summary['perf_per_command']['l1d_load_misses']:.2f} |"
+                )
+        lines.append("")
+    if ring and pipeline and jitter:
+        best = next(
+            e for e in ring[1]["entries"]
+            if e["kind"] == "throughput" and e["payload_bytes"] == 32 and e["index_alignment"] == 64
+            and e["cached_indices"] and e["placement"] == "cross_core"
+        )
+        fast = next(e for e in pipeline[1]["entries"] if e["book"] == "fast")
+        repeat = next(e for e in jitter[1]["entries"] if e["book"] == "fast")["summary"]
+        rate = best["summary"]["items_per_second"]
+        commands = fast["summary"]["commands_per_second"]
+        latency = fast["summary"]["latency"]
+        lines.append("| Other measures, turbo on | Result |")
+        lines.append("|---|---|")
+        lines.append(f"| Ring throughput, 32-byte items between two cores, median | {rate['median'] / 1e6:.1f}M items/s |")
+        lines.append(f"| Gateway to book throughput across the ring, median | {commands['median'] / 1e6:.1f}M commands/s |")
+        lines.append(f"| Gateway to book latency, one command at a time, p50 / p99.9 | {latency['p50_ns']['median']:.0f} / {latency['p99_9_ns']['median']:.0f} ns |")
+        lines.append(f"| Timer cost, p50 | {repeat['timer']['p50_ns']:.1f} ns |")
+        lines.append(f"| Spread of one command's latency across replays, stddev, p50 | {repeat['per_command']['stddev_p50_ns']:.1f} ns |")
+        lines.append(f"| Spread of a whole replay's average across replays, stddev | {repeat['run_to_run_mean']['stddev_ns']:.2f} ns |")
+    return "\n".join(lines)
+
+
+def replace_between(path, start, end, body):
+    text = path.read_text()
+    before, rest = text.split(start, 1)
+    _, after = rest.split(end, 1)
+    path.write_text(f"{before}{start}\n{body}\n{end}{after}")
+
+
 def main():
     files = load_citable()
     latest = latest_per_book_configuration(files)
@@ -240,6 +327,7 @@ def main():
     lines = []
     if rows:
         lines += render_latency(rows) + render_by_kind(rows) + render_counters(rows) + render_comparison(files) + render_workloads(rows)
+    lines += render_experiments(files)
     ring = newest_of_suite(files, "ring")
     pipeline = newest_of_suite(files, "pipeline")
     jitter = newest_of_suite(files, "jitter")
@@ -252,10 +340,8 @@ def main():
     lines += render_conditions(rows, extra)
 
     body = "\n".join(lines) if rows or extra else "No citable results yet."
-    text = REPORT.read_text()
-    before, rest = text.split(START, 1)
-    _, after = rest.split(END, 1)
-    REPORT.write_text(f"{before}{START}\n{body}\n{END}{after}")
+    replace_between(REPORT, START, END, body)
+    replace_between(README, "<!-- summary:start -->", "<!-- summary:end -->", render_summary(files, ring, pipeline, jitter))
     print(f"{len(rows)} book configurations and {len(extra)} other suites in {REPORT.relative_to(ROOT)}")
 
 

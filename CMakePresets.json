@@ -60,6 +60,53 @@
       }
     },
     {
+      "name": "experiment",
+      "hidden": true,
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CXX_COMPILER": "g++",
+        "NANOMATCH_BUILD_TESTS": "OFF"
+      }
+    },
+    {
+      "name": "lto",
+      "inherits": "experiment",
+      "displayName": "Release with link-time optimization",
+      "cacheVariables": {
+        "CMAKE_AR": "gcc-ar",
+        "CMAKE_RANLIB": "gcc-ranlib",
+        "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG -march=native -flto=auto"
+      }
+    },
+    {
+      "name": "clang-release",
+      "inherits": "experiment",
+      "displayName": "Release built with Clang",
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG -march=native"
+      }
+    },
+    {
+      "name": "pgo-generate",
+      "inherits": "experiment",
+      "displayName": "Release instrumented to collect a profile",
+      "binaryDir": "${sourceDir}/build/pgo",
+      "cacheVariables": {
+        "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG -march=native -fprofile-generate -fprofile-update=single"
+      }
+    },
+    {
+      "name": "pgo-use",
+      "inherits": "experiment",
+      "displayName": "Release optimized using the collected profile",
+      "binaryDir": "${sourceDir}/build/pgo",
+      "cacheVariables": {
+        "CMAKE_CXX_FLAGS_RELEASE": "-O3 -DNDEBUG -march=native -fprofile-use -fprofile-correction -Wno-missing-profile -Wno-coverage-mismatch"
+      }
+    },
+    {
       "name": "fuzz",
       "inherits": "base",
       "displayName": "libFuzzer targets",
@@ -78,7 +125,11 @@
     { "name": "asan", "configurePreset": "asan" },
     { "name": "tsan", "configurePreset": "tsan" },
     { "name": "coverage", "configurePreset": "coverage" },
-    { "name": "fuzz", "configurePreset": "fuzz" }
+    { "name": "fuzz", "configurePreset": "fuzz" },
+    { "name": "lto", "configurePreset": "lto" },
+    { "name": "clang-release", "configurePreset": "clang-release" },
+    { "name": "pgo-generate", "configurePreset": "pgo-generate" },
+    { "name": "pgo-use", "configurePreset": "pgo-use" }
   ],
   "testPresets": [
     {

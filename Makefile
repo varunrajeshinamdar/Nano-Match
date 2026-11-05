@@ -2,7 +2,7 @@ PRESET ?= release
 
 SOURCES = $(shell git ls-files '*.hpp' '*.cpp')
 
-.PHONY: all build test replay-check debug asan tsan coverage fuzz bench bench-smoke check matrix format format-check tidy clean
+.PHONY: all build test replay-check debug asan tsan coverage fuzz bench bench-smoke pgo plots check matrix format format-check tidy clean
 
 all: test
 
@@ -52,6 +52,25 @@ bench:
 bench-smoke:
 	$(MAKE) build PRESET=release
 	scripts/run_bench.py --smoke --runs 1 --label smoke --cpu none --data-dir build/smoke --out-dir build/smoke
+
+# Builds build/pgo using a profile from a different seed than the benchmarks use, so that the build isn't
+# tuned to the exact log it's measured on.
+PGO_PROFILES = realistic sweep add_cancel
+pgo:
+	rm -rf build/pgo
+	cmake --preset pgo-generate
+	cmake --build --preset pgo-generate
+	for profile in $(PGO_PROFILES); do \
+		build/pgo/tools/nm_gen --profile $$profile --seed 2 --commands 8000000 --out build/pgo/train.nmc && \
+		build/pgo/bench/bench_book --log build/pgo/train.nmc --profile $$profile --book fast --mode untimed \
+			--warmup 3000000 --cpu none > /dev/null || exit 1; \
+	done
+	rm -f build/pgo/train.nmc build/pgo/train.nmc.json
+	cmake --preset pgo-use
+	cmake --build --preset pgo-use
+
+plots:
+	scripts/plot_results.py
 
 # Everything CI runs, for use before pushing.
 check: format-check debug test asan tsan tidy
