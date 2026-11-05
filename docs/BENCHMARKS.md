@@ -120,5 +120,60 @@ scripts/gen_report.py
 ## Results
 
 <!-- results:start -->
-No citable results yet.
+### Latency and throughput
+
+Medians across runs. Average comes from untimed runs and percentiles from timed runs, which
+include the timer's own cost, shown in the last column. All values are nanoseconds.
+
+| Book | Workload | Turbo | Average | p50 | p99 | p99.9 | p99.99 | Max | Timer p50 | Source |
+|---|---|---|---|---|---|---|---|---|---|---|
+| baseline | add_cancel | off | 147.9 | 188 | 446 | 581 | 4256 | 55262 | 23.6 | [file](../results/20261104T141813_3b0acefa_baseline_turbo_off.json) |
+| baseline | add_cancel | on | 75.3 | 87 | 215 | 409 | 7384 | 40677 | 11.2 | [file](../results/20261105T153214_3b0acefa_baseline_turbo_on.json) |
+| baseline | realistic | off | 163.7 | 200 | 522 | 773 | 4923 | 73336 | 23.6 | [file](../results/20261104T141813_3b0acefa_baseline_turbo_off.json) |
+| baseline | realistic | on | 81.3 | 93 | 261 | 527 | 3153 | 62600 | 11.2 | [file](../results/20261105T153214_3b0acefa_baseline_turbo_on.json) |
+| baseline | realistic_100k | off | 255.1 | 359 | 1046 | 1769 | 7589 | 68109 | 23.6 | [file](../results/20261104T141813_3b0acefa_baseline_turbo_off.json) |
+| baseline | realistic_100k | on | 154.1 | 196 | 808 | 1282 | 4307 | 37843 | 11.2 | [file](../results/20261105T153214_3b0acefa_baseline_turbo_on.json) |
+| baseline | realistic_1k | off | 145.8 | 172 | 429 | 635 | 3897 | 66367 | 23.6 | [file](../results/20261104T141813_3b0acefa_baseline_turbo_off.json) |
+| baseline | realistic_1k | on | 74.4 | 82 | 211 | 339 | 2384 | 43853 | 11.6 | [file](../results/20261105T153214_3b0acefa_baseline_turbo_on.json) |
+| baseline | realistic_1m | off | 398.7 | 607 | 1331 | 2230 | 6974 | 61469 | 23.6 | [file](../results/20261104T141813_3b0acefa_baseline_turbo_off.json) |
+| baseline | realistic_1m | on | 308.9 | 466 | 1321 | 2512 | 7487 | 54137 | 11.2 | [file](../results/20261105T153214_3b0acefa_baseline_turbo_on.json) |
+| baseline | sweep | off | 191.1 | 199 | 866 | 1583 | 5077 | 354609 | 23.6 | [file](../results/20261104T141813_3b0acefa_baseline_turbo_off.json) |
+| baseline | sweep | on | 99.2 | 95 | 424 | 815 | 7384 | 184427 | 11.6 | [file](../results/20261105T153214_3b0acefa_baseline_turbo_on.json) |
+
+### Hardware counters per command
+
+From untimed runs, counting user-mode events during the measured loop only.
+
+| Book | Workload | Turbo | Cycles | Instructions | L1d loads | L1d misses | LLC misses | Branch misses |
+|---|---|---|---|---|---|---|---|---|
+| baseline | add_cancel | off | 293.41 | 490.37 | 145.70 | 5.10 | 0.01 | 3.18 |
+| baseline | add_cancel | on | 286.24 | 490.37 | 145.70 | 4.44 | 0.00 | 3.18 |
+| baseline | realistic | off | 324.73 | 495.19 | 147.65 | 5.40 | 0.02 | 3.81 |
+| baseline | realistic | on | 327.18 | 495.19 | 147.65 | 5.39 | 0.02 | 3.82 |
+| baseline | realistic_100k | off | 505.00 | 507.31 | 152.58 | 7.34 | 1.11 | 3.98 |
+| baseline | realistic_100k | on | 657.95 | 507.31 | 152.58 | 7.31 | 1.25 | 3.98 |
+| baseline | realistic_1k | off | 289.58 | 480.90 | 141.52 | 4.34 | 0.01 | 4.23 |
+| baseline | realistic_1k | on | 291.14 | 480.90 | 141.52 | 4.32 | 0.01 | 4.23 |
+| baseline | realistic_1m | off | 790.86 | 512.21 | 155.05 | 12.02 | 3.54 | 4.70 |
+| baseline | realistic_1m | on | 1297.31 | 512.21 | 155.05 | 11.99 | 3.89 | 4.69 |
+| baseline | sweep | off | 379.23 | 653.63 | 188.53 | 6.10 | 0.02 | 4.02 |
+| baseline | sweep | on | 373.83 | 653.63 | 188.53 | 5.02 | 0.01 | 4.02 |
+
+### Workload contents
+
+Measured from each generated log, including warmup.
+
+| Workload | Commands | Limit | Market | Cancel | Modify | Trades | Rejects | Peak resting |
+|---|---|---|---|---|---|---|---|---|
+| add_cancel | 10000000 | 5004809 | 0 | 4995191 | 0 | 0 | 0 | 11000 |
+| realistic | 30000000 | 14344064 | 299754 | 12358190 | 2997992 | 2205811 | 135889 | 11000 |
+| realistic_100k | 10000000 | 4839149 | 98842 | 4072359 | 989650 | 732393 | 44623 | 110000 |
+| realistic_1k | 10000000 | 4777484 | 99786 | 4123449 | 999281 | 730097 | 45304 | 1100 |
+| realistic_1m | 10000000 | 5352329 | 90042 | 3657935 | 899694 | 663042 | 40049 | 1100000 |
+| sweep | 10000000 | 7685078 | 498872 | 1316095 | 499955 | 6619272 | 17434 | 10643 |
+
+### Conditions
+
+- `20261104T141813_3b0acefa_baseline_turbo_off.json`: 12th Gen Intel(R) Core(TM) i5-12450H, g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, flags `-O3 -DNDEBUG -march=native`, governor performance, turbo off, online CPUs 0-2,4-11, commit `3b0acefa`.
+- `20261105T153214_3b0acefa_baseline_turbo_on.json`: 12th Gen Intel(R) Core(TM) i5-12450H, g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, flags `-O3 -DNDEBUG -march=native`, governor performance, turbo on, online CPUs 0-2,4-11, commit `3b0acefa`.
 <!-- results:end -->

@@ -4,8 +4,8 @@ A deterministic limit order book and matching engine in C++20, focused on low-la
 reproducible measurement.
 
 **Status:** under active development. A reference book implementing the full specification is in
-place, with a test suite and a replay tool. The optimized book is not implemented yet. No performance
-results have been published.
+place, with a test suite, a replay tool and a benchmark harness. The optimized book is not implemented
+yet, so [published results](docs/BENCHMARKS.md#results) cover only the reference implementation.
 
 ## Documentation
 

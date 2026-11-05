@@ -104,3 +104,40 @@ it now does.
 
 **Known limitations:** Slow by design. A failed allocation terminates the process, which the specification leaves
 undefined.
+
+## M3: Workload generator and benchmark harness (2026-11-05)
+
+**Summary:** Added seeded workload generation (`src/workload/`, `nm_gen`), the measurement harness (`bench/`), machine
+setup and orchestration (`scripts/`), and the method in `BENCHMARKS.md`, then took the first baseline measurements.
+
+**Decisions:**
+- Workloads committed before any measurement: git history shows they weren't chosen after seeing results.
+- Integer-only generation with its own PRNG: `std::` distributions and floating point can differ between toolchains,
+  and a workload has to be identical everywhere for results and hashes to be comparable.
+- A baseline book inside the generator: flow has to react to the real book, so that crossing orders cross and cancels
+  name resting orders. Keeping a separate approximation of the book would drift.
+- Prices anchored to a wandering reference rather than the best price: inspecting the first draft's output showed
+  that orders joined the best price faster than aggression removed them, which pinned the price. A static price keeps
+  every access in a small window and would have flattered cache behaviour, so this makes the benchmark harder.
+- Rebalanced `sweep`: the first draft removed liquidity about eight times faster than it arrived, and the book
+  collapsed to a few hundred orders. That measured a thin book rather than sustained aggression.
+- Separate untimed and timed runs: per-command timers inflate the average, so it comes from a run without them, and
+  the distribution comes from a run that reports the timer's own cost beside it.
+- Counters read in-process with `perf_event_open`: counting can start and stop around the measured loop, and it
+  excludes setup, which `perf stat` on the whole process would include.
+- The harness refuses to write results if runs of one book on one log disagree on the event count or hash, because
+  that would mean they didn't do the same work.
+- Citability recorded in each file: an experiment can't be mistaken for a result, and only citable files reach the
+  tables.
+
+**Verification:** Tests cover the generators against published reference values, percentile rank and rounding,
+counters, and workload properties such as determinism, depth control and flow validity. A pipeline test runs the
+generator, replay and harness together. Results below come from a clean tree on GCC, with counters unmultiplexed.
+
+**Results:** [turbo off](../results/20261104T141813_3b0acefa_baseline_turbo_off.json),
+[turbo on](../results/20261105T153214_3b0acefa_baseline_turbo_on.json). Tables are in `BENCHMARKS.md`.
+
+**Known limitations:** Workloads are synthetic and not calibrated to any venue. Measurement is on a laptop without
+isolated cores or interrupt steering. Timed runs have their histogram update between samples, which can disturb
+the cache slightly.
+

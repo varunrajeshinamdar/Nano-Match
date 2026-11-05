@@ -1,0 +1,3279 @@
+{
+ "schema": 1,
+ "label": "baseline_turbo_on",
+ "timestamp_utc": "2026-11-05T15:32:14+00:00",
+ "citable": true,
+ "not_citable_because": [],
+ "git": {
+  "sha": "3b0acefae43847698dc44af32941f3fce2e5911b",
+  "dirty": false
+ },
+ "build": {
+  "directory": "build/release",
+  "type": "Release",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "flags": " -O3 -DNDEBUG -march=native"
+ },
+ "machine": {
+  "cpu_model": "12th Gen Intel(R) Core(TM) i5-12450H",
+  "kernel": "6.8.0-47-generic",
+  "cmdline": "BOOT_IMAGE=/boot/vmlinuz-6.8.0-47-generic root=UUID=68356200-d6da-486c-9f6f-28c6f80efa8f ro quiet splash vt.handoff=7",
+  "governor": "performance",
+  "no_turbo": "0",
+  "online_cpus": "0-2,4-11",
+  "pinned_core_thread_siblings": "2",
+  "transparent_hugepages": "always [madvise] never",
+  "perf_event_paranoid": "1",
+  "nmi_watchdog": "0",
+  "ac_power": true,
+  "load_average_at_start": "1.48 0.86 0.65 4/1637 8361"
+ },
+ "entries": [
+  {
+   "book": "baseline",
+   "profile": "realistic",
+   "log": "realistic_s1_n30000000_55f0940f711e.nmc",
+   "log_sha256": "e49bb35fd39b1a529b2193845393334b698c85f33dd99bc9a8403475d6f49d71",
+   "workload": {
+    "profile": "realistic",
+    "seed": 1,
+    "min_price": 1,
+    "max_price": 1048576,
+    "capacity": 20000,
+    "limit_commands": 14344064,
+    "market_commands": 299754,
+    "cancel_commands": 12358190,
+    "modify_commands": 2997992,
+    "accepted_events": 14643818,
+    "rejected_events": 135889,
+    "trade_events": 2205811,
+    "rested_events": 15215117,
+    "canceled_events": 12248692,
+    "modified_events": 2971601,
+    "book_full_events": 0,
+    "traded_quantity": 7964050,
+    "max_resting_orders": 11000,
+    "final_resting_orders": 10994,
+    "commands_to_reach_target": 10000,
+    "lowest_best_bid": 523788,
+    "highest_best_bid": 525002
+   },
+   "summary": {
+    "mean_ns": {
+     "median": 81.27945852226183,
+     "min": 80.45638923556999,
+     "max": 85.176895309732
+    },
+    "commands_per_second": {
+     "median": 12303231.568971483,
+     "min": 11740272.950354222,
+     "max": 12429093.692883465
+    },
+    "perf_per_command": {
+     "cycles": 327.17965476,
+     "instructions": 495.18708208,
+     "l1d_loads": 147.64970156,
+     "l1d_load_misses": 5.39214772,
+     "llc_load_misses": 0.01505628,
+     "branch_misses": 3.81671792
+    },
+    "perf_min_running_fraction": 1,
+    "latency": {
+     "mean_ns": {
+      "median": 101.79017752107889,
+      "min": 100.59896549212286,
+      "max": 105.62551093288947
+     },
+     "p50_ns": {
+      "median": 93.3493614774383,
+      "min": 92.14742219995794,
+      "max": 94.55128443567146
+     },
+     "p90_ns": {
+      "median": 155.44872211693587,
+      "min": 150.6410032486269,
+      "max": 157.05128645073145
+     },
+     "p99_ns": {
+      "median": 261.21795530532967,
+      "min": 246.79483510945258,
+      "max": 272.8365461044595
+     },
+     "p99_9_ns": {
+      "median": 527.2436030395918,
+      "min": 416.6666047302446,
+      "max": 594.5512987063405
+     },
+     "p99_99_ns": {
+      "median": 3153.4456011574166,
+      "min": 2512.419922107691,
+      "max": 7486.779034955054
+     },
+     "p99_999_ns": {
+      "median": 12102.161662583172,
+      "min": 9845.753402295726,
+      "max": 15384.215131548088
+     },
+     "max_ns": {
+      "median": 62600.150951058386,
+      "min": 55518.831240005304,
+      "max": 102340.54773864221
+     }
+    },
+    "timer_p50_ns": 11.21794901874795
+   },
+   "runs": [
+    {
+     "book": "baseline",
+     "profile": "realistic",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 25000000,
+     "measured_new_orders": 12199050,
+     "cpu": 2,
+     "tsc_hz": 2495999940.064001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.144258681066617,
+      "min_ns": 9.214743811015575,
+      "max_ns": 2713.1410907911945,
+      "p50_ns": 11.21794898732331,
+      "p90_ns": 12.019231057846401,
+      "p99_ns": 12.419872093107948,
+      "p99_9_ns": 12.419872093107948,
+      "p99_99_ns": 100.96154088590977,
+      "p99_999_ns": 779.64745461897
+     },
+     "elapsed_ns": 2031986463.0565457,
+     "mean_ns": 81.27945852226183,
+     "commands_per_second": 12303231.568971483,
+     "perf": {
+      "available": true,
+      "cycles": 8305898093,
+      "instructions": 12379677146,
+      "l1d_loads": 3691242633,
+      "l1d_load_misses": 134913552,
+      "llc_load_misses": 417673,
+      "branch_misses": 95342737,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 355
+     },
+     "events": 47420928,
+     "sink_hash": "0x3c318a5248ae4f0e",
+     "resting_orders_at_end": 10994
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 25000000,
+     "measured_new_orders": 12199050,
+     "cpu": 2,
+     "tsc_hz": 2495999933.072001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.18468579670218,
+      "min_ns": 9.214743836828672,
+      "max_ns": 3792.4680504095745,
+      "p50_ns": 11.21794901874795,
+      "p90_ns": 12.01923109151566,
+      "p99_ns": 12.820513164283371,
+      "p99_9_ns": 14.823718346202648,
+      "p99_99_ns": 30.04807772878915,
+      "p99_999_ns": 259.61539157673826
+     },
+     "latency": {
+      "samples": 25000000,
+      "mean_ns": 101.79017752107889,
+      "min_ns": 22.836539073879756,
+      "max_ns": 101694.714265314,
+      "p50_ns": 93.3493614774383,
+      "p90_ns": 155.44872211693587,
+      "p99_ns": 266.8269302316477,
+      "p99_9_ns": 560.8974509373975,
+      "p99_99_ns": 2948.3173867487917,
+      "p99_999_ns": 11794.471470104318
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 552
+     },
+     "events": 47420928,
+     "sink_hash": "0x3c318a5248ae4f0e",
+     "resting_orders_at_end": 10994
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 25000000,
+     "measured_new_orders": 12199050,
+     "cpu": 2,
+     "tsc_hz": 2495999954.1120014,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.437732582073181,
+      "min_ns": 9.214743759153105,
+      "max_ns": 14789.263092407728,
+      "p50_ns": 11.21794892418639,
+      "p90_ns": 12.019230990199702,
+      "p99_ns": 12.41987202320636,
+      "p99_9_ns": 14.823718221246299,
+      "p99_99_ns": 29.24679540948594,
+      "p99_999_ns": 256.41026112426033
+     },
+     "elapsed_ns": 2011409730.8892496,
+     "mean_ns": 80.45638923556999,
+     "commands_per_second": 12429093.692883465,
+     "perf": {
+      "available": true,
+      "cycles": 8201796076,
+      "instructions": 12379677052,
+      "l1d_loads": 3691242539,
+      "l1d_load_misses": 134803693,
+      "llc_load_misses": 375699,
+      "branch_misses": 95520481,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 249
+     },
+     "events": 47420928,
+     "sink_hash": "0x3c318a5248ae4f0e",
+     "resting_orders_at_end": 10994
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 25000000,
+     "measured_new_orders": 12199050,
+     "cpu": 2,
+     "tsc_hz": 2495999930.0800014,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.644732697996673,
+      "min_ns": 9.21474384787455,
+      "max_ns": 6641.426468096366,
+      "p50_ns": 11.618590069059216,
+      "p90_ns": 12.419872142787437,
+      "p99_ns": 12.419872142787437,
+      "p99_9_ns": 14.423077327107992,
+      "p99_99_ns": 17.227564585156767,
+      "p99_999_ns": 2153.445573144596
+     },
+     "latency": {
+      "samples": 25000000,
+      "mean_ns": 102.78418688568519,
+      "min_ns": 23.237180138118433,
+      "max_ns": 102340.54773864221,
+      "p50_ns": 94.15064366306606,
+      "p90_ns": 157.05128645073145,
+      "p99_ns": 272.8365461044595,
+      "p99_9_ns": 594.5512987063405,
+      "p99_99_ns": 3153.4456011574166,
+      "p99_999_ns": 12512.420222303048
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 699
+     },
+     "events": 47420928,
+     "sink_hash": "0x3c318a5248ae4f0e",
+     "resting_orders_at_end": 10994
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 25000000,
+     "measured_new_orders": 12199050,
+     "cpu": 2,
+     "tsc_hz": 2495999959.0720005,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.380980555208641,
+      "min_ns": 9.214743740841758,
+      "max_ns": 5963.54176445346,
+      "p50_ns": 11.217948901894314,
+      "p90_ns": 12.019230966315337,
+      "p99_ns": 12.419871998525847,
+      "p99_9_ns": 14.423077159578405,
+      "p99_99_ns": 48.87820592968237,
+      "p99_999_ns": 208.33333674946584
+     },
+     "elapsed_ns": 2024705693.8570328,
+     "mean_ns": 80.98822775428131,
+     "commands_per_second": 12347473.549291695,
+     "perf": {
+      "available": true,
+      "cycles": 8179168905,
+      "instructions": 12379676979,
+      "l1d_loads": 3691242466,
+      "l1d_load_misses": 134789986,
+      "llc_load_misses": 376407,
+      "branch_misses": 95445694,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 133
+     },
+     "events": 47420928,
+     "sink_hash": "0x3c318a5248ae4f0e",
+     "resting_orders_at_end": 10994
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 25000000,
+     "measured_new_orders": 12199050,
+     "cpu": 2,
+     "tsc_hz": 2495999950.0160003,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.15412121695817,
+      "min_ns": 9.214743774274739,
+      "max_ns": 17040.86572586964,
+      "p50_ns": 11.217948942595335,
+      "p90_ns": 12.019231009923573,
+      "p99_ns": 13.221154110915931,
+      "p99_9_ns": 14.823718245572406,
+      "p99_99_ns": 64.90384745358729,
+      "p99_999_ns": 1666.2660590090713
+     },
+     "latency": {
+      "samples": 25000000,
+      "mean_ns": 100.59896549212286,
+      "min_ns": 21.233974784198313,
+      "max_ns": 55518.831240005304,
+      "p50_ns": 92.94871981007563,
+      "p90_ns": 153.84615692702172,
+      "p99_ns": 260.4166718816774,
+      "p99_9_ns": 514.4230872247289,
+      "p99_99_ns": 2512.419922107691,
+      "p99_999_ns": 9845.753402295726
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 189
+     },
+     "events": 47420928,
+     "sink_hash": "0x3c318a5248ae4f0e",
+     "resting_orders_at_end": 10994
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 25000000,
+     "measured_new_orders": 12199050,
+     "cpu": 2,
+     "tsc_hz": 2495999937.072001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.74776191476889,
+      "min_ns": 10.016025893545057,
+      "max_ns": 6324.11874918435,
+      "p50_ns": 11.618590036512268,
+      "p90_ns": 12.419872107995872,
+      "p99_ns": 12.419872107995872,
+      "p99_9_ns": 15.224359358188488,
+      "p99_99_ns": 16.426282465413895,
+      "p99_999_ns": 261.2179553036551
+     },
+     "elapsed_ns": 2043694144.8740315,
+     "mean_ns": 81.74776579496127,
+     "commands_per_second": 12232750.219843168,
+     "perf": {
+      "available": true,
+      "cycles": 8179491369,
+      "instructions": 12379676973,
+      "l1d_loads": 3691242460,
+      "l1d_load_misses": 134735040,
+      "llc_load_misses": 388916,
+      "branch_misses": 95361729,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 123
+     },
+     "events": 47420928,
+     "sink_hash": "0x3c318a5248ae4f0e",
+     "resting_orders_at_end": 10994
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 25000000,
+     "measured_new_orders": 12199050,
+     "cpu": 2,
+     "tsc_hz": 2496000371.023998,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.157834479237037,
+      "min_ns": 9.214742219995795,
+      "max_ns": 3928.284672480816,
+      "p50_ns": 11.217947050429663,
+      "p90_ns": 12.01922898260321,
+      "p99_ns": 13.221151880863532,
+      "p99_9_ns": 15.624997677384174,
+      "p99_99_ns": 29.24679052433448,
+      "p99_999_ns": 1239.9837900385646
+     },
+     "latency": {
+      "samples": 25000000,
+      "mean_ns": 100.98088055034856,
+      "min_ns": 22.836535066946098,
+      "max_ns": 62600.150951058386,
+      "p50_ns": 92.14742219995794,
+      "p90_ns": 150.6410032486269,
+      "p99_ns": 246.79483510945258,
+      "p99_9_ns": 416.6666047302446,
+      "p99_99_ns": 7281.649558627111,
+      "p99_999_ns": 12102.161662583172
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 334
+     },
+     "events": 47420928,
+     "sink_hash": "0x3c318a5248ae4f0e",
+     "resting_orders_at_end": 10994
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 25000000,
+     "measured_new_orders": 12199050,
+     "cpu": 2,
+     "tsc_hz": 2495999935.0400004,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 12.076319625191394,
+      "min_ns": 9.61538486563117,
+      "max_ns": 12519.231095051782,
+      "p50_ns": 11.618590045970995,
+      "p90_ns": 12.419872118106927,
+      "p99_ns": 12.419872118106927,
+      "p99_9_ns": 14.022436262378788,
+      "p99_99_ns": 49.67948847242771,
+      "p99_999_ns": 7384.214935768669
+     },
+     "elapsed_ns": 2129422382.7433002,
+     "mean_ns": 85.176895309732,
+     "commands_per_second": 11740272.950354222,
+     "perf": {
+      "available": true,
+      "cycles": 8120269903,
+      "instructions": 12379686764,
+      "l1d_loads": 3691252251,
+      "l1d_load_misses": 134933749,
+      "llc_load_misses": 349232,
+      "branch_misses": 95417948,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 470
+     },
+     "events": 47420928,
+     "sink_hash": "0x3c318a5248ae4f0e",
+     "resting_orders_at_end": 10994
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 25000000,
+     "measured_new_orders": 12199050,
+     "cpu": 2,
+     "tsc_hz": 2495999937.0560007,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 12.114251507419647,
+      "min_ns": 9.615384857864894,
+      "max_ns": 30016.026397968246,
+      "p50_ns": 11.618590036586749,
+      "p90_ns": 12.41987210807549,
+      "p99_ns": 12.41987210807549,
+      "p99_9_ns": 14.423077286797342,
+      "p99_99_ns": 21.233974894451645,
+      "p99_999_ns": 8512.420086460643
+     },
+     "latency": {
+      "samples": 25000000,
+      "mean_ns": 105.62551093288947,
+      "min_ns": 22.836539037429127,
+      "max_ns": 61941.90861332991,
+      "p50_ns": 94.55128443567146,
+      "p90_ns": 157.05128601179328,
+      "p99_ns": 261.21795530532967,
+      "p99_9_ns": 527.2436030395918,
+      "p99_99_ns": 7486.779034955054,
+      "p99_999_ns": 15384.215131548088
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 587
+     },
+     "events": 47420928,
+     "sink_hash": "0x3c318a5248ae4f0e",
+     "resting_orders_at_end": 10994
+    }
+   ]
+  },
+  {
+   "book": "baseline",
+   "profile": "add_cancel",
+   "log": "add_cancel_s1_n10000000_55f0940f711e.nmc",
+   "log_sha256": "deac90c836c4e9101c9183aee3c7bff29d592c8a04ae9ec2b4c7ec4bcb1ce123",
+   "workload": {
+    "profile": "add_cancel",
+    "seed": 1,
+    "min_price": 1,
+    "max_price": 1048576,
+    "capacity": 20000,
+    "limit_commands": 5004809,
+    "market_commands": 0,
+    "cancel_commands": 4995191,
+    "modify_commands": 0,
+    "accepted_events": 5004809,
+    "rejected_events": 0,
+    "trade_events": 0,
+    "rested_events": 5004809,
+    "canceled_events": 4995191,
+    "modified_events": 0,
+    "book_full_events": 0,
+    "traded_quantity": 0,
+    "max_resting_orders": 11000,
+    "final_resting_orders": 9618,
+    "commands_to_reach_target": 10000,
+    "lowest_best_bid": 523836,
+    "highest_best_bid": 524373
+   },
+   "summary": {
+    "mean_ns": {
+     "median": 75.31367988675713,
+     "min": 73.81162880877476,
+     "max": 75.6733620704127
+    },
+    "commands_per_second": {
+     "median": 13277800.28148427,
+     "min": 13214689.72225019,
+     "max": 13548000.716671892
+    },
+    "perf_per_command": {
+     "cycles": 286.2408514,
+     "instructions": 490.3699422,
+     "l1d_loads": 145.6974316,
+     "l1d_load_misses": 4.4423812,
+     "llc_load_misses": 0.0042268,
+     "branch_misses": 3.177646
+    },
+    "perf_min_running_fraction": 1,
+    "latency": {
+     "mean_ns": {
+      "median": 95.03563567704467,
+      "min": 94.66496856387775,
+      "max": 96.3780883533953
+     },
+     "p50_ns": {
+      "median": 86.93910426833189,
+      "min": 86.13782151003143,
+      "max": 87.33974544403357
+     },
+     "p90_ns": {
+      "median": 132.2115410532236,
+      "min": 130.20833484074518,
+      "max": 133.41346437093202
+     },
+     "p99_ns": {
+      "median": 214.74359395311473,
+      "min": 209.1346178057507,
+      "max": 217.54808154179005
+     },
+     "p99_9_ns": {
+      "median": 409.45513869347883,
+      "min": 364.5833375540865,
+      "max": 450.7211619591346
+     },
+     "p99_99_ns": {
+      "median": 7384.214876505609,
+      "min": 7281.650783764664,
+      "max": 7486.778932827708
+     },
+     "p99_999_ns": {
+      "median": 13743.189454601179,
+      "min": 9640.62520467789,
+      "max": 16409.855959206405
+     },
+     "max_ns": {
+      "median": 40677.083804248796,
+      "min": 36368.991156757045,
+      "max": 70818.91153115063
+     }
+    },
+    "timer_p50_ns": 11.21794900530079
+   },
+   "runs": [
+    {
+     "book": "baseline",
+     "profile": "add_cancel",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2500024,
+     "cpu": 2,
+     "tsc_hz": 2495999941.024,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.27067815092128,
+      "min_ns": 9.214743807471445,
+      "max_ns": 29677.484675584667,
+      "p50_ns": 11.217948983008716,
+      "p90_ns": 12.019231053223624,
+      "p99_ns": 12.41987208833108,
+      "p99_9_ns": 14.022436228760895,
+      "p99_99_ns": 156.25000369190712,
+      "p99_999_ns": 2666.2660886401072
+     },
+     "elapsed_ns": 374730943.9503734,
+     "mean_ns": 74.94618879007469,
+     "commands_per_second": 13342906.639335776,
+     "perf": {
+      "available": true,
+      "cycles": 1431204257,
+      "instructions": 2451850672,
+      "l1d_loads": 728487310,
+      "l1d_load_misses": 22144565,
+      "llc_load_misses": 17183,
+      "branch_misses": 15860800,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 22
+     },
+     "events": 15004809,
+     "sink_hash": "0x7fcb3c51dd5fe0d7",
+     "resting_orders_at_end": 9618
+    },
+    {
+     "book": "baseline",
+     "profile": "add_cancel",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2500024,
+     "cpu": 2,
+     "tsc_hz": 2495999936.064001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.794943411106365,
+      "min_ns": 9.214743825782792,
+      "max_ns": 8475.160473504748,
+      "p50_ns": 11.21794900530079,
+      "p90_ns": 12.01923107710799,
+      "p99_ns": 12.41987211301159,
+      "p99_9_ns": 12.41987211301159,
+      "p99_99_ns": 132.61218288409148,
+      "p99_999_ns": 7179.086722356602
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 94.73871172164029,
+      "min_ns": 35.65705219542037,
+      "max_ns": 40000.00102461539,
+      "p50_ns": 86.13782271927393,
+      "p90_ns": 131.0096187404771,
+      "p99_ns": 212.33974902890782,
+      "p99_9_ns": 409.45513869347883,
+      "p99_99_ns": 7384.214932739245,
+      "p99_999_ns": 13743.189454601179
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 73
+     },
+     "events": 15004809,
+     "sink_hash": "0x7fcb3c51dd5fe0d7",
+     "resting_orders_at_end": 9618
+    },
+    {
+     "book": "baseline",
+     "profile": "add_cancel",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2500024,
+     "cpu": 2,
+     "tsc_hz": 2495999923.0240006,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.439877756649048,
+      "min_ns": 9.214743873923926,
+      "max_ns": 9421.474649530219,
+      "p50_ns": 10.817308025910695,
+      "p90_ns": 11.618590101904081,
+      "p99_ns": 12.419872177897465,
+      "p99_9_ns": 12.419872177897465,
+      "p99_99_ns": 181.49039021250167,
+      "p99_999_ns": 7281.650865589885
+     },
+     "elapsed_ns": 376568399.4337856,
+     "mean_ns": 75.31367988675713,
+     "commands_per_second": 13277800.28148427,
+     "perf": {
+      "available": true,
+      "cycles": 1434930383,
+      "instructions": 2451849644,
+      "l1d_loads": 728487091,
+      "l1d_load_misses": 22166747,
+      "llc_load_misses": 22690,
+      "branch_misses": 15861704,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 16
+     },
+     "events": 15004809,
+     "sink_hash": "0x7fcb3c51dd5fe0d7",
+     "resting_orders_at_end": 9618
+    },
+    {
+     "book": "baseline",
+     "profile": "add_cancel",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2500024,
+     "cpu": 2,
+     "tsc_hz": 2495999947.008,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.60553710536884,
+      "min_ns": 9.214743785379689,
+      "max_ns": 15228.365707925304,
+      "p50_ns": 11.217948956114403,
+      "p90_ns": 12.01923102440829,
+      "p99_ns": 12.419872058555233,
+      "p99_9_ns": 12.419872058555233,
+      "p99_99_ns": 181.4903884685652,
+      "p99_999_ns": 7179.086690879071
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 95.58500034665079,
+      "min_ns": 35.657052039077925,
+      "max_ns": 36368.991156757045,
+      "p50_ns": 87.33974544403357,
+      "p90_ns": 133.41346437093202,
+      "p99_ns": 217.54808154179005,
+      "p99_9_ns": 427.8846244689351,
+      "p99_99_ns": 7281.650795620689,
+      "p99_999_ns": 9640.62520467789
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 23
+     },
+     "events": 15004809,
+     "sink_hash": "0x7fcb3c51dd5fe0d7",
+     "resting_orders_at_end": 9618
+    },
+    {
+     "book": "baseline",
+     "profile": "add_cancel",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2500024,
+     "cpu": 2,
+     "tsc_hz": 2495999947.072001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.184456567296035,
+      "min_ns": 9.214743785143408,
+      "max_ns": 5595.753323786869,
+      "p50_ns": 11.217948955826758,
+      "p90_ns": 12.0192310241001,
+      "p99_ns": 12.419872058236768,
+      "p99_9_ns": 12.419872058236768,
+      "p99_99_ns": 70.91346304219059,
+      "p99_999_ns": 2102.1635061151073
+     },
+     "elapsed_ns": 369058144.0438738,
+     "mean_ns": 73.81162880877476,
+     "commands_per_second": 13548000.716671892,
+     "perf": {
+      "available": true,
+      "cycles": 1460827236,
+      "instructions": 2451849040,
+      "l1d_loads": 728485678,
+      "l1d_load_misses": 25483312,
+      "llc_load_misses": 84188,
+      "branch_misses": 15899058,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 43
+     },
+     "events": 15004809,
+     "sink_hash": "0x7fcb3c51dd5fe0d7",
+     "resting_orders_at_end": 9618
+    },
+    {
+     "book": "baseline",
+     "profile": "add_cancel",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2500024,
+     "cpu": 2,
+     "tsc_hz": 2495999951.072001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.263984996444009,
+      "min_ns": 9.214743770376192,
+      "max_ns": 17148.63815667009,
+      "p50_ns": 11.217948937849277,
+      "p90_ns": 12.019231004838511,
+      "p99_ns": 12.419872038333128,
+      "p99_9_ns": 12.419872038333128,
+      "p99_99_ns": 92.94871977075115,
+      "p99_999_ns": 1871.3942674533562
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 95.03563567704467,
+      "min_ns": 35.65705198102091,
+      "max_ns": 41804.08735792882,
+      "p50_ns": 86.93910426833189,
+      "p90_ns": 132.2115410532236,
+      "p99_ns": 214.74359395311473,
+      "p99_9_ns": 405.44872589655245,
+      "p99_99_ns": 7281.650783764664,
+      "p99_999_ns": 12102.163698771896
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 116
+     },
+     "events": 15004809,
+     "sink_hash": "0x7fcb3c51dd5fe0d7",
+     "resting_orders_at_end": 9618
+    },
+    {
+     "book": "baseline",
+     "profile": "add_cancel",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2500024,
+     "cpu": 2,
+     "tsc_hz": 2495999944.0160003,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.429920128162117,
+      "min_ns": 9.214743796425566,
+      "max_ns": 8951.923277710124,
+      "p50_ns": 11.21794896956156,
+      "p90_ns": 11.618590004188757,
+      "p99_ns": 12.419872073443155,
+      "p99_9_ns": 12.419872073443155,
+      "p99_99_ns": 178.28526040910336,
+      "p99_999_ns": 7179.08669948477
+     },
+     "elapsed_ns": 377967113.8461982,
+     "mean_ns": 75.59342276923964,
+     "commands_per_second": 13228664.126674768,
+     "perf": {
+      "available": true,
+      "cycles": 1428651228,
+      "instructions": 2451850770,
+      "l1d_loads": 728487408,
+      "l1d_load_misses": 22211906,
+      "llc_load_misses": 21134,
+      "branch_misses": 15888230,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 51
+     },
+     "events": 15004809,
+     "sink_hash": "0x7fcb3c51dd5fe0d7",
+     "resting_orders_at_end": 9618
+    },
+    {
+     "book": "baseline",
+     "profile": "add_cancel",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2500024,
+     "cpu": 2,
+     "tsc_hz": 2495999955.072001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.937654461672649,
+      "min_ns": 9.214743755608975,
+      "max_ns": 17800.481089639423,
+      "p50_ns": 11.618589952724358,
+      "p90_ns": 12.019230985576923,
+      "p99_ns": 12.419872018429487,
+      "p99_9_ns": 12.419872018429487,
+      "p99_99_ns": 162.66025933814103,
+      "p99_999_ns": 7691.907189736378
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 96.3780883533953,
+      "min_ns": 35.65705192387821,
+      "max_ns": 70818.91153115063,
+      "p50_ns": 87.33974516185897,
+      "p90_ns": 132.6121818741987,
+      "p99_ns": 215.54487567467947,
+      "p99_9_ns": 450.7211619591346,
+      "p99_99_ns": 7384.214876505609,
+      "p99_999_ns": 14563.702185223558
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 83
+     },
+     "events": 15004809,
+     "sink_hash": "0x7fcb3c51dd5fe0d7",
+     "resting_orders_at_end": 9618
+    },
+    {
+     "book": "baseline",
+     "profile": "add_cancel",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2500024,
+     "cpu": 2,
+     "tsc_hz": 2495999948.096001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 12.219080382299332,
+      "min_ns": 9.615384815335306,
+      "max_ns": 21397.836983426805,
+      "p50_ns": 11.618589985196827,
+      "p90_ns": 12.419872053141436,
+      "p99_ns": 12.419872053141436,
+      "p99_9_ns": 14.022436189030653,
+      "p99_99_ns": 30.04807754792283,
+      "p99_999_ns": 7589.3431065373625
+     },
+     "elapsed_ns": 378366810.3520635,
+     "mean_ns": 75.6733620704127,
+     "commands_per_second": 13214689.72225019,
+     "perf": {
+      "available": true,
+      "cycles": 1429938471,
+      "instructions": 2451849711,
+      "l1d_loads": 728487158,
+      "l1d_load_misses": 22224007,
+      "llc_load_misses": 20429,
+      "branch_misses": 15889329,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 60
+     },
+     "events": 15004809,
+     "sink_hash": "0x7fcb3c51dd5fe0d7",
+     "resting_orders_at_end": 9618
+    },
+    {
+     "book": "baseline",
+     "profile": "add_cancel",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2500024,
+     "cpu": 2,
+     "tsc_hz": 2495999971.1040006,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 12.124375140362956,
+      "min_ns": 9.615384726701182,
+      "max_ns": 14075.320675769413,
+      "p50_ns": 11.618589878097263,
+      "p90_ns": 12.419871938655694,
+      "p99_ns": 12.419871938655694,
+      "p99_9_ns": 12.419871938655694,
+      "p99_99_ns": 29.246795210382764,
+      "p99_999_ns": 7384.214829076229
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 94.66496856387775,
+      "min_ns": 35.65705169485022,
+      "max_ns": 40677.083804248796,
+      "p50_ns": 86.13782151003143,
+      "p90_ns": 130.20833484074518,
+      "p99_ns": 209.1346178057507,
+      "p99_9_ns": 364.5833375540865,
+      "p99_99_ns": 7486.778932827708,
+      "p99_999_ns": 16409.855959206405
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 117
+     },
+     "events": 15004809,
+     "sink_hash": "0x7fcb3c51dd5fe0d7",
+     "resting_orders_at_end": 9618
+    }
+   ]
+  },
+  {
+   "book": "baseline",
+   "profile": "sweep",
+   "log": "sweep_s1_n10000000_55f0940f711e.nmc",
+   "log_sha256": "5d06ed70f5a385802af1bf1d0cec21dd4d7470aa179444ce955074dae87bb019",
+   "workload": {
+    "profile": "sweep",
+    "seed": 1,
+    "min_price": 1,
+    "max_price": 1048576,
+    "capacity": 20000,
+    "limit_commands": 7685078,
+    "market_commands": 498872,
+    "cancel_commands": 1316095,
+    "modify_commands": 499955,
+    "accepted_events": 8183950,
+    "rejected_events": 17434,
+    "trade_events": 6619272,
+    "rested_events": 6686101,
+    "canceled_events": 1303389,
+    "modified_events": 495227,
+    "book_full_events": 0,
+    "traded_quantity": 36238324,
+    "max_resting_orders": 10643,
+    "final_resting_orders": 9055,
+    "commands_to_reach_target": 10000,
+    "lowest_best_bid": 523806,
+    "highest_best_bid": 524341
+   },
+   "summary": {
+    "mean_ns": {
+     "median": 99.21264156696539,
+     "min": 98.6104501072245,
+     "max": 99.96415648646258
+    },
+    "commands_per_second": {
+     "median": 10079360.696439391,
+     "min": 10003585.636571871,
+     "max": 10140913.046362184
+    },
+    "perf_per_command": {
+     "cycles": 373.8261868,
+     "instructions": 653.6260062,
+     "l1d_loads": 188.5293658,
+     "l1d_load_misses": 5.018141,
+     "llc_load_misses": 0.0148296,
+     "branch_misses": 4.0156728
+    },
+    "perf_min_running_fraction": 1,
+    "latency": {
+     "mean_ns": {
+      "median": 117.57020867104389,
+      "min": 116.7853546061964,
+      "max": 118.70697905538307
+     },
+     "p50_ns": {
+      "median": 94.55128345258056,
+      "min": 92.5480789223527,
+      "max": 94.95192535576922
+     },
+     "p90_ns": {
+      "median": 197.11538753673577,
+      "min": 193.10897853062338,
+      "max": 198.3173122981001
+     },
+     "p99_ns": {
+      "median": 423.87821141029764,
+      "min": 417.46795773632687,
+      "max": 426.2820611821788
+     },
+     "p99_9_ns": {
+      "median": 815.3045061144114,
+      "min": 800.0801400627262,
+      "max": 903.8461737423571
+     },
+     "p99_99_ns": {
+      "median": 7384.214920810897,
+      "min": 7384.2148530275945,
+      "max": 8204.727744711761
+     },
+     "p99_999_ns": {
+      "median": 10666.26627335822,
+      "min": 10256.009767383941,
+      "max": 38153.44635268547
+     },
+     "max_ns": {
+      "median": 184427.08731743126,
+      "min": 173781.65481178524,
+      "max": 197085.74010039892
+     }
+    },
+    "timer_p50_ns": 11.618589999347677
+   },
+   "runs": [
+    {
+     "book": "baseline",
+     "profile": "sweep",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 4086695,
+     "cpu": 2,
+     "tsc_hz": 2495999944.048001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 12.234279921687667,
+      "min_ns": 10.01602586555155,
+      "max_ns": 35383.01361368203,
+      "p50_ns": 11.618590004039799,
+      "p90_ns": 12.419872073283923,
+      "p99_ns": 12.820513107905985,
+      "p99_9_ns": 13.221154142528047,
+      "p99_99_ns": 69.31089898961673,
+      "p99_999_ns": 8409.855957751704
+     },
+     "elapsed_ns": 496063207.83482695,
+     "mean_ns": 99.21264156696539,
+     "commands_per_second": 10079360.696439391,
+     "perf": {
+      "available": true,
+      "cycles": 1852949320,
+      "instructions": 3268131286,
+      "l1d_loads": 942648060,
+      "l1d_load_misses": 25027288,
+      "llc_load_misses": 39840,
+      "branch_misses": 20048846,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 41,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 130
+     },
+     "events": 23305373,
+     "sink_hash": "0xdbe67d51e9a5595e",
+     "resting_orders_at_end": 9055
+    },
+    {
+     "book": "baseline",
+     "profile": "sweep",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 4086695,
+     "cpu": 2,
+     "tsc_hz": 2495999946.080001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.756842401413836,
+      "min_ns": 9.21474378880568,
+      "max_ns": 26647.83711412314,
+      "p50_ns": 11.217948960285176,
+      "p90_ns": 12.019231028876973,
+      "p99_ns": 12.419872063172873,
+      "p99_9_ns": 13.22115413176467,
+      "p99_99_ns": 181.4903885360423,
+      "p99_999_ns": 7179.086693548216
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 116.7853546061964,
+      "min_ns": 23.63782102345805,
+      "max_ns": 184427.08731743126,
+      "p50_ns": 92.5480789223527,
+      "p90_ns": 193.10897853062338,
+      "p99_ns": 417.46795773632687,
+      "p99_9_ns": 891.0256602740797,
+      "p99_99_ns": 7589.343112667218,
+      "p99_999_ns": 11179.086779958474
+     },
+     "usage": {
+      "minor_faults": 41,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 37
+     },
+     "events": 23305373,
+     "sink_hash": "0xdbe67d51e9a5595e",
+     "resting_orders_at_end": 9055
+    },
+    {
+     "book": "baseline",
+     "profile": "sweep",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 4086695,
+     "cpu": 2,
+     "tsc_hz": 2495999898.0160003,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.854270516404616,
+      "min_ns": 9.214743966248577,
+      "max_ns": 31690.70642305489,
+      "p50_ns": 11.618590218313424,
+      "p90_ns": 12.019231260324231,
+      "p99_ns": 12.419872302335039,
+      "p99_9_ns": 13.621795428367461,
+      "p99_99_ns": 178.28526369480943,
+      "p99_999_ns": 7179.086831791663
+     },
+     "elapsed_ns": 496442861.22965896,
+     "mean_ns": 99.28857224593179,
+     "commands_per_second": 10071652.531401705,
+     "perf": {
+      "available": true,
+      "cycles": 1859419026,
+      "instructions": 3268131099,
+      "l1d_loads": 942647956,
+      "l1d_load_misses": 25022658,
+      "llc_load_misses": 55241,
+      "branch_misses": 20078364,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 41,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 48
+     },
+     "events": 23305373,
+     "sink_hash": "0xdbe67d51e9a5595e",
+     "resting_orders_at_end": 9055
+    },
+    {
+     "book": "baseline",
+     "profile": "sweep",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 4086695,
+     "cpu": 2,
+     "tsc_hz": 2495999945.0560007,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 12.191714210681704,
+      "min_ns": 9.615384827046352,
+      "max_ns": 20945.513281582636,
+      "p50_ns": 11.618589999347677,
+      "p90_ns": 12.419872068268205,
+      "p99_ns": 12.419872068268205,
+      "p99_9_ns": 12.419872068268205,
+      "p99_99_ns": 69.71153999608606,
+      "p99_999_ns": 7384.214906137138
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 118.70697905538307,
+      "min_ns": 22.836538964235086,
+      "max_ns": 187898.64195669183,
+      "p50_ns": 93.34936102924168,
+      "p90_ns": 193.9102606787681,
+      "p99_ns": 419.87180411435736,
+      "p99_9_ns": 903.8461737423571,
+      "p99_99_ns": 8204.727744711761,
+      "p99_999_ns": 38153.44635268547
+     },
+     "usage": {
+      "minor_faults": 41,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 417
+     },
+     "events": 23305373,
+     "sink_hash": "0xdbe67d51e9a5595e",
+     "resting_orders_at_end": 9055
+    },
+    {
+     "book": "baseline",
+     "profile": "sweep",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 4086695,
+     "cpu": 2,
+     "tsc_hz": 2495999956.096001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.584871998646717,
+      "min_ns": 9.214743751828564,
+      "max_ns": 49253.60663558906,
+      "p50_ns": 11.217948915269558,
+      "p90_ns": 12.019230980645954,
+      "p99_ns": 12.419872013334153,
+      "p99_9_ns": 12.82051304602235,
+      "p99_99_ns": 127.80448942753532,
+      "p99_999_ns": 7179.086664739828
+     },
+     "elapsed_ns": 495526584.4373391,
+     "mean_ns": 99.10531688746782,
+     "commands_per_second": 10090275.99533818,
+     "perf": {
+      "available": true,
+      "cycles": 1889694875,
+      "instructions": 3268130031,
+      "l1d_loads": 942646805,
+      "l1d_load_misses": 30461824,
+      "llc_load_misses": 88870,
+      "branch_misses": 20061647,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 41,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 47
+     },
+     "events": 23305373,
+     "sink_hash": "0xdbe67d51e9a5595e",
+     "resting_orders_at_end": 9055
+    },
+    {
+     "book": "baseline",
+     "profile": "sweep",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 4086695,
+     "cpu": 2,
+     "tsc_hz": 2495999963.008,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.137745758015823,
+      "min_ns": 9.214743726310818,
+      "max_ns": 12695.112367635256,
+      "p50_ns": 11.217948884204473,
+      "p90_ns": 12.019230947361937,
+      "p99_ns": 12.419871978940668,
+      "p99_9_ns": 12.419871978940668,
+      "p99_99_ns": 75.7211549683802,
+      "p99_999_ns": 2127.8045187146413
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 117.07754764861085,
+      "min_ns": 23.63782086314514,
+      "max_ns": 197085.74010039892,
+      "p50_ns": 94.55128345258056,
+      "p90_ns": 197.11538753673577,
+      "p99_ns": 423.87821141029764,
+      "p99_9_ns": 800.0801400627262,
+      "p99_99_ns": 7384.2148530275945,
+      "p99_999_ns": 10256.009767383941
+     },
+     "usage": {
+      "minor_faults": 41,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 23
+     },
+     "events": 23305373,
+     "sink_hash": "0xdbe67d51e9a5595e",
+     "resting_orders_at_end": 9055
+    },
+    {
+     "book": "baseline",
+     "profile": "sweep",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 4086695,
+     "cpu": 2,
+     "tsc_hz": 2495999950.080001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.919457369799401,
+      "min_ns": 10.016025841346154,
+      "max_ns": 29842.148032740388,
+      "p50_ns": 11.61858997596154,
+      "p90_ns": 12.419872043269232,
+      "p99_ns": 12.419872043269232,
+      "p99_9_ns": 14.022436177884616,
+      "p99_99_ns": 14.823718245192309,
+      "p99_999_ns": 7179.08668204327
+     },
+     "elapsed_ns": 499820782.4323129,
+     "mean_ns": 99.96415648646258,
+     "commands_per_second": 10003585.636571871,
+     "perf": {
+      "available": true,
+      "cycles": 1898550096,
+      "instructions": 3268129972,
+      "l1d_loads": 942646829,
+      "l1d_load_misses": 30490327,
+      "llc_load_misses": 83254,
+      "branch_misses": 20086873,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 41,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 14
+     },
+     "events": 23305373,
+     "sink_hash": "0xdbe67d51e9a5595e",
+     "resting_orders_at_end": 9055
+    },
+    {
+     "book": "baseline",
+     "profile": "sweep",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 4086695,
+     "cpu": 2,
+     "tsc_hz": 2495999942.0320005,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.906651718832043,
+      "min_ns": 10.016025873641418,
+      "max_ns": 9499.599579596466,
+      "p50_ns": 11.618590013424045,
+      "p90_ns": 12.41987208331536,
+      "p99_ns": 12.41987208331536,
+      "p99_9_ns": 12.41987208331536,
+      "p99_99_ns": 13.221154153206673,
+      "p99_999_ns": 7179.086705191223
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 117.8284923198245,
+      "min_ns": 22.836538991902433,
+      "max_ns": 182443.91449355317,
+      "p50_ns": 94.95192528212065,
+      "p90_ns": 198.3173122981001,
+      "p99_ns": 426.2820611821788,
+      "p99_9_ns": 815.3045061144114,
+      "p99_99_ns": 7384.214915083399,
+      "p99_999_ns": 10666.26627335822
+     },
+     "usage": {
+      "minor_faults": 41,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 29
+     },
+     "events": 23305373,
+     "sink_hash": "0xdbe67d51e9a5595e",
+     "resting_orders_at_end": 9055
+    },
+    {
+     "book": "baseline",
+     "profile": "sweep",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 4086695,
+     "cpu": 2,
+     "tsc_hz": 2496000553.007999,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.947945670148426,
+      "min_ns": 10.016023421898609,
+      "max_ns": 35126.194140598425,
+      "p50_ns": 11.618587169402387,
+      "p90_ns": 12.419869043154277,
+      "p99_ns": 12.419869043154277,
+      "p99_9_ns": 12.419869043154277,
+      "p99_99_ns": 14.823714664409943,
+      "p99_999_ns": 7179.084947880047
+     },
+     "elapsed_ns": 493052250.53612244,
+     "mean_ns": 98.6104501072245,
+     "commands_per_second": 10140913.046362184,
+     "perf": {
+      "available": true,
+      "cycles": 1869130934,
+      "instructions": 3268129961,
+      "l1d_loads": 942646818,
+      "l1d_load_misses": 25090705,
+      "llc_load_misses": 74148,
+      "branch_misses": 20119407,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 41,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 26
+     },
+     "events": 23305373,
+     "sink_hash": "0xdbe67d51e9a5595e",
+     "resting_orders_at_end": 9055
+    },
+    {
+     "book": "baseline",
+     "profile": "sweep",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 4086695,
+     "cpu": 2,
+     "tsc_hz": 2495999940.0960016,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.780112061568834,
+      "min_ns": 9.214743810897435,
+      "max_ns": 7406.250177749999,
+      "p50_ns": 11.618590022435896,
+      "p90_ns": 12.419872092948717,
+      "p99_ns": 12.419872092948717,
+      "p99_9_ns": 12.419872092948717,
+      "p99_99_ns": 23.6378210801282,
+      "p99_999_ns": 7076.522605733973
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 117.57020867104389,
+      "min_ns": 23.6378210801282,
+      "max_ns": 173781.65481178524,
+      "p50_ns": 94.95192535576922,
+      "p90_ns": 197.51603038141022,
+      "p99_ns": 423.878215301282,
+      "p99_9_ns": 807.2916860416666,
+      "p99_99_ns": 7384.214920810897,
+      "p99_999_ns": 10256.009861528844
+     },
+     "usage": {
+      "minor_faults": 41,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 25
+     },
+     "events": 23305373,
+     "sink_hash": "0xdbe67d51e9a5595e",
+     "resting_orders_at_end": 9055
+    }
+   ]
+  },
+  {
+   "book": "baseline",
+   "profile": "realistic_1k",
+   "log": "realistic_1k_s1_n10000000_55f0940f711e.nmc",
+   "log_sha256": "2a7ea210767ea235008339eb117888ee4b7f40c8bd7189e2ead03becb3c3c7f0",
+   "workload": {
+    "profile": "realistic_1k",
+    "seed": 1,
+    "min_price": 1,
+    "max_price": 1048576,
+    "capacity": 2000,
+    "limit_commands": 4777484,
+    "market_commands": 99786,
+    "cancel_commands": 4123449,
+    "modify_commands": 999281,
+    "accepted_events": 4877270,
+    "rejected_events": 45304,
+    "trade_events": 730097,
+    "rested_events": 5063095,
+    "canceled_events": 4086890,
+    "modified_events": 990536,
+    "book_full_events": 0,
+    "traded_quantity": 2634093,
+    "max_resting_orders": 1100,
+    "final_resting_orders": 1099,
+    "commands_to_reach_target": 1000,
+    "lowest_best_bid": 523770,
+    "highest_best_bid": 524533
+   },
+   "summary": {
+    "mean_ns": {
+     "median": 74.37181853574529,
+     "min": 74.24218759288884,
+     "max": 75.21510093454265
+    },
+    "commands_per_second": {
+     "median": 13445953.31522478,
+     "min": 13295202.526820628,
+     "max": 13469430.689240402
+    },
+    "perf_per_command": {
+     "cycles": 291.1367896,
+     "instructions": 480.9021266,
+     "l1d_loads": 141.5246068,
+     "l1d_load_misses": 4.321231,
+     "llc_load_misses": 0.0094214,
+     "branch_misses": 4.2311216
+    },
+    "perf_min_running_fraction": 1,
+    "latency": {
+     "mean_ns": {
+      "median": 89.01289888643004,
+      "min": 88.52205989545479,
+      "max": 90.19571212903342
+     },
+     "p50_ns": {
+      "median": 82.13139699324284,
+      "min": 81.33011311682839,
+      "max": 82.13141334792084
+     },
+     "p90_ns": {
+      "median": 131.0096203159518,
+      "min": 130.2083091771883,
+      "max": 132.6121580720165
+     },
+     "p99_ns": {
+      "median": 210.73718606731296,
+      "min": 206.7307770123276,
+      "max": 212.33970929960347
+     },
+     "p99_9_ns": {
+      "median": 339.34295699704654,
+      "min": 319.31090945508737,
+      "max": 343.34936969522283
+     },
+     "p99_99_ns": {
+      "median": 2384.2143585696986,
+      "min": 1845.7532501598505,
+      "max": 7281.6509151144455
+     },
+     "p99_999_ns": {
+      "median": 7999.598067141854,
+      "min": 5743.18924268319,
+      "max": 9948.317682157183
+     },
+     "max_ns": {
+      "median": 43853.3572489744,
+      "min": 36740.78615279121,
+      "max": 63996.796870053804
+     }
+    },
+    "timer_p50_ns": 11.618587867336794
+   },
+   "runs": [
+    {
+     "book": "baseline",
+     "profile": "realistic_1k",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2438847,
+     "cpu": 2,
+     "tsc_hz": 2495999956.096001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.71734275418197,
+      "min_ns": 9.214743751828564,
+      "max_ns": 23754.006828083286,
+      "p50_ns": 11.618589947957755,
+      "p90_ns": 12.419872013334153,
+      "p99_ns": 12.419872013334153,
+      "p99_9_ns": 14.423077176775145,
+      "p99_99_ns": 22.83653886322731,
+      "p99_999_ns": 2179.0865767911114
+     },
+     "elapsed_ns": 371859092.67872643,
+     "mean_ns": 74.37181853574529,
+     "commands_per_second": 13445953.31522478,
+     "perf": {
+      "available": true,
+      "cycles": 1457415535,
+      "instructions": 2404510621,
+      "l1d_loads": 707623022,
+      "l1d_load_misses": 21606155,
+      "llc_load_misses": 47107,
+      "branch_misses": 21168140,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 18
+     },
+     "events": 15793192,
+     "sink_hash": "0x1f52e9560d018a16",
+     "resting_orders_at_end": 1099
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1k",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2438847,
+     "cpu": 2,
+     "tsc_hz": 2495999939.1040015,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.3159517985161,
+      "min_ns": 9.214743814559705,
+      "max_ns": 5157.852689940942,
+      "p50_ns": 11.217948991637902,
+      "p90_ns": 12.019231062469181,
+      "p99_ns": 12.41987209788482,
+      "p99_9_ns": 14.423077274963017,
+      "p99_99_ns": 92.14743814559705,
+      "p99_999_ns": 1197.9166958927617
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 89.01289888643004,
+      "min_ns": 23.637821089522724,
+      "max_ns": 36740.78615279121,
+      "p50_ns": 82.13141226020608,
+      "p90_ns": 131.81090065174536,
+      "p99_ns": 211.5384666994576,
+      "p99_9_ns": 339.34295699704654,
+      "p99_99_ns": 1845.7532501598505,
+      "p99_999_ns": 5743.18924268319
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 31
+     },
+     "events": 15793192,
+     "sink_hash": "0x1f52e9560d018a16",
+     "resting_orders_at_end": 1099
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1k",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2438847,
+     "cpu": 2,
+     "tsc_hz": 2495999941.0880013,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.77197864323349,
+      "min_ns": 9.214743807235166,
+      "max_ns": 11120.993852227555,
+      "p50_ns": 11.618590017818255,
+      "p90_ns": 12.419872088012616,
+      "p99_ns": 12.419872088012616,
+      "p99_9_ns": 14.823718298595702,
+      "p99_99_ns": 23.63782107073369,
+      "p99_999_ns": 7076.522602921511
+     },
+     "elapsed_ns": 371497012.3740511,
+     "mean_ns": 74.29940247481022,
+     "commands_per_second": 13459058.440463647,
+     "perf": {
+      "available": true,
+      "cycles": 1456250224,
+      "instructions": 2404510619,
+      "l1d_loads": 707623020,
+      "l1d_load_misses": 21584303,
+      "llc_load_misses": 47180,
+      "branch_misses": 21196128,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 18
+     },
+     "events": 15793192,
+     "sink_hash": "0x1f52e9560d018a16",
+     "resting_orders_at_end": 1099
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1k",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2438847,
+     "cpu": 2,
+     "tsc_hz": 2496000403.071993,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 12.02690430780918,
+      "min_ns": 9.214742101680905,
+      "max_ns": 8844.549853769899,
+      "p50_ns": 11.618587867336794,
+      "p90_ns": 12.019228828279442,
+      "p99_ns": 12.419869789222089,
+      "p99_9_ns": 14.823715554877978,
+      "p99_99_ns": 180.68907338513426,
+      "p99_999_ns": 7691.9058091379
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 89.74593638859238,
+      "min_ns": 22.03525285184564,
+      "max_ns": 46856.9635870474,
+      "p50_ns": 82.13139699324284,
+      "p90_ns": 132.6121580720165,
+      "p99_ns": 212.33970929960347,
+      "p99_9_ns": 343.3493035278494,
+      "p99_99_ns": 2384.2143585696986,
+      "p99_999_ns": 7999.598067141854
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 25
+     },
+     "events": 15793192,
+     "sink_hash": "0x1f52e9560d018a16",
+     "resting_orders_at_end": 1099
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1k",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2438847,
+     "cpu": 2,
+     "tsc_hz": 2495999881.0400014,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.085349086022882,
+      "min_ns": 9.214744028920649,
+      "max_ns": 3368.5899041376006,
+      "p50_ns": 11.21794925259905,
+      "p90_ns": 11.61859029733473,
+      "p99_ns": 12.419872386806091,
+      "p99_9_ns": 14.423077610484492,
+      "p99_99_ns": 88.54167088658536,
+      "p99_999_ns": 1186.2981334623496
+     },
+     "elapsed_ns": 371210937.9644442,
+     "mean_ns": 74.24218759288884,
+     "commands_per_second": 13469430.689240402,
+     "perf": {
+      "available": true,
+      "cycles": 1455683948,
+      "instructions": 2404510633,
+      "l1d_loads": 707623034,
+      "l1d_load_misses": 21612897,
+      "llc_load_misses": 46839,
+      "branch_misses": 21126628,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 34
+     },
+     "events": 15793192,
+     "sink_hash": "0x1f52e9560d018a16",
+     "resting_orders_at_end": 1099
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1k",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2438847,
+     "cpu": 2,
+     "tsc_hz": 2495999922.064001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.695778009423936,
+      "min_ns": 10.016025953769628,
+      "max_ns": 6024.839931711506,
+      "p50_ns": 11.618590106372768,
+      "p90_ns": 12.419872182674338,
+      "p99_ns": 12.419872182674338,
+      "p99_9_ns": 14.423077373428262,
+      "p99_99_ns": 14.823718411579048,
+      "p99_999_ns": 2025.2404478522185
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 88.52205989545479,
+      "min_ns": 22.435898136443964,
+      "max_ns": 63996.796870053804,
+      "p50_ns": 81.33013074460936,
+      "p90_ns": 131.00961947530672,
+      "p99_ns": 210.73718606731296,
+      "p99_9_ns": 343.34936969522283,
+      "p99_99_ns": 2076.522500735519,
+      "p99_999_ns": 7179.086762623918
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 30
+     },
+     "events": 15793192,
+     "sink_hash": "0x1f52e9560d018a16",
+     "resting_orders_at_end": 1099
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1k",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2438847,
+     "cpu": 2,
+     "tsc_hz": 2495999945.0560007,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.406418520318208,
+      "min_ns": 9.214743792586088,
+      "max_ns": 5703.926407610788,
+      "p50_ns": 11.21794896488741,
+      "p90_ns": 12.019231033807941,
+      "p99_ns": 12.419872068268205,
+      "p99_9_ns": 14.823718275029794,
+      "p99_99_ns": 30.048077584519852,
+      "p99_999_ns": 2897.035320182174
+     },
+     "elapsed_ns": 376075504.6727132,
+     "mean_ns": 75.21510093454265,
+     "commands_per_second": 13295202.526820628,
+     "perf": {
+      "available": true,
+      "cycles": 1432174934,
+      "instructions": 2404511418,
+      "l1d_loads": 707623819,
+      "l1d_load_misses": 18619467,
+      "llc_load_misses": 8060,
+      "branch_misses": 21091085,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 8
+     },
+     "events": 15793192,
+     "sink_hash": "0x1f52e9560d018a16",
+     "resting_orders_at_end": 1099
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1k",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2438847,
+     "cpu": 2,
+     "tsc_hz": 2495999906.0480013,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 12.07798482962773,
+      "min_ns": 10.016026018039128,
+      "max_ns": 167486.78515052813,
+      "p50_ns": 11.618590180925388,
+      "p90_ns": 12.419872262368518,
+      "p99_ns": 12.820513303090083,
+      "p99_9_ns": 14.82371850669791,
+      "p99_99_ns": 15.62500058814104,
+      "p99_999_ns": 7179.086808689725
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 90.19571212903342,
+      "min_ns": 23.637821402572342,
+      "max_ns": 40659.056017628034,
+      "p50_ns": 82.13141334792084,
+      "p90_ns": 131.0096203159518,
+      "p99_ns": 206.7307770123276,
+      "p99_9_ns": 319.31090945508737,
+      "p99_99_ns": 7281.6509151144455,
+      "p99_999_ns": 9948.317682157183
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 25
+     },
+     "events": 15793192,
+     "sink_hash": "0x1f52e9560d018a16",
+     "resting_orders_at_end": 1099
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1k",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2438847,
+     "cpu": 2,
+     "tsc_hz": 2495999910,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.122050080522639,
+      "min_ns": 9.21474392200599,
+      "max_ns": 4590.144396279245,
+      "p50_ns": 11.217949122442075,
+      "p90_ns": 12.01923120261651,
+      "p99_ns": 12.419872242703725,
+      "p99_9_ns": 14.42307744313981,
+      "p99_99_ns": 48.87820689064047,
+      "p99_999_ns": 1294.471200521798
+     },
+     "elapsed_ns": 373297459.7743475,
+     "mean_ns": 74.6594919548695,
+     "commands_per_second": 13394144.18470038,
+     "perf": {
+      "available": true,
+      "cycles": 1454661942,
+      "instructions": 2404510844,
+      "l1d_loads": 707623245,
+      "l1d_load_misses": 21622476,
+      "llc_load_misses": 48132,
+      "branch_misses": 21155608,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 16
+     },
+     "events": 15793192,
+     "sink_hash": "0x1f52e9560d018a16",
+     "resting_orders_at_end": 1099
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1k",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2438847,
+     "cpu": 2,
+     "tsc_hz": 2496000463.0559936,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.50141733741978,
+      "min_ns": 9.214741880231788,
+      "max_ns": 9061.296395878364,
+      "p50_ns": 11.217946636803916,
+      "p90_ns": 12.019228539432767,
+      "p99_ns": 12.419869490747192,
+      "p99_9_ns": 14.823715198633746,
+      "p99_99_ns": 128.6057453719306,
+      "p99_999_ns": 7076.521123066699
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 88.79424498529355,
+      "min_ns": 24.43909803017996,
+      "max_ns": 43853.3572489744,
+      "p50_ns": 81.33011311682839,
+      "p90_ns": 130.2083091771883,
+      "p99_ns": 208.3332946835013,
+      "p99_9_ns": 339.34288576331846,
+      "p99_99_ns": 7179.085206603192,
+      "p99_999_ns": 9127.802793796558
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 13
+     },
+     "events": 15793192,
+     "sink_hash": "0x1f52e9560d018a16",
+     "resting_orders_at_end": 1099
+    }
+   ]
+  },
+  {
+   "book": "baseline",
+   "profile": "realistic_100k",
+   "log": "realistic_100k_s1_n10000000_55f0940f711e.nmc",
+   "log_sha256": "6d714bcfe8e9be09c80e6a4c53ca57c1fff9225c5900f700adee6e09e91ebfbc",
+   "workload": {
+    "profile": "realistic_100k",
+    "seed": 1,
+    "min_price": 1,
+    "max_price": 1048576,
+    "capacity": 200000,
+    "limit_commands": 4839149,
+    "market_commands": 98842,
+    "cancel_commands": 4072359,
+    "modify_commands": 989650,
+    "accepted_events": 4937991,
+    "rejected_events": 44623,
+    "trade_events": 732393,
+    "rested_events": 5116575,
+    "canceled_events": 4036290,
+    "modified_events": 981096,
+    "book_full_events": 0,
+    "traded_quantity": 2639140,
+    "max_resting_orders": 110000,
+    "final_resting_orders": 109998,
+    "commands_to_reach_target": 100000,
+    "lowest_best_bid": 524273,
+    "highest_best_bid": 524708
+   },
+   "summary": {
+    "mean_ns": {
+     "median": 154.12138589020475,
+     "min": 152.59105631056835,
+     "max": 196.19275473882834
+    },
+    "commands_per_second": {
+     "median": 6488392.212566754,
+     "min": 5097028.18195911,
+     "max": 6553464.037660906
+    },
+    "perf_per_command": {
+     "cycles": 657.9478496,
+     "instructions": 507.30993,
+     "l1d_loads": 152.5781058,
+     "l1d_load_misses": 7.3091958,
+     "llc_load_misses": 1.2469724,
+     "branch_misses": 3.97845
+    },
+    "perf_min_running_fraction": 1,
+    "latency": {
+     "mean_ns": {
+      "median": 234.03379047159495,
+      "min": 212.9908882712921,
+      "max": 243.82008271747085
+     },
+     "p50_ns": {
+      "median": 195.91342032631596,
+      "min": 185.49679910254872,
+      "max": 213.14103093129526
+     },
+     "p90_ns": {
+      "median": 445.91346920474297,
+      "min": 404.24680409173146,
+      "max": 450.72106805891207
+     },
+     "p99_ns": {
+      "median": 808.0929687752304,
+      "min": 728.3654012277184,
+      "max": 828.5256552699088
+     },
+     "p99_9_ns": {
+      "median": 1282.0513138724527,
+      "min": 1133.0128463542285,
+      "max": 7281.650766214019
+     },
+     "p99_99_ns": {
+      "median": 4307.291773575856,
+      "min": 3794.471240389285,
+      "max": 10153.445687381673
+     },
+     "p99_999_ns": {
+      "median": 13743.189443677107,
+      "min": 13025.240681691062,
+      "max": 27897.03573602467
+     },
+     "max_ns": {
+      "median": 37842.54087422626,
+      "min": 36788.053158738876,
+      "max": 99144.63311478142
+     }
+    },
+    "timer_p50_ns": 11.217948910811144
+   },
+   "runs": [
+    {
+     "book": "baseline",
+     "profile": "realistic_100k",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2441554,
+     "cpu": 2,
+     "tsc_hz": 2495999912.0480013,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.97860218491266,
+      "min_ns": 9.21474391444517,
+      "max_ns": 37228.366696438,
+      "p50_ns": 11.217949113237598,
+      "p90_ns": 12.419872232513056,
+      "p99_ns": 13.621795351788512,
+      "p99_9_ns": 16.8269236698564,
+      "p99_99_ns": 186.29808348769583,
+      "p99_999_ns": 7281.650897610477
+     },
+     "elapsed_ns": 827404377.3124473,
+     "mean_ns": 165.48087546248945,
+     "commands_per_second": 6042994.377478236,
+     "perf": {
+      "available": true,
+      "cycles": 3436102197,
+      "instructions": 2536553276,
+      "l1d_loads": 762894155,
+      "l1d_load_misses": 36651003,
+      "llc_load_misses": 7019691,
+      "branch_misses": 19908660,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 32
+     },
+     "events": 15848968,
+     "sink_hash": "0xa482ed154ebab842",
+     "resting_orders_at_end": 109998
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_100k",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2441554,
+     "cpu": 2,
+     "tsc_hz": 2495999957.088001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.492981367462663,
+      "min_ns": 9.214743748166297,
+      "max_ns": 28455.529335370054,
+      "p50_ns": 11.217948910811144,
+      "p90_ns": 12.019230975869084,
+      "p99_ns": 12.419872008398052,
+      "p99_9_ns": 14.02243613851393,
+      "p99_99_ns": 181.49038773562316,
+      "p99_999_ns": 7076.522557559187
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 243.82008271747085,
+      "min_ns": 22.035256789093317,
+      "max_ns": 99144.63311478142,
+      "p50_ns": 201.52243936207162,
+      "p90_ns": 445.91346920474297,
+      "p99_ns": 828.5256552699088,
+      "p99_9_ns": 7281.650766214019,
+      "p99_99_ns": 10153.445687381673,
+      "p99_999_ns": 27897.03573602467
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 347
+     },
+     "events": 15848968,
+     "sink_hash": "0xa482ed154ebab842",
+     "resting_orders_at_end": 109998
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_100k",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2441554,
+     "cpu": 2,
+     "tsc_hz": 2495999116.032007,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 12.052699781330462,
+      "min_ns": 10.016029188240871,
+      "max_ns": 9061.70192718528,
+      "p50_ns": 11.61859385835941,
+      "p90_ns": 12.41987619341868,
+      "p99_ns": 12.41987619341868,
+      "p99_9_ns": 14.423082031066855,
+      "p99_99_ns": 14.82372319859649,
+      "p99_999_ns": 7179.089080963527
+     },
+     "elapsed_ns": 980963773.6941417,
+     "mean_ns": 196.19275473882834,
+     "commands_per_second": 5097028.18195911,
+     "perf": {
+      "available": true,
+      "cycles": 3970628337,
+      "instructions": 2536553706,
+      "l1d_loads": 762894585,
+      "l1d_load_misses": 33736297,
+      "llc_load_misses": 9106541,
+      "branch_misses": 19863369,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 43
+     },
+     "events": 15848968,
+     "sink_hash": "0xa482ed154ebab842",
+     "resting_orders_at_end": 109998
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_100k",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2441554,
+     "cpu": 2,
+     "tsc_hz": 2495999943.072001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.123282705619483,
+      "min_ns": 9.214743799910629,
+      "max_ns": 3304.086613820128,
+      "p50_ns": 11.217948973804242,
+      "p90_ns": 12.019231043361689,
+      "p99_ns": 12.820513112919135,
+      "p99_9_ns": 14.423077252034027,
+      "p99_99_ns": 75.72115557317863,
+      "p99_999_ns": 1871.3942734514148
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 212.9908882712921,
+      "min_ns": 22.836538982387207,
+      "max_ns": 37685.497654391016,
+      "p50_ns": 185.49679910254872,
+      "p90_ns": 404.24680409173146,
+      "p99_ns": 728.3654012277184,
+      "p99_9_ns": 1133.0128463542285,
+      "p99_99_ns": 3794.471240389285,
+      "p99_999_ns": 13025.240681691062
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 47
+     },
+     "events": 15848968,
+     "sink_hash": "0xa482ed154ebab842",
+     "resting_orders_at_end": 109998
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_100k",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2441554,
+     "cpu": 2,
+     "tsc_hz": 2495999936.0960016,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.096078809729088,
+      "min_ns": 9.214743825664653,
+      "max_ns": 9788.461789071252,
+      "p50_ns": 11.217949005156969,
+      "p90_ns": 11.618590041055434,
+      "p99_ns": 12.41987211285236,
+      "p99_9_ns": 14.823718328243139,
+      "p99_99_ns": 52.08333466680022,
+      "p99_999_ns": 1228.7660571005867
+     },
+     "elapsed_ns": 762955281.5528418,
+     "mean_ns": 152.59105631056835,
+     "commands_per_second": 6553464.037660906,
+     "perf": {
+      "available": true,
+      "cycles": 3264100074,
+      "instructions": 2536549650,
+      "l1d_loads": 762890529,
+      "l1d_load_misses": 36682545,
+      "llc_load_misses": 5906464,
+      "branch_misses": 19892250,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 125
+     },
+     "events": 15848968,
+     "sink_hash": "0xa482ed154ebab842",
+     "resting_orders_at_end": 109998
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_100k",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2441554,
+     "cpu": 2,
+     "tsc_hz": 2495999938.048001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.198361255513166,
+      "min_ns": 9.214743818458253,
+      "max_ns": 3435.897521178173,
+      "p50_ns": 11.21794899638396,
+      "p90_ns": 12.019231067554244,
+      "p99_ns": 12.419872103139385,
+      "p99_9_ns": 15.625000387820517,
+      "p99_99_ns": 127.80449035166012,
+      "p99_999_ns": 1026.0416921335473
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 240.98845077312353,
+      "min_ns": 22.03525695718278,
+      "max_ns": 50111.37944891832,
+      "p50_ns": 213.14103093129526,
+      "p90_ns": 449.91988296211383,
+      "p99_ns": 808.0929687752304,
+      "p99_9_ns": 1282.0513138724527,
+      "p99_99_ns": 4307.291773575856,
+      "p99_999_ns": 13743.189443677107
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 53
+     },
+     "events": 15848968,
+     "sink_hash": "0xa482ed154ebab842",
+     "resting_orders_at_end": 109998
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_100k",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2441554,
+     "cpu": 2,
+     "tsc_hz": 2496000392.0159984,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.075154510561799,
+      "min_ns": 9.21474214249746,
+      "max_ns": 4943.508838968529,
+      "p50_ns": 11.217946956083864,
+      "p90_ns": 11.618587918801145,
+      "p99_ns": 12.419869844235707,
+      "p99_9_ns": 14.423074657822111,
+      "p99_99_ns": 158.65382123604323,
+      "p99_999_ns": 1084.5350860756794
+     },
+     "elapsed_ns": 770606929.4510237,
+     "mean_ns": 154.12138589020475,
+     "commands_per_second": 6488392.212566754,
+     "perf": {
+      "available": true,
+      "cycles": 3289739248,
+      "instructions": 2536549570,
+      "l1d_loads": 762890449,
+      "l1d_load_misses": 36542025,
+      "llc_load_misses": 6234862,
+      "branch_misses": 19879716,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 47
+     },
+     "events": 15848968,
+     "sink_hash": "0xa482ed154ebab842",
+     "resting_orders_at_end": 109998
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_100k",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2441554,
+     "cpu": 2,
+     "tsc_hz": 2496000525.0559926,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.15786784515009,
+      "min_ns": 9.214741651340015,
+      "max_ns": 3306.489689065615,
+      "p50_ns": 11.217946358153062,
+      "p90_ns": 12.019228240878281,
+      "p99_ns": 12.41986918224089,
+      "p99_9_ns": 14.423073889053937,
+      "p99_99_ns": 103.36536287155322,
+      "p99_999_ns": 1691.9066953742993
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 226.63921450389515,
+      "min_ns": 22.435892716306125,
+      "max_ns": 36788.053158738876,
+      "p50_ns": 195.91342032631596,
+      "p90_ns": 426.68260255117895,
+      "p99_ns": 768.0286845921221,
+      "p99_9_ns": 1219.9516664491455,
+      "p99_99_ns": 4153.444639106171,
+      "p99_999_ns": 13538.058049583933
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 57
+     },
+     "events": 15848968,
+     "sink_hash": "0xa482ed154ebab842",
+     "resting_orders_at_end": 109998
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_100k",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2441554,
+     "cpu": 2,
+     "tsc_hz": 2495999949.0560007,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 10.958841970467644,
+      "min_ns": 9.214743777818871,
+      "max_ns": 6878.205268591059,
+      "p50_ns": 10.817307913091717,
+      "p90_ns": 11.61858998072814,
+      "p99_ns": 12.019231014546353,
+      "p99_9_ns": 13.6217951498192,
+      "p99_99_ns": 51.282052328731105,
+      "p99_999_ns": 1254.8077179186391
+     },
+     "elapsed_ns": 768151391.8800898,
+     "mean_ns": 153.63027837601794,
+     "commands_per_second": 6509133.554730982,
+     "perf": {
+      "available": true,
+      "cycles": 3259487806,
+      "instructions": 2536549610,
+      "l1d_loads": 762890489,
+      "l1d_load_misses": 36545979,
+      "llc_load_misses": 6007288,
+      "branch_misses": 19904992,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 96
+     },
+     "events": 15848968,
+     "sink_hash": "0xa482ed154ebab842",
+     "resting_orders_at_end": 109998
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_100k",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2441554,
+     "cpu": 2,
+     "tsc_hz": 2496000475.0719914,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.108375289552095,
+      "min_ns": 9.214741835871092,
+      "max_ns": 3881.810158598044,
+      "p50_ns": 11.21794658279959,
+      "p90_ns": 11.61858753218529,
+      "p99_ns": 12.41986943095669,
+      "p99_9_ns": 14.022433228499487,
+      "p99_99_ns": 75.72113943389724,
+      "p99_999_ns": 1066.1055663153468
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 234.03379047159495,
+      "min_ns": 23.63781601375628,
+      "max_ns": 37842.54087422626,
+      "p50_ns": 195.51278330022143,
+      "p90_ns": 450.72106805891207,
+      "p99_ns": 820.1120233925271,
+      "p99_9_ns": 1324.9196196185087,
+      "p99_99_ns": 4563.701054452505,
+      "p99_999_ns": 14768.827317205045
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 92
+     },
+     "events": 15848968,
+     "sink_hash": "0xa482ed154ebab842",
+     "resting_orders_at_end": 109998
+    }
+   ]
+  },
+  {
+   "book": "baseline",
+   "profile": "realistic_1m",
+   "log": "realistic_1m_s1_n10000000_55f0940f711e.nmc",
+   "log_sha256": "0e4ed96b811b744c638d34f74b9db96b226617ad9c5e226a89485981c0804d69",
+   "workload": {
+    "profile": "realistic_1m",
+    "seed": 1,
+    "min_price": 1,
+    "max_price": 1048576,
+    "capacity": 2000000,
+    "limit_commands": 5352329,
+    "market_commands": 90042,
+    "cancel_commands": 3657935,
+    "modify_commands": 899694,
+    "accepted_events": 5442371,
+    "rejected_events": 40049,
+    "trade_events": 663042,
+    "rested_events": 5615435,
+    "canceled_events": 3625653,
+    "modified_events": 891927,
+    "book_full_events": 0,
+    "traded_quantity": 2397530,
+    "max_resting_orders": 1100000,
+    "final_resting_orders": 1099999,
+    "commands_to_reach_target": 1000000,
+    "lowest_best_bid": 524284,
+    "highest_best_bid": 524596
+   },
+   "summary": {
+    "mean_ns": {
+     "median": 308.9229125734559,
+     "min": 289.1755684261236,
+     "max": 315.7484837224698
+    },
+    "commands_per_second": {
+     "median": 3237053.514967813,
+     "min": 3167077.7582544456,
+     "max": 3458106.801493061
+    },
+    "perf_per_command": {
+     "cycles": 1297.3054428,
+     "instructions": 512.205476,
+     "l1d_loads": 155.0512154,
+     "l1d_load_misses": 11.9918826,
+     "llc_load_misses": 3.8935282,
+     "branch_misses": 4.6892684
+    },
+    "perf_min_running_fraction": 1,
+    "latency": {
+     "mean_ns": {
+      "median": 439.5020035973572,
+      "min": 416.93638655605054,
+      "max": 459.1161116885386
+     },
+     "p50_ns": {
+      "median": 466.34616616546487,
+      "min": 447.91660780295933,
+      "max": 483.5737322854392
+     },
+     "p90_ns": {
+      "median": 758.4134815732174,
+      "min": 698.3172159217872,
+      "max": 800.8814340004913
+     },
+     "p99_ns": {
+      "median": 1320.9134964325924,
+      "min": 1139.4229271839145,
+      "max": 1507.2115752626205
+     },
+     "p99_9_ns": {
+      "median": 2512.419938164631,
+      "min": 2050.881462764233,
+      "max": 5435.496080557021
+     },
+     "p99_99_ns": {
+      "median": 7486.779068117648,
+      "min": 5845.753354794477,
+      "max": 10256.0082675742
+     },
+     "p99_999_ns": {
+      "median": 18050.88188710053,
+      "min": 14768.83050632505,
+      "max": 21127.805113564733
+     },
+     "max_ns": {
+      "median": 54137.421193650225,
+      "min": 40018.8311527898,
+      "max": 84117.79068365006
+     }
+    },
+    "timer_p50_ns": 11.217949005156969
+   },
+   "runs": [
+    {
+     "book": "baseline",
+     "profile": "realistic_1m",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2439667,
+     "cpu": 2,
+     "tsc_hz": 2495999863.088003,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.10085317301281,
+      "min_ns": 9.21474409519592,
+      "max_ns": 4502.804734169867,
+      "p50_ns": 11.21794933328199,
+      "p90_ns": 12.019231428516417,
+      "p99_ns": 12.41987247613363,
+      "p99_9_ns": 15.224359809454128,
+      "p99_99_ns": 22.836539714181193,
+      "p99_999_ns": 1047.6763395190144
+     },
+     "elapsed_ns": 1445877842.130618,
+     "mean_ns": 289.1755684261236,
+     "commands_per_second": 3458106.801493061,
+     "perf": {
+      "available": true,
+      "cycles": 6192017150,
+      "instructions": 2561028648,
+      "l1d_loads": 775257345,
+      "l1d_load_misses": 59959413,
+      "llc_load_misses": 19051547,
+      "branch_misses": 23486422,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 240
+     },
+     "events": 16278477,
+     "sink_hash": "0x5853d7772c926c67",
+     "resting_orders_at_end": 1099999
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1m",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2439667,
+     "cpu": 2,
+     "tsc_hz": 2496000328.015999,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.354268539911162,
+      "min_ns": 9.214742378772867,
+      "max_ns": 9883.812803666375,
+      "p50_ns": 11.21794724372349,
+      "p90_ns": 12.019229189703738,
+      "p99_ns": 13.221152108674113,
+      "p99_9_ns": 16.025638919604987,
+      "p99_99_ns": 159.4551072500696,
+      "p99_999_ns": 7076.521505924571
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 417.43067647278036,
+      "min_ns": 22.836535460437105,
+      "max_ns": 41328.92085074229,
+      "p50_ns": 447.91660780295933,
+      "p90_ns": 698.3172159217872,
+      "p99_ns": 1139.4229271839145,
+      "p99_9_ns": 5435.496080557021,
+      "p99_99_ns": 10256.0082675742,
+      "p99_999_ns": 17025.238147215347
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 99
+     },
+     "events": 16278477,
+     "sink_hash": "0x5853d7772c926c67",
+     "resting_orders_at_end": 1099999
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1m",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2439667,
+     "cpu": 2,
+     "tsc_hz": 2495999945.024,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.17952027828738,
+      "min_ns": 9.214743792704228,
+      "max_ns": 6067.708466978501,
+      "p50_ns": 11.217948965031233,
+      "p90_ns": 12.019231033962036,
+      "p99_ns": 12.82051310289284,
+      "p99_9_ns": 14.022436206289042,
+      "p99_99_ns": 102.56410482314271,
+      "p99_999_ns": 1922.6763243994603
+     },
+     "elapsed_ns": 1544614562.8672795,
+     "mean_ns": 308.9229125734559,
+     "commands_per_second": 3237053.514967813,
+     "perf": {
+      "available": true,
+      "cycles": 6486527214,
+      "instructions": 2561027380,
+      "l1d_loads": 775256077,
+      "l1d_load_misses": 59897928,
+      "llc_load_misses": 19467641,
+      "branch_misses": 23491169,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 212
+     },
+     "events": 16278477,
+     "sink_hash": "0x5853d7772c926c67",
+     "resting_orders_at_end": 1099999
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1m",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2439667,
+     "cpu": 2,
+     "tsc_hz": 2495999934.064001,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.045257903958378,
+      "min_ns": 9.214743833166402,
+      "max_ns": 3407.4520130904457,
+      "p50_ns": 10.817307978064907,
+      "p90_ns": 11.61859005051416,
+      "p99_ns": 12.820513159188037,
+      "p99_9_ns": 14.022436267861917,
+      "p99_99_ns": 27.644231499499206,
+      "p99_999_ns": 1078.125028480469
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 439.5020035973572,
+      "min_ns": 23.637821137252946,
+      "max_ns": 84117.79068365006,
+      "p50_ns": 466.34616616546487,
+      "p90_ns": 758.4134815732174,
+      "p99_ns": 1320.9134964325924,
+      "p99_9_ns": 2512.419938164631,
+      "p99_99_ns": 6512.420043831298,
+      "p99_999_ns": 18050.88188710053
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 166
+     },
+     "events": 16278477,
+     "sink_hash": "0x5853d7772c926c67",
+     "resting_orders_at_end": 1099999
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1m",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2439667,
+     "cpu": 2,
+     "tsc_hz": 2496000686.079986,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.16724652979794,
+      "min_ns": 9.214741056871228,
+      "max_ns": 9491.183288577364,
+      "p50_ns": 11.21794563445193,
+      "p90_ns": 12.01922746548421,
+      "p99_ns": 12.41986838100035,
+      "p99_9_ns": 14.022432043064912,
+      "p99_99_ns": 91.34612873767999,
+      "p99_999_ns": 1099.358672176289
+     },
+     "elapsed_ns": 1578742418.612349,
+     "mean_ns": 315.7484837224698,
+     "commands_per_second": 3167077.7582544456,
+     "perf": {
+      "available": true,
+      "cycles": 6561217531,
+      "instructions": 2561027289,
+      "l1d_loads": 775255986,
+      "l1d_load_misses": 60013526,
+      "llc_load_misses": 19670734,
+      "branch_misses": 23446342,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 74
+     },
+     "events": 16278477,
+     "sink_hash": "0x5853d7772c926c67",
+     "resting_orders_at_end": 1099999
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1m",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2439667,
+     "cpu": 2,
+     "tsc_hz": 2495999939.0560007,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.649823201116511,
+      "min_ns": 9.214743814736915,
+      "max_ns": 4455.52895494301,
+      "p50_ns": 11.61859002727698,
+      "p90_ns": 12.419872098123667,
+      "p99_ns": 12.419872098123667,
+      "p99_9_ns": 14.423077275240388,
+      "p99_99_ns": 14.823718310663732,
+      "p99_999_ns": 2204.7276179346627
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 452.8321447104975,
+      "min_ns": 24.839744196247334,
+      "max_ns": 54137.421193650225,
+      "p50_ns": 470.352575587006,
+      "p90_ns": 796.4743784216081,
+      "p99_ns": 1507.2115752626205,
+      "p99_9_ns": 2871.3943008791075,
+      "p99_99_ns": 7589.343134024408,
+      "p99_999_ns": 18871.39469154578
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 166
+     },
+     "events": 16278477,
+     "sink_hash": "0x5853d7772c926c67",
+     "resting_orders_at_end": 1099999
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1m",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2439667,
+     "cpu": 2,
+     "tsc_hz": 2495999933.0880013,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.601888532173698,
+      "min_ns": 9.214743836769602,
+      "max_ns": 4659.85589415075,
+      "p50_ns": 11.618590055057325,
+      "p90_ns": 12.419872127819898,
+      "p99_ns": 12.419872127819898,
+      "p99_9_ns": 14.423077309726335,
+      "p99_99_ns": 48.87820643851702,
+      "p99_999_ns": 1743.1891492949799
+     },
+     "elapsed_ns": 1573314468.4589806,
+     "mean_ns": 314.6628936917961,
+     "commands_per_second": 3178004.2071928354,
+     "perf": {
+      "available": true,
+      "cycles": 6541313503,
+      "instructions": 2561027270,
+      "l1d_loads": 775255967,
+      "l1d_load_misses": 59751771,
+      "llc_load_misses": 19698433,
+      "branch_misses": 23433387,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 65
+     },
+     "events": 16278477,
+     "sink_hash": "0x5853d7772c926c67",
+     "resting_orders_at_end": 1099999
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1m",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2439667,
+     "cpu": 2,
+     "tsc_hz": 2495999926,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.70769986633405,
+      "min_ns": 9.615384900456123,
+      "max_ns": 5879.807866628919,
+      "p50_ns": 11.618590088051148,
+      "p90_ns": 12.419872163089158,
+      "p99_ns": 12.419872163089158,
+      "p99_9_ns": 14.423077350684183,
+      "p99_99_ns": 14.823718388203188,
+      "p99_999_ns": 208.33333950988265
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 459.1161116885386,
+      "min_ns": 24.43910328865931,
+      "max_ns": 81597.35818838321,
+      "p50_ns": 483.5737322854392,
+      "p90_ns": 800.8814340004913,
+      "p99_ns": 1377.0032459528206,
+      "p99_9_ns": 2384.2148142755996,
+      "p99_99_ns": 7486.779068117648,
+      "p99_999_ns": 21127.805113564733
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 297
+     },
+     "events": 16278477,
+     "sink_hash": "0x5853d7772c926c67",
+     "resting_orders_at_end": 1099999
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1m",
+     "mode": "untimed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2439667,
+     "cpu": 2,
+     "tsc_hz": 2495999901.072002,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.754656315250248,
+      "min_ns": 10.016026038006974,
+      "max_ns": 17587.741081698725,
+      "p50_ns": 11.61859020408809,
+      "p90_ns": 12.419872287128648,
+      "p99_ns": 12.419872287128648,
+      "p99_9_ns": 12.419872287128648,
+      "p99_99_ns": 12.419872287128648,
+      "p99_999_ns": 4666.266210586689
+     },
+     "elapsed_ns": 1499371935.228311,
+     "mean_ns": 299.8743870456622,
+     "commands_per_second": 3334729.6174638914,
+     "perf": {
+      "available": true,
+      "cycles": 6293233667,
+      "instructions": 2561027415,
+      "l1d_loads": 775256112,
+      "l1d_load_misses": 60185874,
+      "llc_load_misses": 19449873,
+      "branch_misses": 23443829,
+      "running_fraction": 1
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 279
+     },
+     "events": 16278477,
+     "sink_hash": "0x5853d7772c926c67",
+     "resting_orders_at_end": 1099999
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic_1m",
+     "mode": "timed",
+     "warmup_commands": 5000000,
+     "measured_commands": 5000000,
+     "measured_new_orders": 2439667,
+     "cpu": 2,
+     "tsc_hz": 2495999936.0960016,
+     "memory_locked": true,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.161096038957798,
+      "min_ns": 9.214743825664653,
+      "max_ns": 2817.3077644379932,
+      "p50_ns": 11.217949005156969,
+      "p90_ns": 12.019231076953897,
+      "p99_ns": 12.41987211285236,
+      "p99_9_ns": 14.823718328243139,
+      "p99_99_ns": 91.74679722074808,
+      "p99_999_ns": 1300.080161490513
+     },
+     "latency": {
+      "samples": 5000000,
+      "mean_ns": 416.93638655605054,
+      "min_ns": 23.63782111800933,
+      "max_ns": 40018.8311527898,
+      "p50_ns": 452.7243705652634,
+      "p90_ns": 709.9359156120768,
+      "p99_ns": 1158.6538758183556,
+      "p99_9_ns": 2050.881462764233,
+      "p99_99_ns": 5845.753354794477,
+      "p99_999_ns": 14768.83050632505
+     },
+     "usage": {
+      "minor_faults": 0,
+      "major_faults": 0,
+      "voluntary_switches": 0,
+      "involuntary_switches": 142
+     },
+     "events": 16278477,
+     "sink_hash": "0x5853d7772c926c67",
+     "resting_orders_at_end": 1099999
+    }
+   ]
+  }
+ ]
+}
