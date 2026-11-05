@@ -1,0 +1,434 @@
+{
+ "schema": 2,
+ "suite": "jitter",
+ "label": "jitter_turbo_on",
+ "timestamp_utc": "2026-11-05T18:02:53+00:00",
+ "citable": true,
+ "not_citable_because": [],
+ "git": {
+  "sha": "e966fcf28e6436967eed76dbf7b5af28cb5d116f",
+  "dirty": false
+ },
+ "build": {
+  "directory": "build/release",
+  "type": "Release",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "flags": " -O3 -DNDEBUG -march=native"
+ },
+ "machine": {
+  "cpu_model": "12th Gen Intel(R) Core(TM) i5-12450H",
+  "kernel": "6.8.0-47-generic",
+  "cmdline": "BOOT_IMAGE=/boot/vmlinuz-6.8.0-47-generic root=UUID=68356200-d6da-486c-9f6f-28c6f80efa8f ro quiet splash vt.handoff=7",
+  "governor": "performance",
+  "no_turbo": "0",
+  "online_cpus": "0-2,4-11",
+  "pinned_core_thread_siblings": "2",
+  "transparent_hugepages": "always [madvise] never",
+  "perf_event_paranoid": "1",
+  "nmi_watchdog": "0",
+  "ac_power": true,
+  "load_average_at_start": "1.03 1.40 1.56 1/1712 118075"
+ },
+ "entries": [
+  {
+   "book": "fast",
+   "profile": "realistic",
+   "log": "realistic_s1_n30000000_6bc33ee44a2a.nmc",
+   "summary": {
+    "tick_ns": 0.4006410458502841,
+    "timer": {
+     "min_ns": 9.214744040143739,
+     "p50_ns": 10.817308221038301,
+     "p99_ns": 11.61859033003064,
+     "p99_9_ns": 12.419872312366476,
+     "max_ns": 1713.9423941475152
+    },
+    "run_to_run_mean": {
+     "mean_ns": 23.183307035682667,
+     "stddev_ns": 0.122156683543722,
+     "min_ns": 22.96958522964619,
+     "max_ns": 23.436455444211017
+    },
+    "per_command": {
+     "stddev_p50_ns": 3.7134475930947715,
+     "stddev_p90_ns": 6.440826603357178,
+     "stddev_p99_ns": 19.566752444779386,
+     "range_p50_ns": 12.820513447156511,
+     "range_p99_ns": 88.54167088772054
+    }
+   },
+   "runs": [
+    {
+     "book": "fast",
+     "profile": "realistic",
+     "measured_commands": 1000000,
+     "replays": 20,
+     "tsc_hz": 2495999874.096003,
+     "tick_ns": 0.4006410458502841,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 10.904964492379253,
+      "min_ns": 9.214744054556533,
+      "max_ns": 1713.9423941475152,
+      "p50_ns": 10.81730823795767,
+      "p90_ns": 11.618590329658238,
+      "p99_ns": 11.618590329658238,
+      "p99_9_ns": 12.419872421358805,
+      "p99_99_ns": 12.419872421358805,
+      "p99_999_ns": 1018.4295385514221
+     },
+     "run_to_run_mean": {
+      "mean_ns": 23.34367533616267,
+      "stddev_ns": 0.16221980835861385,
+      "min_ns": 23.052111339083716,
+      "max_ns": 23.73182531567775
+     },
+     "per_command": {
+      "stddev_p50_ns": 3.7868527225615254,
+      "stddev_p90_ns": 6.635993384673507,
+      "stddev_p99_ns": 28.976147255372908,
+      "range_p50_ns": 13.221154513059375,
+      "range_p99_ns": 133.8141093139949
+     },
+     "events_identical_across_replays": true
+    },
+    {
+     "book": "fast",
+     "profile": "realistic",
+     "measured_commands": 1000000,
+     "replays": 20,
+     "tsc_hz": 2495999878,
+     "tick_ns": 0.4006410452236408,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 10.928428018136305,
+      "min_ns": 9.214744040143739,
+      "max_ns": 5455.529112810317,
+      "p50_ns": 10.817308221038301,
+      "p90_ns": 11.618590311485583,
+      "p99_ns": 12.419872401932865,
+      "p99_9_ns": 12.419872401932865,
+      "p99_99_ns": 30.84936048222034,
+      "p99_999_ns": 1044.8718459432553
+     },
+     "run_to_run_mean": {
+      "mean_ns": 23.199387191636713,
+      "stddev_ns": 0.1164262979196922,
+      "min_ns": 22.953541987312548,
+      "max_ns": 23.436241530136805
+     },
+     "per_command": {
+      "stddev_p50_ns": 3.723160488227859,
+      "stddev_p90_ns": 6.437087342918836,
+      "stddev_p99_ns": 19.092248348330152,
+      "range_p50_ns": 12.820513447156511,
+      "range_p99_ns": 86.13782472308277
+     },
+     "events_identical_across_replays": true
+    },
+    {
+     "book": "fast",
+     "profile": "realistic",
+     "measured_commands": 1000000,
+     "replays": 20,
+     "tsc_hz": 2495999881.0080004,
+     "tick_ns": 0.40064104474081697,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 10.932128325655373,
+      "min_ns": 9.21474402903879,
+      "max_ns": 1096.9551805003568,
+      "p50_ns": 10.817308208002057,
+      "p90_ns": 11.618590297483692,
+      "p99_ns": 11.618590297483692,
+      "p99_9_ns": 12.019231342224508,
+      "p99_99_ns": 12.419872386965325,
+      "p99_999_ns": 989.5833805098179
+     },
+     "run_to_run_mean": {
+      "mean_ns": 23.179453368657658,
+      "stddev_ns": 0.11264958839337172,
+      "min_ns": 22.96958522964619,
+      "max_ns": 23.436455444211017
+     },
+     "per_command": {
+      "stddev_p50_ns": 3.7134475930947715,
+      "stddev_p90_ns": 6.440826603357178,
+      "stddev_p99_ns": 19.566752444779386,
+      "range_p50_ns": 12.820513431706146,
+      "range_p99_ns": 88.54167088772054
+     },
+     "events_identical_across_replays": true
+    },
+    {
+     "book": "fast",
+     "profile": "realistic",
+     "measured_commands": 1000000,
+     "replays": 20,
+     "tsc_hz": 2495999896,
+     "tick_ns": 0.40064104233440245,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 10.946194366347843,
+      "min_ns": 9.214743973691256,
+      "max_ns": 8152.644570462755,
+      "p50_ns": 10.817308143028866,
+      "p90_ns": 11.61859022769767,
+      "p99_ns": 12.019231270032073,
+      "p99_9_ns": 12.419872312366476,
+      "p99_99_ns": 57.69231009615395,
+      "p99_999_ns": 1422.676341329463
+     },
+     "run_to_run_mean": {
+      "mean_ns": 23.183307035682667,
+      "stddev_ns": 0.122156683543722,
+      "min_ns": 22.980739739582106,
+      "max_ns": 23.387565477687023
+     },
+     "per_command": {
+      "stddev_p50_ns": 3.6747214863370603,
+      "stddev_p90_ns": 6.381992994793834,
+      "stddev_p99_ns": 16.32870308770311,
+      "range_p50_ns": 12.820513354700878,
+      "range_p99_ns": 73.31731074719563
+     },
+     "events_identical_across_replays": true
+    },
+    {
+     "book": "fast",
+     "profile": "realistic",
+     "measured_commands": 1000000,
+     "replays": 20,
+     "tsc_hz": 2495999874.0160003,
+     "tick_ns": 0.40064104586312554,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 10.892758562625518,
+      "min_ns": 9.214744054851888,
+      "max_ns": 1088.541721610112,
+      "p50_ns": 10.81730823830439,
+      "p90_ns": 11.61859033003064,
+      "p99_ns": 11.61859033003064,
+      "p99_9_ns": 12.019231375893767,
+      "p99_99_ns": 12.419872421756892,
+      "p99_999_ns": 991.1859474653726
+     },
+     "run_to_run_mean": {
+      "mean_ns": 23.108041250498182,
+      "stddev_ns": 0.136930744046477,
+      "min_ns": 22.85909931084966,
+      "max_ns": 23.466996376789286
+     },
+     "per_command": {
+      "stddev_p50_ns": 3.6749945109637054,
+      "stddev_p90_ns": 6.443972157137115,
+      "stddev_p99_ns": 20.139376974154324,
+      "range_p50_ns": 12.820513467620017,
+      "range_p99_ns": 89.34295322747698
+     },
+     "events_identical_across_replays": true
+    }
+   ]
+  },
+  {
+   "book": "baseline",
+   "profile": "realistic",
+   "log": "realistic_s1_n30000000_6bc33ee44a2a.nmc",
+   "summary": {
+    "tick_ns": 0.40064104280952145,
+    "timer": {
+     "min_ns": 9.214743984441784,
+     "p50_ns": 10.81730815564905,
+     "p99_ns": 12.019231279585819,
+     "p99_9_ns": 12.41987232223868,
+     "max_ns": 1726.3622527911766
+    },
+    "run_to_run_mean": {
+     "mean_ns": 89.85056254739408,
+     "stddev_ns": 0.4196658075022844,
+     "min_ns": 89.34259064675777,
+     "max_ns": 91.15170783236643
+    },
+    "per_command": {
+     "stddev_p50_ns": 10.282044728927266,
+     "stddev_p90_ns": 18.317611233892514,
+     "stddev_p99_ns": 74.82849457705625,
+     "range_p50_ns": 39.2628221953331,
+     "range_p99_ns": 340.14424425507775
+    }
+   },
+   "runs": [
+    {
+     "book": "baseline",
+     "profile": "realistic",
+     "measured_commands": 1000000,
+     "replays": 20,
+     "tsc_hz": 2495999893.040001,
+     "tick_ns": 0.40064104280952145,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 10.944165533088114,
+      "min_ns": 9.214743984618993,
+      "max_ns": 1280.8494138620401,
+      "p50_ns": 10.817308155857079,
+      "p90_ns": 11.618590241476122,
+      "p99_ns": 11.618590241476122,
+      "p99_9_ns": 12.419872327095165,
+      "p99_99_ns": 12.419872327095165,
+      "p99_999_ns": 1048.0769679897082
+     },
+     "run_to_run_mean": {
+      "mean_ns": 90.20520466680634,
+      "stddev_ns": 0.4196658075022844,
+      "min_ns": 89.35919052798836,
+      "max_ns": 91.15170783236643
+     },
+     "per_command": {
+      "stddev_p50_ns": 10.282044728927266,
+      "stddev_p90_ns": 18.317611233892514,
+      "stddev_p99_ns": 76.07153271664069,
+      "range_p50_ns": 39.2628221953331,
+      "range_p99_ns": 345.753219944617
+     },
+     "events_identical_across_replays": true
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic",
+     "measured_commands": 1000000,
+     "replays": 20,
+     "tsc_hz": 2495999901.040001,
+     "tick_ns": 0.40064104152541546,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 11.019853401652515,
+      "min_ns": 9.214743955084556,
+      "max_ns": 5846.955360021913,
+      "p50_ns": 10.817308121186217,
+      "p90_ns": 11.618590204237048,
+      "p99_ns": 12.41987228728788,
+      "p99_9_ns": 12.41987228728788,
+      "p99_99_ns": 90.54487538474389,
+      "p99_999_ns": 1049.6795287965886
+     },
+     "run_to_run_mean": {
+      "mean_ns": 90.51265268715223,
+      "stddev_ns": 0.6643469222563835,
+      "min_ns": 89.80823673374319,
+      "max_ns": 92.85118717490118
+     },
+     "per_command": {
+      "stddev_p50_ns": 10.333432660127317,
+      "stddev_p90_ns": 18.446507295846384,
+      "stddev_p99_ns": 74.96456130223538,
+      "range_p50_ns": 39.66346311101613,
+      "range_p99_ns": 340.14424425507775
+     },
+     "events_identical_across_replays": true
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic",
+     "measured_commands": 1000000,
+     "replays": 20,
+     "tsc_hz": 2495999893.088002,
+     "tick_ns": 0.4006410428018166,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 10.943074587318096,
+      "min_ns": 9.214743984441784,
+      "max_ns": 5786.057940143836,
+      "p50_ns": 10.81730815564905,
+      "p90_ns": 11.618590241252683,
+      "p99_ns": 12.019231284054499,
+      "p99_9_ns": 12.419872326856316,
+      "p99_99_ns": 26.041667782118083,
+      "p99_999_ns": 857.7724726386895
+     },
+     "run_to_run_mean": {
+      "mean_ns": 89.3599416480969,
+      "stddev_ns": 0.3523091940056196,
+      "min_ns": 88.5545290334702,
+      "max_ns": 89.90491891502985
+     },
+     "per_command": {
+      "stddev_p50_ns": 10.12488958779066,
+      "stddev_p90_ns": 17.61135269240126,
+      "stddev_p99_ns": 74.28961821392541,
+      "range_p50_ns": 38.8621811517762,
+      "range_p99_ns": 336.53847595352596
+     },
+     "events_identical_across_replays": true
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic",
+     "measured_commands": 1000000,
+     "replays": 20,
+     "tsc_hz": 2495999874.032001,
+     "tick_ns": 0.40064104586055727,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 10.891196062476833,
+      "min_ns": 9.214744054792817,
+      "max_ns": 1243.9904473970303,
+      "p50_ns": 10.817308238235047,
+      "p90_ns": 11.618590329956161,
+      "p99_ns": 11.618590329956161,
+      "p99_9_ns": 12.019231375816718,
+      "p99_99_ns": 12.419872421677274,
+      "p99_999_ns": 1027.6442826323294
+     },
+     "run_to_run_mean": {
+      "mean_ns": 89.85056254739408,
+      "stddev_ns": 0.46494014761336505,
+      "min_ns": 89.34259064675777,
+      "max_ns": 91.48764083514226
+     },
+     "per_command": {
+      "stddev_p50_ns": 10.30455857474697,
+      "stddev_p90_ns": 18.759287012907294,
+      "stddev_p99_ns": 74.82849457705625,
+      "range_p50_ns": 39.262822494334614,
+      "range_p99_ns": 340.9455300273342
+     },
+     "events_identical_across_replays": true
+    },
+    {
+     "book": "baseline",
+     "profile": "realistic",
+     "measured_commands": 1000000,
+     "replays": 20,
+     "tsc_hz": 2495999894.0160003,
+     "tick_ns": 0.40064104265286066,
+     "timer": {
+      "samples": 1000000,
+      "mean_ns": 10.924183156165315,
+      "min_ns": 9.214743981015795,
+      "max_ns": 1726.3622527911766,
+      "p50_ns": 10.817308151627238,
+      "p90_ns": 11.61859023693296,
+      "p99_ns": 12.019231279585819,
+      "p99_9_ns": 12.41987232223868,
+      "p99_99_ns": 24.4391036018245,
+      "p99_999_ns": 1000.8013245468459
+     },
+     "run_to_run_mean": {
+      "mean_ns": 89.45558286492806,
+      "stddev_ns": 0.3719207748571994,
+      "min_ns": 88.57196009102988,
+      "max_ns": 90.0062594307786
+     },
+     "per_command": {
+      "stddev_p50_ns": 10.238142562842848,
+      "stddev_p90_ns": 18.19513621950396,
+      "stddev_p99_ns": 74.5765374952263,
+      "range_p50_ns": 39.26282217998034,
+      "range_p99_ns": 337.3397579137087
+     },
+     "events_identical_across_replays": true
+    }
+   ]
+  }
+ ]
+}
